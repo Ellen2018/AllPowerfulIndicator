@@ -1,9 +1,11 @@
 package com.ellen.indicator
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import com.ellen.libraray.R
 
-class RoundGuideIndicator : ItemTab() {
+class RoundGuideIndicator(var selectColor: Int, var unSelectColor: Int) : ItemTab() {
 
     init {
         itemLayout = R.layout.item_tab_layout_round_view
@@ -11,15 +13,21 @@ class RoundGuideIndicator : ItemTab() {
         itemMode = Mode.MODE_FIXED
         tabSelectListener = object : TabSelectListener {
             override fun onTabReselected(position: Int, itemView: View) {
-                itemView.findViewById<View>(R.id.view).setBackgroundResource(R.drawable.round_red)
+                val drawable = ShapeDrawable(OvalShape())
+                drawable.paint.color = selectColor
+                itemView.findViewById<View>(R.id.view).background = drawable
             }
 
             override fun onTabUnselected(position: Int, itemView: View) {
-                itemView.findViewById<View>(R.id.view).setBackgroundResource(R.drawable.round_blue)
+                val drawable = ShapeDrawable(OvalShape())
+                drawable.paint.color = unSelectColor
+                itemView.findViewById<View>(R.id.view).background = drawable
             }
 
             override fun onTabSelected(position: Int, itemView: View) {
-                itemView.findViewById<View>(R.id.view).setBackgroundResource(R.drawable.round_red)
+                val drawable = ShapeDrawable(OvalShape())
+                drawable.paint.color = selectColor
+                itemView.findViewById<View>(R.id.view).background = drawable
             }
         }
     }

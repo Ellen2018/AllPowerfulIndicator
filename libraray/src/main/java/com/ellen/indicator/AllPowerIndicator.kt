@@ -3,6 +3,7 @@ package com.ellen.indicator
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
@@ -69,7 +70,6 @@ class AllPowerIndicator : RelativeLayout, Indicator {
      */
     private fun parsingAutoAttributes(attributeSet: AttributeSet) {
         itemTab = ItemTab()
-
         val typeArray: TypedArray =
             context.obtainStyledAttributes(attributeSet, R.styleable.AllPowerIndicator)
         val n = typeArray.indexCount

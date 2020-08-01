@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         app:tabPaddingStart="0dp"
         app:tabPaddingEnd="0dp"
+        app:tabBackground="@android:color/transparent"
+        app:tabRippleColor="@android:color/transparent"
         app:tabMode="fixed"
         android:layout_height="wrap_content"/>
 
