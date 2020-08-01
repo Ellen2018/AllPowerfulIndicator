@@ -1,0 +1,3 @@
+include ':libraray'
+include ':app'
+rootProject.name = "AllPowerfulIndicator"
