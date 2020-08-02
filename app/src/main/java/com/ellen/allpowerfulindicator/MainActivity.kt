@@ -1,16 +1,14 @@
 package com.ellen.allpowerfulindicator
 
-import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.RectangleGuideIndicator
-import com.ellen.indicator.RoundGuideIndicator
+import com.ellen.indicator.TabTraverse
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
-               return 9
+               return 4
             }
 
             override fun createFragment(position: Int): Fragment {
@@ -33,7 +31,13 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        allPowerIndicator.itemTab = RoundGuideIndicator(Color.YELLOW,Color.RED)
+        allPowerIndicator.tabTraverse = object : TabTraverse{
+            override fun settingTab(position: Int, itemView: View) {
+               itemView.findViewById<TextView>(R.id.tv).text = "$position"
+            }
+        }
+        viewPager.isUserInputEnabled = false
+        allPowerIndicator.itemTab = MyItemTab()
         allPowerIndicator.bindViewPager2(viewPager)
         allPowerIndicator.select(0)
     }

@@ -1,7 +1,9 @@
 package com.ellen.indicator
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +26,8 @@ class AllPowerIndicator : RelativeLayout, Indicator {
     val tabLayout: TabLayout =
         LayoutInflater.from(context).inflate(R.layout.view_tab_layout, this, true)
             .findViewById(R.id.tab_layout)
+
+    lateinit var tabTraverse:TabTraverse
 
     var itemTab: ItemTab? = null
     set(value) {
@@ -114,6 +118,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
             val tab = tabLayout.getTabAt(i)
             itemTab?.itemLayout?.let { tab?.setCustomView(it) }
             tab?.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
+            tab?.customView?.let { tabTraverse.settingTab(i, it) }
         }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -134,6 +139,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             itemTab?.itemLayout?.let { tab.setCustomView(it) }
             tab.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
+            tab?.customView?.let { tabTraverse.settingTab(position, it) }
         }.attach()
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -158,3 +164,6 @@ private interface Indicator {
     fun bindViewPager2(viewPager2: ViewPager2)
 }
 
+interface TabTraverse{
+    fun settingTab(position: Int,itemView:View)
+}

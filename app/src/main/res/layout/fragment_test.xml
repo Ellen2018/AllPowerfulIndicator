@@ -7,8 +7,8 @@
     <TextView
         android:layout_width="match_parent"
         android:gravity="center"
-        android:text="dsadas"
-        android:textSize="80sp"
+        android:text="TestFragment"
+        android:textSize="50sp"
         android:layout_height="match_parent"/>
 
 </RelativeLayout>
