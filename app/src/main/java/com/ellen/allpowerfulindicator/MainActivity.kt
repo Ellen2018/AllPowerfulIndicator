@@ -1,44 +1,32 @@
 package com.ellen.allpowerfulindicator
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.TabTraverse
+import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var viewPager: ViewPager2
-    private lateinit var allPowerIndicator: AllPowerIndicator
+class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewPager = findViewById(R.id.view_pager2)
-        allPowerIndicator = findViewById(R.id.all_power_indicator)
+        findViewById<Button>(R.id.bt_view_pager).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_view_pager2).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_bottom_navigation_bar).setOnClickListener(this)
 
-        viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int {
-               return 4
-            }
+    }
 
-            override fun createFragment(position: Int): Fragment {
-               return TestFragment()
-            }
-
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.bt_view_pager->
+                 intent = Intent(this@MainActivity,ViewPagerActivity::class.java)
+            R.id.bt_view_pager2->
+                intent = Intent(this@MainActivity,ViewPager2Activity::class.java)
+            R.id.bt_bottom_navigation_bar->
+                intent = Intent(this@MainActivity,BottomNavigationBarActivity::class.java)
         }
-        allPowerIndicator.tabTraverse = object : TabTraverse{
-            override fun settingTab(position: Int, itemView: View) {
-               itemView.findViewById<TextView>(R.id.tv).text = "$position"
-            }
-        }
-        viewPager.isUserInputEnabled = false
-        allPowerIndicator.itemTab = MyItemTab()
-        allPowerIndicator.bindViewPager2(viewPager)
-        allPowerIndicator.select(0)
+        startActivity(intent)
     }
 }

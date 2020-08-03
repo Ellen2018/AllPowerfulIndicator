@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager2"
+    <Button
+        android:id="@+id/bt_view_pager"
+        android:text="绑定ViewPager(圆点指示器)"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="50dp"/>
 
-    <com.ellen.indicator.AllPowerIndicator
-        android:id="@+id/all_power_indicator"
-        android:layout_width="wrap_content"
-        app:itemSpacing="2dp"
-        app:itemLayout="@layout/item_guide"
-        app:itemMode="fixed"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/bt_view_pager2"
+        android:text="绑定ViewPager2(短横线指示器)"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/bt_bottom_navigation_bar"
+        android:text="绑定底部导航栏(图片+title)"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+
+</LinearLayout>

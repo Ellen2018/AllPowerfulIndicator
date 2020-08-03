@@ -27,7 +27,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
         LayoutInflater.from(context).inflate(R.layout.view_tab_layout, this, true)
             .findViewById(R.id.tab_layout)
 
-    lateinit var tabTraverse:TabTraverse
+    var tabTraverse:TabTraverse? = null
 
     var itemTab: ItemTab? = null
     set(value) {
@@ -118,7 +118,52 @@ class AllPowerIndicator : RelativeLayout, Indicator {
             val tab = tabLayout.getTabAt(i)
             itemTab?.itemLayout?.let { tab?.setCustomView(it) }
             tab?.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
-            tab?.customView?.let { tabTraverse.settingTab(i, it) }
+            tab?.customView?.let { tabTraverse?.settingTab(tab,i, it) }
+        }
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabReselected(tab.position, it) }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabSelected(tab.position, it) }
+            }
+        })
+        tabLayout.getTabAt(0)?.select()
+    }
+
+    override fun bindViewPager2(viewPager2: ViewPager2) {
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+            itemTab?.itemLayout?.let { tab.setCustomView(it) }
+            tab.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
+            tab?.customView?.let { tabTraverse?.settingTab(tab,position, it) }
+        }.attach()
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabReselected(tab.position, it) }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.customView?.let { itemTab?.tabSelectListener?.onTabSelected(tab.position, it) }
+            }
+        })
+        tabLayout.getTabAt(0)?.select()
+    }
+
+    override fun addTabs(itemTab: ItemTab, count: Int) {
+        this.itemTab = itemTab
+        for(i in 0 until count){
+            val tab = tabLayout.newTab()
+            tab.setCustomView(itemTab.itemLayout)
+            tabLayout.addTab(tab)
         }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -135,25 +180,8 @@ class AllPowerIndicator : RelativeLayout, Indicator {
         })
     }
 
-    override fun bindViewPager2(viewPager2: ViewPager2) {
-        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            itemTab?.itemLayout?.let { tab.setCustomView(it) }
-            tab.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
-            tab?.customView?.let { tabTraverse.settingTab(position, it) }
-        }.attach()
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                tab?.customView?.let { itemTab?.tabSelectListener?.onTabReselected(tab.position, it) }
-            }
+    override fun addTab(layoutId:Int) {
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.customView?.let { itemTab?.tabSelectListener?.onTabUnselected(tab.position, it) }
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.customView?.let { itemTab?.tabSelectListener?.onTabSelected(tab.position, it) }
-            }
-        })
     }
 
 }
@@ -162,8 +190,10 @@ private interface Indicator {
     fun select(position: Int)
     fun bindViewPager(viewpager: ViewPager)
     fun bindViewPager2(viewPager2: ViewPager2)
+    fun addTabs(itemTab: ItemTab,count:Int)
+    fun addTab(layoutId: Int)
 }
 
 interface TabTraverse{
-    fun settingTab(position: Int,itemView:View)
+    fun settingTab(tab:TabLayout.Tab,position: Int,itemView:View)
 }
