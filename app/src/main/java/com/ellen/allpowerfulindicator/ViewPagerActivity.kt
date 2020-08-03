@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.RoundGuideIndicator
+import com.ellen.indicator.RoundGuideItemTabIndicator
 
 class ViewPagerActivity : AppCompatActivity(){
 
@@ -33,7 +32,7 @@ class ViewPagerActivity : AppCompatActivity(){
         }
 
         //设置指示器为圆点(选中：蓝色，未选中:灰色)
-        allPowerIndicator.itemTab = RoundGuideIndicator(Color.BLUE,Color.GRAY)
+        allPowerIndicator.itemTab = RoundGuideItemTabIndicator(Color.BLUE,Color.GRAY)
 
         //绑定指示器到ViewPager
         allPowerIndicator.bindViewPager(viewPager)

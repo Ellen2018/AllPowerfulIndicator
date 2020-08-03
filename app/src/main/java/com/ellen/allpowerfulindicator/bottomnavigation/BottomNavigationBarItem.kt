@@ -4,11 +4,11 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.ItemTab
+import com.ellen.indicator.BaseItemTab
 import com.ellen.indicator.Mode
 import com.ellen.indicator.TabSelectListener
 
-class BottomNavigationBarItem : ItemTab(){
+class BottomNavigationBarItem : BaseItemTab(){
 
     init {
         itemLayout = R.layout.item_bottom_navigation_bar

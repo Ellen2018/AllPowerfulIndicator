@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize">
 
+    <TextView
+        android:id="@+id/tv_update"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="22"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.ellen.allpowerfulindicator.autoindicator.AutoIndicatorActivity
 import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_view_pager).setOnClickListener(this)
         findViewById<Button>(R.id.bt_view_pager2).setOnClickListener(this)
         findViewById<Button>(R.id.bt_bottom_navigation_bar).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_auto_indicator).setOnClickListener(this)
 
     }
 
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,ViewPager2Activity::class.java)
             R.id.bt_bottom_navigation_bar->
                 intent = Intent(this@MainActivity,BottomNavigationBarActivity::class.java)
+            R.id.bt_auto_indicator->
+                intent = Intent(this@MainActivity,AutoIndicatorActivity::class.java)
         }
         startActivity(intent)
     }

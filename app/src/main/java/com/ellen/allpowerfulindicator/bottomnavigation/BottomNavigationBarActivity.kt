@@ -51,6 +51,10 @@ class BottomNavigationBarActivity : AppCompatActivity(){
 
         allPowerIndicator.bindViewPager2(viewPager2)
 
+
+        //可随时更新Tab的每一条内容
+        allPowerIndicator.getItemViewAt(2)?.findViewById<TextView>(R.id.tv_update)?.text = "5"
+
     }
 
 }

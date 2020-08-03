@@ -23,5 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <Button
+        android:id="@+id/bt_auto_indicator"
+        android:text="绑定自定义指示器"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 
 </LinearLayout>

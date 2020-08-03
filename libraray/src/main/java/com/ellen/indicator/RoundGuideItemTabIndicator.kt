@@ -1,18 +1,14 @@
 package com.ellen.indicator
 
-import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import com.ellen.libraray.R
 
-class RoundGuideIndicator(var selectColor: Int, var unSelectColor: Int) : ItemTab() {
+class RoundGuideItemTabIndicator(var selectColor: Int, var unSelectColor: Int) : BaseItemTabIndicator() {
 
     init {
         itemLayout = R.layout.item_tab_layout_round_view
-        itemSpacing = 0
-        itemMode = Mode.MODE_FIXED
-        tabRippleColor = Color.TRANSPARENT
         tabSelectListener = object : TabSelectListener {
             override fun onTabReselected(position: Int, itemView: View) {
                 val drawable = ShapeDrawable(OvalShape())

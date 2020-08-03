@@ -1,10 +1,12 @@
 package com.ellen.indicator
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
+import com.google.android.material.tabs.TabLayout
 
-open class ItemTab {
+open class BaseItemTab {
     /**
      * Tab 布局
      */
@@ -29,7 +31,7 @@ open class ItemTab {
     /**
      * 绑定的指示器控件
      */
-    lateinit var allPowerIndicator:AllPowerIndicator
+    private lateinit var allPowerIndicator:AllPowerIndicator
 
     /**
      * Tab的点击波纹效果的颜色
@@ -52,6 +54,28 @@ open class ItemTab {
         return (pxValue / scale + 0.5f).toInt()
     }
 
+    open fun bindAllPowerIndicator(allPowerIndicator: AllPowerIndicator){
+        this.allPowerIndicator = allPowerIndicator
+        val tabLayout = allPowerIndicator.tabLayout
+        //去掉底部下划线效果
+        tabLayout.setSelectedTabIndicator(null)
+        //设置TabLayout的Mode
+        when(itemMode){
+            Mode.MODE_FIXED->
+                tabLayout.tabMode = TabLayout.MODE_FIXED
+            Mode.MODE_AUTO->
+                tabLayout.tabMode = TabLayout.MODE_AUTO
+            Mode.MODE_SCROLLABLE->
+                tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        }
+
+        //设置点击波纹效果的颜色
+        tabLayout.tabRippleColor = ColorStateList.valueOf(tabRippleColor)
+    }
+
+    fun getBindAllPowerIndicator():AllPowerIndicator{
+        return allPowerIndicator
+    }
 }
 
 interface TabSelectListener {

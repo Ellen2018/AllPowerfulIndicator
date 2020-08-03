@@ -27,33 +27,14 @@ class AllPowerIndicator : RelativeLayout, Indicator {
 
     var tabTraverse:TabTraverse? = null
 
-    var itemTab: ItemTab? = null
+    var itemTab: BaseItemTab? = null
     set(value) {
         field = value
-        if (itemTab?.tabRippleColor != null) {
-            //设置点击波纹效果的颜色
-            tabLayout.tabRippleColor = value?.tabRippleColor?.let { ColorStateList.valueOf(it) }
-        }
-        when (itemTab?.itemMode) {
-            Mode.MODE_FIXED -> {
-                tabLayout.tabMode = TabLayout.MODE_FIXED
-            }
-            Mode.MODE_SCROLLABLE -> {
-                tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
-            }
-            else -> {
-                tabLayout.tabMode = TabLayout.MODE_AUTO
-            }
-        }
-        itemTab?.allPowerIndicator = this
+        itemTab?.bindAllPowerIndicator(this)
     }
 
     fun setTabSelectListener(tabSelectListener: TabSelectListener){
         itemTab?.tabSelectListener = tabSelectListener
-    }
-
-    init {
-        tabLayout.setSelectedTabIndicator(null)
     }
 
     constructor(context: Context) : super(context)
@@ -75,7 +56,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
      * 解析属性
      */
     private fun parsingAutoAttributes(attributeSet: AttributeSet) {
-        itemTab = ItemTab()
+        itemTab = BaseItemTab()
         val typeArray: TypedArray =
             context.obtainStyledAttributes(attributeSet, R.styleable.AllPowerIndicator)
         val n = typeArray.indexCount
@@ -89,23 +70,20 @@ class AllPowerIndicator : RelativeLayout, Indicator {
                     when(typeArray.getInt(attr,-1)){
                         0 -> {
                             itemTab?.itemMode = Mode.MODE_SCROLLABLE
-                            tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
                         }
                         1 -> {
                             itemTab?.itemMode = Mode.MODE_FIXED
-                            tabLayout.tabMode = TabLayout.MODE_FIXED
                         }
                         2 -> {
                             itemTab?.itemMode = Mode.MODE_AUTO
-                            tabLayout.tabMode = TabLayout.MODE_AUTO
                         }
                         else -> {
                             itemTab?.itemMode = Mode.MODE_FIXED
-                            tabLayout.tabMode = TabLayout.MODE_FIXED
                         }
                     }
             }
         }
+        itemTab?.bindAllPowerIndicator(this)
     }
 
     override fun select(position: Int) {
@@ -191,7 +169,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
      * 少数情况下会使用到
      * 比如：绑定RecycleView（例如标签索引效果）
      */
-    override fun addTabs(itemTab: ItemTab, count: Int) {
+    override fun addTabs(itemTab: BaseItemTab, count: Int) {
         this.itemTab = itemTab
         var isReset = false
         for (position in 0 until count) {
@@ -250,14 +228,19 @@ class AllPowerIndicator : RelativeLayout, Indicator {
 
     }
 
+    override fun getItemViewAt(position: Int): View? {
+       return tabLayout.getTabAt(position)?.customView
+    }
+
 }
 
 private interface Indicator {
     fun select(position: Int)
     fun bindViewPager(viewpager: ViewPager)
     fun bindViewPager2(viewPager2: ViewPager2)
-    fun addTabs(itemTab: ItemTab,count:Int)
+    fun addTabs(itemTab: BaseItemTab,count:Int)
     fun addTab(layoutId: Int)
+    fun getItemViewAt(position: Int):View?
 }
 
 interface TabTraverse{
