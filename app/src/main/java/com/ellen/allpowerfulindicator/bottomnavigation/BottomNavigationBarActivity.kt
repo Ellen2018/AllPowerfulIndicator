@@ -1,5 +1,6 @@
 package com.ellen.allpowerfulindicator.bottomnavigation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
+import com.ellen.indicator.TabSelectListener
 import com.ellen.indicator.TabTraverse
 import com.google.android.material.tabs.TabLayout
 
@@ -42,6 +44,7 @@ class BottomNavigationBarActivity : AppCompatActivity(){
 
         allPowerIndicator.tabTraverse = object : TabTraverse{
             override fun settingTab(tab: TabLayout.Tab, position: Int, itemView: View) {
+                //设置tab的默认内容
                 itemView.findViewById<TextView>(R.id.tv_title).text = "item${position}"
             }
         }

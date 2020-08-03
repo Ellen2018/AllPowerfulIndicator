@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -35,7 +36,6 @@ class ViewPager2Activity : AppCompatActivity(){
 
         }
 
-        //指示器设置(选中:蓝色，未选中:灰色)
         allPowerIndicator.itemTab = RectangleGuideIndicator(Color.BLUE,Color.GRAY)
 
         //绑定ViewPager2

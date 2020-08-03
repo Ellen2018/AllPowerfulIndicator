@@ -1,5 +1,6 @@
 package com.ellen.indicator
 
+import android.graphics.Color
 import android.view.View
 import com.ellen.libraray.R
 
@@ -9,6 +10,7 @@ class RectangleGuideIndicator(var selectColor: Int, var unSelectColor: Int) : It
         itemLayout = R.layout.item_tab_layout_rectangle_view
         itemSpacing = 0
         itemMode = Mode.MODE_FIXED
+        tabRippleColor = Color.TRANSPARENT
         tabSelectListener = object : TabSelectListener {
             override fun onTabReselected(position: Int, itemView: View) {
                 itemView.findViewById<View>(R.id.view).setBackgroundColor(selectColor)
