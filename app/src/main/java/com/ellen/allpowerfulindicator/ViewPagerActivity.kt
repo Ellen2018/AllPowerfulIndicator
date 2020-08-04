@@ -2,12 +2,15 @@ package com.ellen.allpowerfulindicator
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.RoundGuideItemTabIndicator
+import com.ellen.indicator.BaseViewHolder
+import com.ellen.indicator.RectangleIndicatorAdapter
+import com.ellen.indicator.RoundIndicatorAdapter
 
 class ViewPagerActivity : AppCompatActivity(){
 
@@ -31,12 +34,16 @@ class ViewPagerActivity : AppCompatActivity(){
             }
         }
 
-        //设置指示器为圆点(选中：蓝色，未选中:灰色)
-        allPowerIndicator.itemTab = RoundGuideItemTabIndicator(Color.BLUE,Color.GRAY)
-
-        //绑定指示器到ViewPager
-        allPowerIndicator.bindViewPager(viewPager)
-
+        allPowerIndicator.setAdapter(RoundIndicatorAdapter(viewPager,Color.BLUE,Color.GRAY))
     }
 
+}
+
+class TestViewHolder(itemLayoutId:Int):BaseViewHolder(itemLayoutId){
+
+    lateinit var view:View
+
+    override fun bindView(itemView: View) {
+       view = itemView.findViewById(R.id.view)
+    }
 }

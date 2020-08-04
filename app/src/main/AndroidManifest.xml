@@ -20,6 +20,7 @@
         <activity android:name=".ViewPager2Activity"/>
         <activity android:name=".bottomnavigation.BottomNavigationBarActivity"/>
         <activity android:name=".autoindicator.AutoIndicatorActivity"/>
+        <activity android:name=".driedshrimp.DriedShrimpActivity"/>
     </application>
 
 </manifest>

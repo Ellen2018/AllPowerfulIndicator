@@ -29,5 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <Button
+        android:id="@+id/bt_xm"
+        android:text="仿虾米音乐底部导航栏"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+
 
 </LinearLayout>

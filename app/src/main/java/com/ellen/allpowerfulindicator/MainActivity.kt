@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.ellen.allpowerfulindicator.autoindicator.AutoIndicatorActivity
 import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
+import com.ellen.allpowerfulindicator.driedshrimp.DriedShrimpActivity
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_view_pager2).setOnClickListener(this)
         findViewById<Button>(R.id.bt_bottom_navigation_bar).setOnClickListener(this)
         findViewById<Button>(R.id.bt_auto_indicator).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_xm).setOnClickListener(this)
 
     }
 
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,BottomNavigationBarActivity::class.java)
             R.id.bt_auto_indicator->
                 intent = Intent(this@MainActivity,AutoIndicatorActivity::class.java)
+            R.id.bt_xm->
+                intent = Intent(this@MainActivity,DriedShrimpActivity::class.java)
         }
         startActivity(intent)
     }
