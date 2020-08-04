@@ -1,14 +1,25 @@
 package com.ellen.indicator
 
-interface Adapter<T:BaseViewHolder> {
-    fun getItemType(position: Int): Int
-    fun getViewHolder(viewType: Int): T
-    fun getItemSize(): Int
-    fun showContent(holder:T)
-    fun onTabReselected(holder:T)
-    fun onTabUnselected(holder:T)
-    fun onTabSelected(holder:T)
-    fun bindLinkageView(allPowerIndicator: AllPowerIndicator)
+abstract class Adapter<T : BaseViewHolder> {
+
+    lateinit var allPowerIndicator: AllPowerIndicator
+
+    abstract fun getItemType(position: Int): Int
+    abstract fun getViewHolder(viewType: Int): T
+    abstract fun getItemSize(): Int
+    abstract fun showContent(holder: T)
+    abstract fun onTabReselected(holder: T)
+    abstract fun onTabUnselected(holder: T)
+    abstract fun onTabSelected(holder: T)
+    abstract fun bindLinkageView(allPowerIndicator: AllPowerIndicator)
+
+    fun notifyDataSetChanged() {
+        for (position in 0 until getItemSize()) {
+            val baseViewHolder =
+               allPowerIndicator.getTabAt(position)?.customView?.tag as T
+            showContent(baseViewHolder)
+        }
+    }
 }
 
 

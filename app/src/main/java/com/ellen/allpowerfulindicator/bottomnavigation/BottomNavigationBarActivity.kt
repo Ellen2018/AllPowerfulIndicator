@@ -36,6 +36,20 @@ class BottomNavigationBarActivity : AppCompatActivity(){
             }
 
         }
+
+        val dataList:MutableList<Int> = ArrayList()
+        dataList.add(3)
+        dataList.add(3)
+        dataList.add(3)
+        dataList.add(3)
+        val adapter = BottomBarAdapter(viewPager2,dataList)
+        allPowerIndicator.setAdapter(adapter)
+
+        dataList[3] = 55
+
+        adapter.notifyDataSetChanged()
+
+
     }
 
 }

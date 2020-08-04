@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
@@ -19,6 +20,8 @@
     <com.ellen.indicator.AllPowerIndicator
         android:id="@+id/all_power_indicator"
         android:layout_width="match_parent"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingEnd="0dp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

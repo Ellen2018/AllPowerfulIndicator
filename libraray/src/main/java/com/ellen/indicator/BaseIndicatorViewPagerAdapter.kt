@@ -11,6 +11,7 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
     protected var viewPager: ViewPager? = null
     protected var viewPager2: ViewPager2? = null
 
+
     constructor(viewPager: ViewPager){
         this.viewPager = viewPager
     }
@@ -24,11 +25,7 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
     }
 
     override fun getItemSize(): Int {
-        return if(viewPager != null){
-            viewPager?.adapter?.count!!
-        }else {
-            viewPager2?.adapter?.itemCount!!
-        }
+       return allPowerIndicator.tabCount
     }
 
     override fun showContent(holder: T) {
@@ -37,13 +34,13 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
 
     override fun bindLinkageView(allPowerIndicator: AllPowerIndicator) {
         if(viewPager != null){
-            allPowerIndicator.tabLayout.setupWithViewPager(viewPager)
+            allPowerIndicator.setupWithViewPager(viewPager)
         }else{
             viewPager2?.let {
-                TabLayoutMediator(allPowerIndicator.tabLayout, it) { _, _ ->}.attach()
+                TabLayoutMediator(allPowerIndicator, it) { _, _ ->}.attach()
             }
         }
-        allPowerIndicator.tabLayout.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
-        allPowerIndicator.tabLayout.setSelectedTabIndicator(null)
+        allPowerIndicator.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
+        allPowerIndicator.setSelectedTabIndicator(null)
     }
 }

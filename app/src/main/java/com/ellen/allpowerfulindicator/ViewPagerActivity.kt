@@ -38,12 +38,3 @@ class ViewPagerActivity : AppCompatActivity(){
     }
 
 }
-
-class TestViewHolder(itemLayoutId:Int):BaseViewHolder(itemLayoutId){
-
-    lateinit var view:View
-
-    override fun bindView(itemView: View) {
-       view = itemView.findViewById(R.id.view)
-    }
-}

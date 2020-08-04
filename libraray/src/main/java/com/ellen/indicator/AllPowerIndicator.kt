@@ -13,11 +13,7 @@ import com.google.android.material.tabs.TabLayout
  * 2.绑定ViewPager2
  * 3.自由模式
  */
-class AllPowerIndicator : RelativeLayout, Indicator {
-
-    val tabLayout: TabLayout =
-        LayoutInflater.from(context).inflate(R.layout.view_tab_layout, this, true)
-            .findViewById(R.id.tab_layout)
+class AllPowerIndicator : TabLayout, Indicator {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -29,12 +25,13 @@ class AllPowerIndicator : RelativeLayout, Indicator {
 
 
     override fun <T : BaseViewHolder> setAdapter(adapter: Adapter<T>) {
+        adapter.allPowerIndicator = this
         adapter.bindLinkageView(this)
         val itemCount = adapter.getItemSize()
         var isReset = false
         for (position in 0 until itemCount) {
             val viewType = adapter.getItemType(position)
-            val tab = tabLayout.getTabAt(position)
+            val tab = getTabAt(position)
             val baseViewHolder = adapter.getViewHolder(viewType)
             tab?.setCustomView(baseViewHolder.layoutId)
             baseViewHolder.itemView = tab?.customView
@@ -50,13 +47,13 @@ class AllPowerIndicator : RelativeLayout, Indicator {
 
             //重新调整TabLayout的大小
             if (!isReset) {
-                val layoutParams = tabLayout.layoutParams
+                val layoutParams = layoutParams
                 layoutParams.height = tab?.customView?.layoutParams?.height!!
-                tabLayout.layoutParams = layoutParams
+                this.layoutParams = layoutParams
                 isReset = true
             }
         }
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
                 adapter.onTabReselected(baseViewHolder)
@@ -72,7 +69,7 @@ class AllPowerIndicator : RelativeLayout, Indicator {
                 adapter.onTabSelected(baseViewHolder)
             }
         })
-        tabLayout.getTabAt(0)?.select()
+        getTabAt(0)?.select()
     }
 }
 
