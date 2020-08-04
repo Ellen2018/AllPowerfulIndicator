@@ -27,6 +27,7 @@ class AllPowerIndicator : TabLayout, Indicator {
     override fun <T : BaseViewHolder> setAdapter(adapter: Adapter<T>) {
         adapter.allPowerIndicator = this
         adapter.bindLinkageView(this)
+        adapter.settingTabLayout(this)
         val itemCount = adapter.getItemSize()
         var isReset = false
         for (position in 0 until itemCount) {

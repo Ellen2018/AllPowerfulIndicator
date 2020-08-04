@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
@@ -42,5 +43,8 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
         }
         allPowerIndicator.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
         allPowerIndicator.setSelectedTabIndicator(null)
+    }
+
+    override fun settingTabLayout(tabLayout: TabLayout) {
     }
 }

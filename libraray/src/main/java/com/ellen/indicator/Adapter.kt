@@ -1,5 +1,7 @@
 package com.ellen.indicator
 
+import com.google.android.material.tabs.TabLayout
+
 abstract class Adapter<T : BaseViewHolder> {
 
     lateinit var allPowerIndicator: AllPowerIndicator
@@ -12,6 +14,7 @@ abstract class Adapter<T : BaseViewHolder> {
     abstract fun onTabUnselected(holder: T)
     abstract fun onTabSelected(holder: T)
     abstract fun bindLinkageView(allPowerIndicator: AllPowerIndicator)
+    abstract fun settingTabLayout(tabLayout: TabLayout)
 
     fun notifyDataSetChanged() {
         for (position in 0 until getItemSize()) {
