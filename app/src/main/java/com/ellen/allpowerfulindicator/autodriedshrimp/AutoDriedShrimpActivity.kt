@@ -1,8 +1,10 @@
-package com.ellen.allpowerfulindicator.driedshrimp
+package com.ellen.allpowerfulindicator.autodriedshrimp
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,11 +14,12 @@ import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
 import com.ellen.indicator.expand.bar.*
+import kotlinx.android.synthetic.main.view_auto_center.view.*
 
 /**
  * 仿虾米音乐底部导航栏效果
  */
-class DriedShrimpActivity : AppCompatActivity() {
+class AutoDriedShrimpActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var allPowerIndicator: AllPowerIndicator
@@ -74,6 +77,14 @@ class DriedShrimpActivity : AppCompatActivity() {
 
         adapter.isContainsCenter = true
 
+        //自定义中间
+        adapter.autoCenterViewHolder = object : CenterViewHolder(R.layout.view_auto_center){
+            override fun bindView(itemView: View) {
+                super.bindView(itemView)
+                itemView.tv.text = "自定义"
+            }
+        }
+
         //取消动画效果
         //adapter.animResource = null
 
@@ -91,7 +102,7 @@ class DriedShrimpActivity : AppCompatActivity() {
         adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
-               Toast.makeText(this@DriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
+               Toast.makeText(this@AutoDriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
             }
 
             override fun onTabReselected(position: Int, holder: NormalViewHolder) {

@@ -18,20 +18,26 @@
         android:layout_height="50dp"/>
 
     <Button
-        android:id="@+id/bt_bottom_navigation_bar"
-        android:text="绑定底部导航栏(图片+title)"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
-    <Button
         android:id="@+id/bt_auto_indicator"
         android:text="绑定自定义指示器"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
     <Button
+        android:id="@+id/bt_bottom_navigation_bar"
+        android:text="绑定底部导航栏(图片+title)"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
         android:id="@+id/bt_xm"
         android:text="仿虾米音乐底部导航栏"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
+        android:id="@+id/bt_xm_auto_center"
+        android:text="仿虾米音乐底部导航栏(自定义中间)"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 

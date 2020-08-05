@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,6 +15,7 @@ import com.ellen.libraray.R
 class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, NormalViewHolder>() {
 
     var defaultTabs: MutableList<DefaultTab> = ArrayList()
+    var autoCenterViewHolder: CenterViewHolder? = null
     var centerImageResource: Int? = null
     set(value) {
         if (field != value) {
@@ -83,7 +83,11 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
 
     override fun getCenterViewHolder(): CenterViewHolder? {
         return if(isContainsCenter) {
-            CenterViewHolder(R.layout.item_view_center)
+            if(autoCenterViewHolder != null){
+                return autoCenterViewHolder
+            }else {
+                CenterViewHolder(R.layout.item_view_center)
+            }
         }else{
             null
         }
@@ -93,14 +97,10 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
         return NormalViewHolder(R.layout.item_view_normal)
     }
 
-    override fun showContentCenter(holder: CenterViewHolder) {
-        centerImageResource?.let { holder.iv.setImageResource(it) }
-    }
-
     override fun showContentNormal(truePosition: Int, holder: NormalViewHolder) {
-        holder.tvTitle.text = defaultTabs?.get(truePosition)?.title
-        defaultTabs?.get(truePosition)?.imageResource?.let { holder.iv.setImageResource(it) }
-        if (defaultTabs?.get(truePosition)?.isHaveMessage!!) {
+        holder.tvTitle.text = defaultTabs[truePosition].title
+        defaultTabs[truePosition].imageResource.let { holder.iv.setImageResource(it) }
+        if (defaultTabs[truePosition].isHaveMessage) {
             holder.view.visibility = View.VISIBLE
             val drawable = ShapeDrawable(OvalShape())
             drawable.paint.color = roundMessageColor
@@ -137,14 +137,19 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
         }
     }
 
+    override fun showContentCenter(holder: CenterViewHolder) {
+        if(autoCenterViewHolder == null){
+            centerImageResource?.let {
+                holder.itemView?.findViewById<ImageView>(R.id.iv)?.setImageResource(it)
+            }
+        }
+    }
 }
 
-class CenterViewHolder(itemLayoutId: Int) : BaseViewHolder(itemLayoutId) {
-
-    lateinit var iv: ImageView
+open class CenterViewHolder(itemLayoutId: Int) : BaseViewHolder(itemLayoutId) {
 
     override fun bindView(itemView: View) {
-        iv = itemView.findViewById(R.id.iv)
+
     }
 }
 

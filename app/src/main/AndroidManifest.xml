@@ -21,6 +21,7 @@
         <activity android:name=".bottomnavigation.BottomNavigationBarActivity"/>
         <activity android:name=".autoindicator.AutoIndicatorActivity"/>
         <activity android:name=".driedshrimp.DriedShrimpActivity"/>
+        <activity android:name=".autodriedshrimp.AutoDriedShrimpActivity"/>
     </application>
 
 </manifest>
