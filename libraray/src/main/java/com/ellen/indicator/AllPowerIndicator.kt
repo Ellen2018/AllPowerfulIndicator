@@ -2,9 +2,6 @@ package com.ellen.indicator
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.widget.RelativeLayout
-import com.ellen.libraray.R
 import com.google.android.material.tabs.TabLayout
 
 /**

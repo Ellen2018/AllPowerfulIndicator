@@ -4,53 +4,30 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.BaseAdapter
+import com.ellen.indicator.BaseBottomBarAdapter
 import com.ellen.indicator.BaseViewHolder
-import com.google.android.material.tabs.TabLayout
 
-class DriedShrimpAdapter : BaseAdapter<BaseViewHolder>(){
+class DriedShrimpAdapter : BaseBottomBarAdapter<CenterViewHolder, NormalViewHolder>() {
 
-    var onTabSelectListener:OnTabSelectListener? = null
 
-    override fun getItemType(position: Int): Int {
-        return if(position == 2){
-            DriedShrimpType.Center.type
-        }else{
-            DriedShrimpType.Normal.type
-        }
+    override fun getItemCount(): Int {
+        return 8
     }
 
-    override fun getViewHolder(viewType: Int): BaseViewHolder {
-        return if(viewType == DriedShrimpType.Normal.type){
-            NormalViewHolder(R.layout.view_left_right)
-        }else{
-            CenterViewHolder(R.layout.view_center)
-        }
+    override fun getCenterViewHolder(): CenterViewHolder? {
+        return return CenterViewHolder(R.layout.view_center)
     }
 
-    override fun getItemSize(): Int {
-       return 5
+    override fun getNormalViewHolder(): NormalViewHolder {
+        return NormalViewHolder(R.layout.view_left_right)
     }
 
-    override fun showContent(holder: BaseViewHolder) {
+    override fun showContentCenter(holder: CenterViewHolder) {
 
     }
 
-    override fun settingTabLayout(tabLayout: TabLayout) {
-        super.settingTabLayout(tabLayout)
-        tabLayout.setSelectedTabIndicator(null)
-    }
-
-    override fun onTabReselected(holder: BaseViewHolder) {
-       onTabSelectListener?.onTabReselected(holder)
-    }
-
-    override fun onTabUnselected(holder: BaseViewHolder) {
-        onTabSelectListener?.onTabUnselected(holder)
-    }
-
-    override fun onTabSelected(holder: BaseViewHolder) {
-        onTabSelectListener?.onTabSelected(holder)
+    override fun showContentNormal(truePosition: Int, holder: NormalViewHolder) {
+        holder.tv.text = truePosition.toString()
     }
 
 }
@@ -71,15 +48,4 @@ class NormalViewHolder(itemLayoutId:Int) : BaseViewHolder(itemLayoutId){
     override fun bindView(itemView: View) {
         tv = itemView.findViewById(R.id.tv)
     }
-}
-
-enum class DriedShrimpType(var type: Int){
-    Center(1),
-    Normal(2)
-}
-
-interface OnTabSelectListener{
-    fun onTabReselected(holder: BaseViewHolder)
-    fun onTabUnselected(holder: BaseViewHolder)
-    fun onTabSelected(holder: BaseViewHolder)
 }

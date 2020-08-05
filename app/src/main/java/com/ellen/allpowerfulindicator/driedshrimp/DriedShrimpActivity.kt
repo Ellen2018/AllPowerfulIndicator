@@ -12,6 +12,7 @@ import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
 import com.ellen.indicator.BaseViewHolder
+import com.ellen.indicator.OnTabSelectListener
 
 /**
  * 仿虾米音乐底部导航栏效果
@@ -41,36 +42,27 @@ class DriedShrimpActivity : AppCompatActivity() {
         }
 
         val adapter = DriedShrimpAdapter()
-        adapter.onTabSelectListener = object : OnTabSelectListener {
-
-            private var ago = -1
-
-            override fun onTabReselected(holder: BaseViewHolder) {
+        adapter.onTabSelectListener = object : OnTabSelectListener<CenterViewHolder,NormalViewHolder>{
+            override fun onTabReselected(truePosition: Int, holder: NormalViewHolder) {
 
             }
 
-            override fun onTabUnselected(holder: BaseViewHolder) {
-                if (holder is CenterViewHolder) {
-
-                } else if (holder is NormalViewHolder) {
-                    holder.tv.setTextColor(Color.GRAY)
-                }
-               ago = holder.position
+            override fun onTabUnselected(truePosition: Int, holder: NormalViewHolder) {
+                holder.tv.setTextColor(Color.GRAY)
             }
 
-            override fun onTabSelected(holder: BaseViewHolder) {
-                if (holder is CenterViewHolder) {
-                    Toast.makeText(this@DriedShrimpActivity, "哈哈哈", Toast.LENGTH_SHORT).show()
-                    allPowerIndicator.selectTab(allPowerIndicator.getTabAt(ago))
-                } else if (holder is NormalViewHolder) {
-                    holder.tv.setTextColor(Color.BLUE)
-                    if(holder.position >= 2){
-                        viewPager2.currentItem = holder.position -1
-                    }else{
-                        viewPager2.currentItem = holder.position
-                    }
-                }
+            override fun onTabSelected(truePosition: Int, holder: NormalViewHolder) {
+                holder.tv.setTextColor(Color.BLUE)
             }
+
+            override fun onCenterTabListener(holder: CenterViewHolder) {
+
+            }
+
+            override fun bindViewPager2(): ViewPager2? {
+                return viewPager2
+            }
+
         }
         allPowerIndicator.setAdapter(adapter)
     }
