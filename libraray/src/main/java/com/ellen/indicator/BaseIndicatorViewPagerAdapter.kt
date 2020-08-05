@@ -41,10 +41,11 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
                 TabLayoutMediator(allPowerIndicator, it) { _, _ ->}.attach()
             }
         }
-        allPowerIndicator.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
-        allPowerIndicator.setSelectedTabIndicator(null)
     }
 
     override fun settingTabLayout(tabLayout: TabLayout) {
+        tabLayout.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
+        tabLayout.tabMode = TabLayout.MODE_FIXED
+        tabLayout.setSelectedTabIndicator(null)
     }
 }
