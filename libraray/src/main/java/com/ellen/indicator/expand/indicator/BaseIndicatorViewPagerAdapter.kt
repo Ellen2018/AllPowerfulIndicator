@@ -1,17 +1,20 @@
-package com.ellen.indicator
+package com.ellen.indicator.expand.indicator
 
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.ellen.indicator.Adapter
+import com.ellen.indicator.AllPowerIndicator
+import com.ellen.indicator.BaseViewHolder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> : Adapter<T>{
+abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> :
+    Adapter<T> {
 
     protected var viewPager: ViewPager? = null
     protected var viewPager2: ViewPager2? = null
-
 
     constructor(viewPager: ViewPager){
         this.viewPager = viewPager

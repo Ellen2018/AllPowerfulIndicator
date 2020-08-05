@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:background="@android:color/darker_gray"
-        android:layout_height="0.3dp"/>
+    <Button
+        android:id="@+id/bt_color1"
+        android:text="修改颜色为：黑，红色"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    <com.ellen.indicator.AllPowerIndicator
-        android:id="@+id/all_power_indicator"
-        app:tabPaddingStart="0dp"
-        app:tabPaddingEnd="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"/>
+    <Button
+        android:layout_below="@id/bt_color1"
+        android:id="@+id/bt_color2"
+        android:text="修改颜色为：蓝，绿色"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    <Button
+        android:layout_below="@id/bt_color2"
+        android:id="@+id/bt_round_color1"
+        android:text="修改消息点颜色为：蓝色"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_below="@id/bt_round_color1"
+        android:id="@+id/bt_round_color2"
+        android:text="修改消息点颜色为：绿色"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.ellen.indicator.AllPowerIndicator
+            android:id="@+id/all_power_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

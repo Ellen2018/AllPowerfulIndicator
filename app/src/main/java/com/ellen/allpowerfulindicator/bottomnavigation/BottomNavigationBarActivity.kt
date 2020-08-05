@@ -11,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
+import com.ellen.indicator.expand.bar.DefaultBottomCenterBarAdapter
+import com.ellen.indicator.expand.bar.DefaultTab
 
 class BottomNavigationBarActivity : AppCompatActivity(){
 
@@ -24,7 +26,7 @@ class BottomNavigationBarActivity : AppCompatActivity(){
         viewPager2 = findViewById(R.id.view_pager2)
         allPowerIndicator = findViewById(R.id.all_power_indicator)
 
-        viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
@@ -37,19 +39,14 @@ class BottomNavigationBarActivity : AppCompatActivity(){
 
         }
 
-        val dataList:MutableList<Int> = ArrayList()
-        dataList.add(3)
-        dataList.add(3)
-        dataList.add(3)
-        dataList.add(3)
-        val adapter = BottomBarAdapter(viewPager2,dataList)
+        val adapter = DefaultBottomCenterBarAdapter()
+        adapter.defaultTabs.add(0, DefaultTab("新闻", R.drawable.ic_news, true))
+        adapter.defaultTabs.add(1, DefaultTab("视频", R.drawable.ic_video, true))
+        adapter.defaultTabs.add(2, DefaultTab("消息", R.drawable.ic_message, true))
+        adapter.defaultTabs.add(3, DefaultTab("我", R.drawable.ic_me, true))
+        adapter.centerImageResource = R.drawable.ic_center
+        adapter.bindViewPager2(viewPager2)
         allPowerIndicator.setAdapter(adapter)
-
-        dataList[3] = 55
-
-        adapter.notifyDataSetChanged()
-
-
     }
 
 }

@@ -2,15 +2,12 @@ package com.ellen.allpowerfulindicator
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.BaseViewHolder
-import com.ellen.indicator.RectangleIndicatorAdapter
-import com.ellen.indicator.RoundIndicatorAdapter
+import com.ellen.indicator.expand.indicator.RoundIndicatorAdapter
 
 class ViewPagerActivity : AppCompatActivity(){
 
@@ -34,7 +31,13 @@ class ViewPagerActivity : AppCompatActivity(){
             }
         }
 
-        allPowerIndicator.setAdapter(RoundIndicatorAdapter(viewPager,Color.BLUE,Color.GRAY))
+        allPowerIndicator.setAdapter(
+            RoundIndicatorAdapter(
+                viewPager,
+                Color.BLUE,
+                Color.GRAY
+            )
+        )
     }
 
 }

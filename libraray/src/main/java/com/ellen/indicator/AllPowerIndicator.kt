@@ -37,7 +37,7 @@ class AllPowerIndicator : TabLayout, Indicator {
             baseViewHolder.viewType = viewType
             tab?.customView?.tag = baseViewHolder
             tab?.customView?.let { baseViewHolder.bindView(it) }
-            tab?.customView?.let { adapter.onTabUnselected(baseViewHolder) }
+            tab?.customView?.let { adapter.initTab(baseViewHolder) }
             tab?.customView?.let { adapter.showContent(baseViewHolder) }
             if (position == 0) {
                 tab?.customView?.let { adapter.onTabSelected(baseViewHolder) }

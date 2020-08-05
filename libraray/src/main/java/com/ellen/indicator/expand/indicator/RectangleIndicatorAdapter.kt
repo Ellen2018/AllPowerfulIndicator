@@ -1,14 +1,16 @@
-package com.ellen.indicator
+package com.ellen.indicator.expand.indicator
 
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.ellen.indicator.BaseViewHolder
 import com.ellen.libraray.R
 
 /**
  * 短横线指示器
  */
-class RectangleIndicatorAdapter : BaseIndicatorViewPagerAdapter<RectangleIndicatorViewHolder>{
+class RectangleIndicatorAdapter :
+    BaseIndicatorViewPagerAdapter<RectangleIndicatorViewHolder> {
 
     private var unSelectColor:Int = 0
     private var selectColor:Int = 0
@@ -26,7 +28,9 @@ class RectangleIndicatorAdapter : BaseIndicatorViewPagerAdapter<RectangleIndicat
     }
 
     override fun getViewHolder(viewType: Int): RectangleIndicatorViewHolder {
-        return RectangleIndicatorViewHolder(R.layout.item_tab_layout_rectangle_view)
+        return RectangleIndicatorViewHolder(
+            R.layout.item_tab_layout_rectangle_view
+        )
     }
 
     override fun onTabReselected(holder: RectangleIndicatorViewHolder) {
@@ -39,6 +43,10 @@ class RectangleIndicatorAdapter : BaseIndicatorViewPagerAdapter<RectangleIndicat
 
     override fun onTabSelected(holder: RectangleIndicatorViewHolder) {
         holder.view.setBackgroundColor(selectColor)
+    }
+
+    override fun initTab(holder: RectangleIndicatorViewHolder) {
+        holder.view.setBackgroundColor(unSelectColor)
     }
 }
 

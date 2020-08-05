@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.RectangleIndicatorAdapter
-import com.ellen.indicator.RoundIndicatorAdapter
+import com.ellen.indicator.expand.indicator.RectangleIndicatorAdapter
 
 class ViewPager2Activity : AppCompatActivity(){
 
@@ -35,7 +34,13 @@ class ViewPager2Activity : AppCompatActivity(){
 
         }
 
-        allPowerIndicator.setAdapter(RectangleIndicatorAdapter(viewPager2,Color.BLUE,Color.GRAY))
+        allPowerIndicator.setAdapter(
+            RectangleIndicatorAdapter(
+                viewPager2,
+                Color.BLUE,
+                Color.GRAY
+            )
+        )
     }
 
 }

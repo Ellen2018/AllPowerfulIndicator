@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.BaseIndicatorViewPagerAdapter
+import com.ellen.indicator.expand.indicator.BaseIndicatorViewPagerAdapter
 import com.ellen.indicator.BaseViewHolder
 
 class AutoIndicatorAdapter(viewPager2: ViewPager2,var strList:MutableList<String>) :
@@ -31,6 +31,11 @@ class AutoIndicatorAdapter(viewPager2: ViewPager2,var strList:MutableList<String
     override fun onTabSelected(holder: AutoIndicatorViewHolder) {
         holder.iv.visibility = View.VISIBLE
         holder.tv.visibility = View.GONE
+    }
+
+    override fun initTab(holder: AutoIndicatorViewHolder) {
+        holder.iv.visibility = View.GONE
+        holder.tv.visibility = View.VISIBLE
     }
 
 }
