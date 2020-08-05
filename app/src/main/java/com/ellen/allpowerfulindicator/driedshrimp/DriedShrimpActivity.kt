@@ -1,5 +1,6 @@
 package com.ellen.allpowerfulindicator.driedshrimp
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -44,19 +45,21 @@ class DriedShrimpActivity : AppCompatActivity() {
         val adapter = DriedShrimpAdapter()
         adapter.onTabSelectListener = object : OnTabSelectListener<CenterViewHolder,NormalViewHolder>{
             override fun onTabReselected(truePosition: Int, holder: NormalViewHolder) {
-
+                Toast.makeText(this@DriedShrimpActivity, "重选:$truePosition",Toast.LENGTH_SHORT).show()
             }
 
             override fun onTabUnselected(truePosition: Int, holder: NormalViewHolder) {
-                holder.tv.setTextColor(Color.GRAY)
+               holder.iv.imageTintList = ColorStateList.valueOf(Color.GRAY)
+               holder.tvTitle.setTextColor(Color.GRAY)
             }
 
             override fun onTabSelected(truePosition: Int, holder: NormalViewHolder) {
-                holder.tv.setTextColor(Color.BLUE)
+                holder.iv.imageTintList = ColorStateList.valueOf(Color.BLUE)
+                holder.tvTitle.setTextColor(Color.BLUE)
             }
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
-
+                Toast.makeText(this@DriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
             }
 
             override fun bindViewPager2(): ViewPager2? {

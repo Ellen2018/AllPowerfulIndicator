@@ -14,24 +14,35 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
 
     var onTabSelectListener: OnTabSelectListener<C, N>? = null
 
-    protected open fun getCenterViewHolder(): C? {
-        return null
+    //避免首次进入时触发reset 0 的bug
+    private var isFirst = false
+    private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+
+        override fun onPageSelected(position: Int) {
+            if(!isFirst){
+                isFirst = !isFirst
+            }else {
+                if (position >= getItemSize() / 2) {
+                    allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
+                } else {
+                    allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
+                }
+            }
+        }
+
     }
 
+    abstract fun getCenterViewHolder(): C
     abstract fun getNormalViewHolder(): N
 
     override fun getItemType(position: Int): Int {
-        return if (getCenterViewHolder() == null) {
+        return if (getItemSize() % 2 == 0) {
             0
         } else {
-            if (getItemSize() % 2 == 0) {
-                0
+            if (position == getItemSize() / 2) {
+                1
             } else {
-                if (position == getItemSize() / 2) {
-                    1
-                } else {
-                    0
-                }
+                0
             }
         }
     }
@@ -39,15 +50,15 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
     override fun getItemSize(): Int {
         val viewPager2 = onTabSelectListener?.bindViewPager2()
         val viewPager1 = onTabSelectListener?.bindViewPager()
-        return if (viewPager2 != null) {
-            viewPager2.adapter?.itemCount!! + 1
-        } else if (viewPager1 != null) {
-            viewPager1.adapter?.count!!
-        } else {
-            if (getCenterViewHolder() != null) {
+        return when {
+            viewPager2 != null -> {
+                viewPager2.adapter?.itemCount!! + 1
+            }
+            viewPager1 != null -> {
+                viewPager1.adapter?.count!! + 1
+            }
+            else -> {
                 getItemCount() + 1
-            } else {
-                getItemCount()
             }
         }
     }
@@ -64,15 +75,18 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         }
     }
 
+
     abstract fun showContentCenter(holder: C)
     abstract fun showContentNormal(truePosition: Int, holder: N)
-    abstract fun getItemCount(): Int
+    open fun getItemCount(): Int {
+        return 0
+    }
 
     override fun getViewHolder(viewType: Int): BaseViewHolder {
         return if (viewType == 0) {
             getNormalViewHolder()
         } else {
-            getCenterViewHolder() as BaseViewHolder
+            getCenterViewHolder()
         }
     }
 
@@ -111,7 +125,9 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
             val viewPager2 = onTabSelectListener?.bindViewPager2()
             val viewPager = onTabSelectListener?.bindViewPager()
             if (viewPager2 != null) {
-               viewPager2.currentItem = truePosition
+                viewPager2.unregisterOnPageChangeCallback(onPageChangeCallback)
+                viewPager2.currentItem = truePosition
+                viewPager2.registerOnPageChangeCallback(onPageChangeCallback)
             } else {
                 viewPager?.currentItem = truePosition
             }
@@ -126,17 +142,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
             allPowerIndicator.addTab(tab)
         }
         if (viewPager2 != null) {
-            viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
-                override fun onPageSelected(position: Int) {
-                    if (position >= getItemSize() / 2) {
-                        allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
-                    } else {
-                        allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
-                    }
-                }
-
-            })
+            viewPager2.registerOnPageChangeCallback(onPageChangeCallback)
         } else onTabSelectListener?.bindViewPager()?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 

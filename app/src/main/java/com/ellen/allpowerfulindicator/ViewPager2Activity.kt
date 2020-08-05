@@ -35,7 +35,7 @@ class ViewPager2Activity : AppCompatActivity(){
 
         }
 
-        allPowerIndicator.setAdapter(RoundIndicatorAdapter(viewPager2,Color.BLUE,Color.GRAY))
+        allPowerIndicator.setAdapter(RectangleIndicatorAdapter(viewPager2,Color.BLUE,Color.GRAY))
     }
 
 }

@@ -1,6 +1,13 @@
 package com.ellen.indicator
 
+import android.R
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.widget.ImageView
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.android.material.tabs.TabLayout
+
 
 abstract class Adapter<T : BaseViewHolder> {
 

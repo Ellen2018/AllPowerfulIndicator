@@ -51,23 +51,22 @@ class AllPowerIndicator : TabLayout, Indicator {
                 isReset = true
             }
         }
-        addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
+        addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabReselected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
                 adapter.onTabReselected(baseViewHolder)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            override fun onTabUnselected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
                 adapter.onTabUnselected(baseViewHolder)
             }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
+            override fun onTabSelected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
                 adapter.onTabSelected(baseViewHolder)
             }
         })
-        getTabAt(0)?.select()
     }
 }
 
