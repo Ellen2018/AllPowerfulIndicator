@@ -23,8 +23,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
         }
         field = value
     }
-    private var viewPager: ViewPager? = null
-    private var viewPager2: ViewPager2? = null
     var isContainsCenter = false
     var onDefaultBottomTabSelectListener: OnDefaultBottomTabSelectListener? = null
     private var isChange = false
@@ -76,14 +74,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
             }
 
         }
-    }
-
-    fun bindViewPager(viewPager: ViewPager) {
-        this.viewPager = viewPager
-    }
-
-    fun bindViewPager2(viewPager2: ViewPager2) {
-        this.viewPager2 = viewPager2
     }
 
     constructor(defaultTabs: MutableList<DefaultTab>, centerImageResource: Int) : this() {

@@ -8,8 +8,8 @@ import com.ellen.allpowerfulindicator.R
 import com.ellen.indicator.expand.indicator.BaseIndicatorViewPagerAdapter
 import com.ellen.indicator.BaseViewHolder
 
-class AutoIndicatorAdapter(viewPager2: ViewPager2,var strList:MutableList<String>) :
-    BaseIndicatorViewPagerAdapter<AutoIndicatorViewHolder>(viewPager2) {
+class AutoIndicatorAdapter(var strList:MutableList<String>) :
+    BaseIndicatorViewPagerAdapter<AutoIndicatorViewHolder>() {
 
     override fun getViewHolder(viewType: Int): AutoIndicatorViewHolder {
         return AutoIndicatorViewHolder(R.layout.item_my_auto_indicator)

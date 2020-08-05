@@ -1,6 +1,5 @@
 package com.ellen.indicator.expand.bar
 
-import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
@@ -32,7 +31,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
                 isFirst = !isFirst
             }else {
                 if(centerViewHolder != null) {
-                    if (position >= getItemSize() / 2) {
+                    if (position >= getCenterPosition()) {
                         allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
                     } else {
                         allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
@@ -59,12 +58,12 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
 
         override fun onPageSelected(position: Int) {
             if(centerViewHolder != null) {
-                if (position >= getItemSize() / 2) {
+                if (position >= getCenterPosition()) {
                     allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
                 } else {
                     allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
                 }
-            }else{
+            } else {
                 allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
             }
         }
@@ -72,21 +71,18 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
 
     abstract fun getCenterViewHolder(): C?
     abstract fun getNormalViewHolder(): N
+    protected open fun getCenterPosition(): Int {
+        return getItemSize() / 2
+    }
 
     override fun getItemType(position: Int): Int {
-        return if(getCenterViewHolder() == null){
+        if(centerViewHolder == null)return 0
+        return  if(position == getCenterPosition()){
+            1
+        }else{
             0
-        }else {
-            if (getItemSize() % 2 == 0) {
-                0
-            } else {
-                if (position == getItemSize() / 2) {
-                    1
-                } else {
-                    0
-                }
-            }
         }
+
     }
 
     override fun getItemSize(): Int {
@@ -122,7 +118,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
     override fun showContent(holder: BaseViewHolder) {
         if (getItemType(holder.position) == 0) {
             if(centerViewHolder != null) {
-                if (holder.position > getItemSize() / 2) {
+                if (holder.position > getCenterPosition()) {
                     showContentNormal(holder.position - 1, holder as N)
                 } else {
                     showContentNormal(holder.position, holder as N)
@@ -159,7 +155,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         }
 
         if(centerViewHolder != null) {
-            if (holder.position > getItemSize() / 2) {
+            if (holder.position > getCenterPosition()) {
                 onTabSelectListener?.onTabReselected(holder.position - 1, holder as N)
             } else {
                 onTabSelectListener?.onTabReselected(holder.position, holder as N)
@@ -182,7 +178,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         }
         if (getItemType(holder.position) == 0) {
             if(centerViewHolder != null) {
-                if (holder.position > getItemSize() / 2) {
+                if (holder.position > getCenterPosition()) {
                     onTabSelectListener?.onTabUnselected(holder.position - 1, holder as N)
                 } else {
                     onTabSelectListener?.onTabUnselected(holder.position, holder as N)
@@ -220,7 +216,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         } else if (getItemType(holder.position) == 0) {
             var truePosition = -1
             if(centerViewHolder != null) {
-                if (holder.position > getItemSize() / 2) {
+                if (holder.position > getCenterPosition()) {
                     truePosition = holder.position - 1
                     onTabSelectListener?.onTabSelected(holder.position - 1, holder as N)
                 } else {

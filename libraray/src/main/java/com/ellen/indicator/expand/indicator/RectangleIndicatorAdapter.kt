@@ -15,14 +15,8 @@ class RectangleIndicatorAdapter :
     private var unSelectColor:Int = 0
     private var selectColor:Int = 0
 
-    constructor(viewPager: ViewPager, selectColor:Int, unSelectColor:Int) : super(viewPager) {
+    constructor(selectColor:Int, unSelectColor:Int){
         this.viewPager = viewPager
-        this.unSelectColor = unSelectColor
-        this.selectColor = selectColor
-    }
-
-    constructor(viewPager2: ViewPager2, selectColor:Int, unSelectColor:Int) : super(viewPager2) {
-        this.viewPager2 = viewPager2
         this.unSelectColor = unSelectColor
         this.selectColor = selectColor
     }

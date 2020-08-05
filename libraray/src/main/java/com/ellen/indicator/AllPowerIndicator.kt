@@ -2,6 +2,8 @@ package com.ellen.indicator
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 
 /**
@@ -20,8 +22,7 @@ class AllPowerIndicator : TabLayout, Indicator {
         defStyleAttr
     )
 
-
-    override fun <T : BaseViewHolder> setAdapter(adapter: Adapter<T>) {
+    private fun <T : BaseViewHolder>  handlerAdapter(adapter: Adapter<T>){
         adapter.allPowerIndicator = this
         adapter.bindLinkageView(this)
         adapter.settingTabLayout(this)
@@ -39,8 +40,9 @@ class AllPowerIndicator : TabLayout, Indicator {
             tab?.customView?.let { baseViewHolder.bindView(it) }
             tab?.customView?.let { adapter.initTab(baseViewHolder) }
             tab?.customView?.let { adapter.showContent(baseViewHolder) }
-            if (position == 0) {
-                tab?.customView?.let { adapter.onTabSelected(baseViewHolder) }
+            if (position == adapter.getFirstPosition()) {
+                selectTab(tab)
+                adapter.onTabSelected(baseViewHolder)
             }
 
             //重新调整TabLayout的大小
@@ -68,9 +70,20 @@ class AllPowerIndicator : TabLayout, Indicator {
             }
         })
     }
+
+    override fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager) {
+        adapter.bindViewPager(viewPager)
+        handlerAdapter(adapter)
+    }
+
+    override fun <T : BaseViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2) {
+        adapter.bindViewPager2(viewPager2)
+        handlerAdapter(adapter)
+    }
 }
 
 private interface Indicator {
-    fun <T : BaseViewHolder> setAdapter(adapter: Adapter<T>)
+    fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager)
+    fun <T : BaseViewHolder> bindViewPager2(adapter: Adapter<T>,viewPager2: ViewPager2)
 }
 

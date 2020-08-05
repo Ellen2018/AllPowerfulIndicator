@@ -87,13 +87,8 @@ class DriedShrimpActivity : AppCompatActivity() {
         //设置消息圆点颜色
         adapter.roundMessageColor = Color.BLACK
 
-        //绑定ViewPager
-        adapter.bindViewPager(viewPager)
-
         //设置监听
         adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {
-
-            private var position = -1
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
                Toast.makeText(this@DriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
@@ -112,7 +107,7 @@ class DriedShrimpActivity : AppCompatActivity() {
             }
         }
 
-        allPowerIndicator.setAdapter(adapter)
+        allPowerIndicator.bindViewPager(adapter,viewPager)
     }
 
 }

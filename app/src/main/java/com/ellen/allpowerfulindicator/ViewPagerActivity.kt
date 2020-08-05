@@ -31,12 +31,11 @@ class ViewPagerActivity : AppCompatActivity(){
             }
         }
 
-        allPowerIndicator.setAdapter(
+        allPowerIndicator.bindViewPager(
             RoundIndicatorAdapter(
-                viewPager,
                 Color.BLUE,
                 Color.GRAY
-            )
+            ),viewPager
         )
     }
 

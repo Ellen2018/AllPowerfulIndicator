@@ -40,7 +40,7 @@ class AutoIndicatorActivity : AppCompatActivity(){
         strList.add("b")
         strList.add("c")
         strList.add("d")
-        allPowerIndicator.setAdapter(AutoIndicatorAdapter(viewPager2,strList))
+        allPowerIndicator.bindViewPager2(AutoIndicatorAdapter(strList),viewPager2)
     }
 
 }

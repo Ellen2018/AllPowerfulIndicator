@@ -11,18 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 abstract class BaseIndicatorViewPagerAdapter<T : BaseViewHolder> :
-    Adapter<T> {
-
-    protected var viewPager: ViewPager? = null
-    protected var viewPager2: ViewPager2? = null
-
-    constructor(viewPager: ViewPager){
-        this.viewPager = viewPager
-    }
-
-    constructor(viewPager2: ViewPager2){
-        this.viewPager2 = viewPager2
-    }
+    Adapter<T>() {
 
     override fun getItemType(position: Int): Int {
       return 0

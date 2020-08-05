@@ -45,8 +45,7 @@ class BottomNavigationBarActivity : AppCompatActivity(){
         adapter.defaultTabs.add(2, DefaultTab("消息", R.drawable.ic_message, true))
         adapter.defaultTabs.add(3, DefaultTab("我", R.drawable.ic_me, true))
         adapter.centerImageResource = R.drawable.ic_center
-        adapter.bindViewPager2(viewPager2)
-        allPowerIndicator.setAdapter(adapter)
+        allPowerIndicator.bindViewPager2(adapter,viewPager2)
     }
 
 }

@@ -34,12 +34,11 @@ class ViewPager2Activity : AppCompatActivity(){
 
         }
 
-        allPowerIndicator.setAdapter(
+        allPowerIndicator.bindViewPager2(
             RectangleIndicatorAdapter(
-                viewPager2,
                 Color.BLUE,
                 Color.GRAY
-            )
+            ),viewPager2
         )
     }
 
