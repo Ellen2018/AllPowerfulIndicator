@@ -4,7 +4,8 @@
 ## 使用文档：[万能指示器(指示器 & 底部导航栏，顶部导航栏，任意方向【水平 & 垂直】)]()
 文档笔者在撰写当中......
 
-可实现的效果如下
+可实现的效果如下  
+
 ![圆点指示器](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/round_indicator.gif)
 ![短横线指示器](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/line_indicator.gif)
 ![自定义指示器](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/auto_indicator.gif)
