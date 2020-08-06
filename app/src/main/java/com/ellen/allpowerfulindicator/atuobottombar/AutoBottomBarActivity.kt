@@ -1,5 +1,6 @@
 package com.ellen.allpowerfulindicator.atuobottombar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
 import com.ellen.indicator.expand.bar.DefaultBottomCenterBarAdapter
+import com.ellen.indicator.expand.indicator.RoundIndicatorAdapter
 
 class AutoBottomBarActivity : AppCompatActivity(){
 
@@ -37,7 +39,7 @@ class AutoBottomBarActivity : AppCompatActivity(){
 
         }
 
-        allPowerIndicator.bindViewPager2(AutoBottomBarAdapter(),viewPager2)
+        allPowerIndicator.bindViewPager2(RoundIndicatorAdapter(Color.BLUE,Color.RED),viewPager2)
     }
 
 }

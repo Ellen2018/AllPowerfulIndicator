@@ -18,27 +18,25 @@ class RoundIndicatorAdapter(var selectColor: Int,var unSelectColor: Int) :
         return RoundIndicatorViewHolder(R.layout.item_tab_layout_round_view)
     }
 
-    override fun onTabReselected(holder: RoundIndicatorViewHolder) {
-        val drawable = ShapeDrawable(OvalShape())
-        drawable.paint.color = selectColor
-        holder.view.background = drawable
-    }
-
-    override fun onTabUnselected(holder: RoundIndicatorViewHolder) {
-        val drawable = ShapeDrawable(OvalShape())
-        drawable.paint.color = unSelectColor
-        holder.view.background = drawable
-    }
-
-    override fun onTabSelected(holder: RoundIndicatorViewHolder) {
-        val drawable = ShapeDrawable(OvalShape())
-        drawable.paint.color = selectColor
-        holder.view.background = drawable
-    }
-
     override fun initTab(holder: RoundIndicatorViewHolder) {
+       unSelectedStatus(holder)
+    }
+
+    override fun selectedStatus(holder: RoundIndicatorViewHolder) {
+        val drawable = ShapeDrawable(OvalShape())
+        drawable.paint.color = selectColor
+        holder.view.background = drawable
+    }
+
+    override fun unSelectedStatus(holder: RoundIndicatorViewHolder) {
         val drawable = ShapeDrawable(OvalShape())
         drawable.paint.color = unSelectColor
+        holder.view.background = drawable
+    }
+
+    override fun reSelectedStatus(holder: RoundIndicatorViewHolder) {
+        val drawable = ShapeDrawable(OvalShape())
+        drawable.paint.color = selectColor
         holder.view.background = drawable
     }
 }

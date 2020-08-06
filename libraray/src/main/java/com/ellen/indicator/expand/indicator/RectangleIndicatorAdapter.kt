@@ -27,20 +27,20 @@ class RectangleIndicatorAdapter :
         )
     }
 
-    override fun onTabReselected(holder: RectangleIndicatorViewHolder) {
-        holder.view.setBackgroundColor(selectColor)
-    }
-
-    override fun onTabUnselected(holder: RectangleIndicatorViewHolder) {
-        holder.view.setBackgroundColor(unSelectColor)
-    }
-
-    override fun onTabSelected(holder: RectangleIndicatorViewHolder) {
-        holder.view.setBackgroundColor(selectColor)
-    }
-
     override fun initTab(holder: RectangleIndicatorViewHolder) {
         holder.view.setBackgroundColor(unSelectColor)
+    }
+
+    override fun selectedStatus(holder: RectangleIndicatorViewHolder) {
+        holder.view.setBackgroundColor(selectColor)
+    }
+
+    override fun unSelectedStatus(holder: RectangleIndicatorViewHolder) {
+        holder.view.setBackgroundColor(unSelectColor)
+    }
+
+    override fun reSelectedStatus(holder: RectangleIndicatorViewHolder) {
+        holder.view.setBackgroundColor(selectColor)
     }
 }
 

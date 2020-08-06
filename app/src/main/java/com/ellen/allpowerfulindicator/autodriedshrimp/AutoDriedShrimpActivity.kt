@@ -97,7 +97,7 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         adapter.roundMessageColor = Color.RED
 
         //设置监听
-        adapter.onDefaultBottomTabSelectListener = object : DefaultBottomCenterBarAdapter.OnDefaultBottomTabSelectListener {
+        adapter.onTabSelectListener = object : BaseBottomCenterBarAdapter.OnTabSelectListener<CenterViewHolder,NormalViewHolder> {
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
                 (holder as MyCenterViewHolder).string = "呵呵呵"

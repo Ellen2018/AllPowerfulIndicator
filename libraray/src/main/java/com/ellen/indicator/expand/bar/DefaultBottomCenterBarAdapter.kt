@@ -7,8 +7,6 @@ import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.ellen.indicator.BaseViewHolder
 import com.ellen.libraray.R
 
@@ -24,7 +22,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHol
             field = value
         }
     var isContainsCenter = false
-    var onDefaultBottomTabSelectListener: OnDefaultBottomTabSelectListener? = null
     private var isChange = false
     var selectedColor: Int = Color.BLUE
         set(value) {
@@ -43,29 +40,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHol
 
     var roundMessageColor = Color.RED
 
-    init {
-        onTabSelectListener = object : OnTabSelectListener<CenterViewHolder, NormalViewHolder> {
-            override fun onTabReselected(truePosition: Int, holder: NormalViewHolder) {
-                onNormalReSelected(holder)
-                onDefaultBottomTabSelectListener?.onTabReselected(truePosition, holder)
-            }
-
-            override fun onTabUnselected(truePosition: Int, holder: NormalViewHolder) {
-                onNormalUnSelected(holder)
-                onDefaultBottomTabSelectListener?.onTabUnselected(truePosition, holder)
-            }
-
-            override fun onTabSelected(truePosition: Int, holder: NormalViewHolder) {
-                onNormalSelected(holder)
-                onDefaultBottomTabSelectListener?.onTabSelected(truePosition, holder)
-            }
-
-            override fun onCenterTabListener(holder: CenterViewHolder) {
-                onDefaultBottomTabSelectListener?.onCenterTabListener(holder)
-            }
-        }
-    }
-
     override fun getCenterViewHolder(): CenterViewHolder? {
         return if (isContainsCenter) {
             if (autoCenterViewHolder != null) {
@@ -77,18 +51,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHol
             null
         }
     }
-
-    private fun onNormalSelected(holder: NormalViewHolder) {
-        holder.iv.imageTintList = ColorStateList.valueOf(selectedColor)
-        holder.tvTitle.setTextColor(selectedColor)
-    }
-
-    private fun onNormalUnSelected(holder: NormalViewHolder) {
-        holder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
-        holder.tvTitle.setTextColor(unSelectedColor)
-    }
-
-    private fun onNormalReSelected(holder: NormalViewHolder) {}
 
     override fun getNormalViewHolder(): NormalViewHolder {
         return NormalViewHolder(R.layout.item_view_normal)
@@ -107,24 +69,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHol
         }
     }
 
-    override fun notifyDataSetChanged() {
-        super.notifyDataSetChanged()
-        if (isChange) {
-            for (position in 0 until getItemSize()) {
-                val baseViewHolder =
-                    allPowerIndicator.getTabAt(position)?.customView?.tag as BaseViewHolder
-                if (baseViewHolder is NormalViewHolder) {
-                    if(currentPosition == position) {
-                        onNormalSelected(baseViewHolder)
-                    }else{
-                        onNormalUnSelected(baseViewHolder)
-                    }
-                }
-            }
-        }
-        isChange = false
-    }
-
     override fun showContentCenter(holder: CenterViewHolder) {
         if (autoCenterViewHolder == null) {
             centerImageResource?.let {
@@ -135,19 +79,37 @@ class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHol
         }
     }
 
-    interface OnDefaultBottomTabSelectListener {
-        fun onTabReselected(position: Int, holder: NormalViewHolder) {}
-        fun onTabUnselected(position: Int, holder: NormalViewHolder) {}
-        fun onTabSelected(position: Int, holder: NormalViewHolder) {}
-        fun onCenterTabListener(holder: CenterViewHolder)
-    }
-
     override fun initCenterTab(holder: CenterViewHolder) {
 
     }
 
     override fun initNormalTab(holder: NormalViewHolder) {
-        onNormalUnSelected(holder)
+        unSelectedStatus(holder)
+    }
+
+    override fun selectedStatus(holder: BaseViewHolder) {
+        if(holder is NormalViewHolder) {
+            holder.iv.imageTintList = ColorStateList.valueOf(selectedColor)
+            holder.tvTitle.setTextColor(selectedColor)
+        }
+    }
+
+    override fun unSelectedStatus(holder: BaseViewHolder) {
+        if(holder is NormalViewHolder) {
+            holder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
+            holder.tvTitle.setTextColor(unSelectedColor)
+        }else{
+            if(autoCenterViewHolder != null){
+                autoCenterViewHolder?.notifyDataSetChanged()
+            }else{
+                val centerViewHolder = holder as CenterViewHolder
+                centerViewHolder.notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun reSelectedStatus(holder: BaseViewHolder) {
+
     }
 }
 

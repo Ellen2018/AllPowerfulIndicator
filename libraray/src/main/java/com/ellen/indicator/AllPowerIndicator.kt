@@ -52,23 +52,27 @@ class AllPowerIndicator : TabLayout, Indicator {
         addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
-                adapter.onTabReselected(baseViewHolder)
+                adapter.reSelectedStatus(baseViewHolder)
+                adapter.onTabSelectedListener?.reSelected(baseViewHolder)
             }
 
             override fun onTabUnselected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
-                adapter.onTabUnselected(baseViewHolder)
+                adapter.unSelectedStatus(baseViewHolder)
+                adapter.onTabSelectedListener?.unSelected(baseViewHolder)
             }
 
             override fun onTabSelected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
-                adapter.onTabSelected(baseViewHolder)
+                adapter.selectedStatus(baseViewHolder)
+                adapter.onTabSelectedListener?.selected(baseViewHolder)
             }
         })
 
+        //这里可以进一步优化
         val tab = getTabAt(adapter.getFirstPosition())
         selectTab(tab)
-        adapter.onTabSelected(tab?.customView?.tag as T)
+        adapter.selectedStatus(tab?.customView?.tag as T)
     }
 
     override fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager) {

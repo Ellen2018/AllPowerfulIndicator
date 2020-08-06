@@ -15,27 +15,28 @@ class AutoIndicatorAdapter(var strList:MutableList<String>) :
         return AutoIndicatorViewHolder(R.layout.item_my_auto_indicator)
     }
 
-    override fun onTabReselected(holder: AutoIndicatorViewHolder) {
-
-    }
-
     override fun showContent(holder: AutoIndicatorViewHolder) {
         holder.tv.text = strList[holder.position]
-    }
-
-    override fun onTabUnselected(holder: AutoIndicatorViewHolder) {
-        holder.iv.visibility = View.GONE
-        holder.tv.visibility = View.VISIBLE
-    }
-
-    override fun onTabSelected(holder: AutoIndicatorViewHolder) {
-        holder.iv.visibility = View.VISIBLE
-        holder.tv.visibility = View.GONE
     }
 
     override fun initTab(holder: AutoIndicatorViewHolder) {
         holder.iv.visibility = View.GONE
         holder.tv.visibility = View.VISIBLE
+    }
+
+    override fun selectedStatus(holder: AutoIndicatorViewHolder) {
+        holder.iv.visibility = View.VISIBLE
+        holder.tv.visibility = View.GONE
+    }
+
+    override fun unSelectedStatus(holder: AutoIndicatorViewHolder) {
+        holder.iv.visibility = View.GONE
+        holder.tv.visibility = View.VISIBLE
+    }
+
+    override fun reSelectedStatus(holder: AutoIndicatorViewHolder) {
+        holder.iv.visibility = View.VISIBLE
+        holder.tv.visibility = View.GONE
     }
 
 }

@@ -42,7 +42,6 @@ abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder
             }
         }
     }
-
     private val onPagerChangeCallbackV1 = object : ViewPager.OnPageChangeListener{
         override fun onPageScrollStateChanged(state: Int) {
 
@@ -71,6 +70,102 @@ abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder
 
     abstract fun getCenterViewHolder(): C?
     abstract fun getNormalViewHolder(): N
+
+    init {
+        onTabSelectedListener = object :OnTabSelectedListener<BaseViewHolder>{
+            override fun selected(holder: BaseViewHolder) {
+                //2
+                if(isSelectCenter){
+                    isSelectCenter = false
+                    return
+                }else {
+                    //动画效果
+                    if (animResource != null) {
+                        val mAnimation =
+                            animResource?.let {
+                                AnimationUtils.loadAnimation(
+                                    allPowerIndicator.context,
+                                    it
+                                )
+                            }
+                        holder.itemView?.startAnimation(mAnimation)
+                    }
+                }
+                if (getItemType(holder.position) == 1) {
+                    onTabSelectListener?.onCenterTabListener(holder as C)
+                    isSelectCenter = true
+                    allPowerIndicator.selectTab(allPowerIndicator.getTabAt(ago))
+                } else if (getItemType(holder.position) == 0) {
+                    var truePosition = -1
+                    currentPosition = holder.position
+                    if(centerViewHolder != null) {
+                        if (holder.position > getCenterPosition()) {
+                            truePosition = holder.position - 1
+                            onTabSelectListener?.onTabSelected(holder.position - 1, holder as N)
+                        } else {
+                            truePosition = holder.position
+                            onTabSelectListener?.onTabSelected(holder.position, holder as N)
+                        }
+                    }else{
+                        truePosition = holder.position
+                        onTabSelectListener?.onTabSelected(holder.position, holder as N)
+                    }
+
+                    if (viewPager2 != null) {
+                        viewPager2?.unregisterOnPageChangeCallback(onPageChangeCallback)
+                        viewPager2?.currentItem = truePosition
+                        viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
+                    } else {
+                        viewPager?.removeOnPageChangeListener(onPagerChangeCallbackV1)
+                        viewPager?.currentItem = truePosition
+                        viewPager?.addOnPageChangeListener(onPagerChangeCallbackV1)
+                    }
+                }
+            }
+
+            override fun unSelected(holder: BaseViewHolder) {
+                if(centerViewHolder != null){
+                    if(getItemType(allPowerIndicator.selectedTabPosition) == 1){
+                        ago = holder.position
+                        return
+                    }
+                }
+                if (getItemType(holder.position) == 0) {
+                    if(centerViewHolder != null) {
+                        if (holder.position > getCenterPosition()) {
+                            onTabSelectListener?.onTabUnselected(holder.position - 1, holder as N)
+                        } else {
+                            onTabSelectListener?.onTabUnselected(holder.position, holder as N)
+                        }
+                    }else{
+                        onTabSelectListener?.onTabUnselected(holder.position, holder as N)
+                    }
+                    ago = holder.position
+                }
+            }
+
+            override fun reSelected(holder: BaseViewHolder) {
+                //动画效果
+                if(animResource != null) {
+                    val mAnimation =
+                        animResource?.let { AnimationUtils.loadAnimation(allPowerIndicator.context, it) }
+                    holder.itemView?.startAnimation(mAnimation)
+                }
+
+                //处理item点击事件
+                if(centerViewHolder != null) {
+                    if (holder.position > getCenterPosition()) {
+                        onTabSelectListener?.onTabReselected(holder.position - 1, holder as N)
+                    } else {
+                        onTabSelectListener?.onTabReselected(holder.position, holder as N)
+                    }
+                }else{
+                    onTabSelectListener?.onTabReselected(holder.position, holder as N)
+                }
+            }
+        }
+    }
+
     protected open fun getCenterPosition(): Int {
         return getItemSize() / 2
     }
@@ -82,7 +177,6 @@ abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder
         }else{
             0
         }
-
     }
 
     final override fun initTab(holder: BaseViewHolder) {
@@ -140,7 +234,6 @@ abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder
         }
     }
 
-
     abstract fun showContentCenter(holder: C)
     abstract fun showContentNormal(truePosition: Int, holder: N)
     open fun getItemCount(): Int {
@@ -155,101 +248,8 @@ abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder
         }
     }
 
-    override fun onTabReselected(holder: BaseViewHolder) {
-        //动画效果
-        if(animResource != null) {
-            val mAnimation =
-                animResource?.let { AnimationUtils.loadAnimation(allPowerIndicator.context, it) }
-            holder.itemView?.startAnimation(mAnimation)
-        }
-
-        if(centerViewHolder != null) {
-            if (holder.position > getCenterPosition()) {
-                onTabSelectListener?.onTabReselected(holder.position - 1, holder as N)
-            } else {
-                onTabSelectListener?.onTabReselected(holder.position, holder as N)
-            }
-        }else{
-            onTabSelectListener?.onTabReselected(holder.position, holder as N)
-        }
-    }
-
-    /**
-     * 它优先级高于onTabSelected()
-     */
-    override fun onTabUnselected(holder: BaseViewHolder) {
-        //1
-        if(centerViewHolder != null){
-            if(getItemType(allPowerIndicator.selectedTabPosition) == 1){
-                ago = holder.position
-                return
-            }
-        }
-        if (getItemType(holder.position) == 0) {
-            if(centerViewHolder != null) {
-                if (holder.position > getCenterPosition()) {
-                    onTabSelectListener?.onTabUnselected(holder.position - 1, holder as N)
-                } else {
-                    onTabSelectListener?.onTabUnselected(holder.position, holder as N)
-                }
-            }else{
-                onTabSelectListener?.onTabUnselected(holder.position, holder as N)
-            }
-            ago = holder.position
-        }
-    }
-
-    override fun onTabSelected(holder: BaseViewHolder) {
-        //2
-        if(isSelectCenter){
-            isSelectCenter = false
-            return
-        }else {
-            //动画效果
-            if (animResource != null) {
-                val mAnimation =
-                    animResource?.let {
-                        AnimationUtils.loadAnimation(
-                            allPowerIndicator.context,
-                            it
-                        )
-                    }
-                holder.itemView?.startAnimation(mAnimation)
-            }
-        }
-        if (getItemType(holder.position) == 1) {
-            onTabSelectListener?.onCenterTabListener(holder as C)
-            isSelectCenter = true
-            allPowerIndicator.selectTab(allPowerIndicator.getTabAt(ago))
-        } else if (getItemType(holder.position) == 0) {
-            var truePosition = -1
-            currentPosition = holder.position
-            if(centerViewHolder != null) {
-                if (holder.position > getCenterPosition()) {
-                    truePosition = holder.position - 1
-                    onTabSelectListener?.onTabSelected(holder.position - 1, holder as N)
-                } else {
-                    truePosition = holder.position
-                    onTabSelectListener?.onTabSelected(holder.position, holder as N)
-                }
-            }else{
-                truePosition = holder.position
-                onTabSelectListener?.onTabSelected(holder.position, holder as N)
-            }
-
-            if (viewPager2 != null) {
-                viewPager2?.unregisterOnPageChangeCallback(onPageChangeCallback)
-                viewPager2?.currentItem = truePosition
-                viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
-            } else {
-                viewPager?.removeOnPageChangeListener(onPagerChangeCallbackV1)
-                viewPager?.currentItem = truePosition
-                viewPager?.addOnPageChangeListener(onPagerChangeCallbackV1)
-            }
-        }
-    }
-
     override fun bindLinkageView(allPowerIndicator: AllPowerIndicator) {
+
         centerViewHolder = getCenterViewHolder()
         val itemSize = getItemSize()
         for (position in 0 until itemSize) {
