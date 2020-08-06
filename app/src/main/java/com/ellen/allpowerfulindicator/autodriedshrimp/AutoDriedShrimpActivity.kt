@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -33,24 +32,26 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         allPowerIndicator = findViewById(R.id.all_power_indicator)
 
         findViewById<Button>(R.id.bt_color1).setOnClickListener {
-            adapter.selectedColor = Color.BLACK
-            adapter.unSelectedColor = Color.RED
+            adapter.selectedColor = Color.parseColor("#1d88b4")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
         findViewById<Button>(R.id.bt_color2).setOnClickListener {
-            adapter.selectedColor = Color.BLUE
-            adapter.unSelectedColor = Color.GREEN
+            adapter.selectedColor = Color.parseColor("#0093b7")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
-        findViewById<Button>(R.id.bt_round_color1).setOnClickListener {
-            adapter.roundMessageColor = Color.BLUE
+        findViewById<Button>(R.id.bt_color3).setOnClickListener {
+            adapter.selectedColor = Color.parseColor("#aadddd")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
-        findViewById<Button>(R.id.bt_round_color2).setOnClickListener {
-            adapter.roundMessageColor = Color.GREEN
+        findViewById<Button>(R.id.bt_color4).setOnClickListener {
+            adapter.selectedColor = Color.parseColor("#a0ce6e")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
@@ -77,11 +78,17 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
 
         adapter.isContainsCenter = true
 
-        //自定义中间
-        adapter.autoCenterViewHolder = object : CenterViewHolder(R.layout.view_auto_center){
+        var str = "哈哈哈"
+
+        //自定义中间Tab
+        adapter.autoCenterViewHolder = object : CenterViewHolder(R.layout.view_auto_center) {
             override fun bindView(itemView: View) {
                 super.bindView(itemView)
                 itemView.tv.text = "自定义"
+            }
+
+            override fun notifyDataSetChanged() {
+                itemView?.tv?.text = str
             }
         }
 
@@ -89,20 +96,22 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         //adapter.animResource = null
 
         //设置动画效果
-        //adapter.animResource = R.anim.xxx
+        //adapter.animResource = R.anim.anim_tm
 
         //设置选择和未选中的颜色
         adapter.selectedColor = Color.RED
         adapter.unSelectedColor = Color.GRAY
 
         //设置消息圆点颜色
-        adapter.roundMessageColor = Color.BLACK
+        adapter.roundMessageColor = Color.RED
 
         //设置监听
         adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
-               Toast.makeText(this@AutoDriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
+                str = "呵呵呵"
+                Toast.makeText(this@AutoDriedShrimpActivity, "点击了中间", Toast.LENGTH_SHORT).show()
+                adapter.notifyDataSetChanged()
             }
 
             override fun onTabReselected(position: Int, holder: NormalViewHolder) {

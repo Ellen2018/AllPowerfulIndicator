@@ -30,24 +30,27 @@ class DriedShrimpActivity : AppCompatActivity() {
         allPowerIndicator = findViewById(R.id.all_power_indicator)
 
         findViewById<Button>(R.id.bt_color1).setOnClickListener {
-            adapter.selectedColor = Color.BLACK
-            adapter.unSelectedColor = Color.RED
+            adapter.selectedColor = Color.parseColor("#1d88b4")
+            adapter.unSelectedColor = Color.LTGRAY
             adapter.notifyDataSetChanged()
         }
 
         findViewById<Button>(R.id.bt_color2).setOnClickListener {
-            adapter.selectedColor = Color.BLUE
-            adapter.unSelectedColor = Color.GREEN
+            adapter.selectedColor = Color.parseColor("#0093b7")
+            adapter.unSelectedColor = Color.LTGRAY
             adapter.notifyDataSetChanged()
         }
 
-        findViewById<Button>(R.id.bt_round_color1).setOnClickListener {
-            adapter.roundMessageColor = Color.BLUE
+
+        findViewById<Button>(R.id.bt_color3).setOnClickListener {
+            adapter.selectedColor = Color.parseColor("#aadddd")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
-        findViewById<Button>(R.id.bt_round_color2).setOnClickListener {
-            adapter.roundMessageColor = Color.GREEN
+        findViewById<Button>(R.id.bt_color4).setOnClickListener {
+            adapter.selectedColor = Color.parseColor("#a0ce6e")
+            adapter.unSelectedColor = Color.GRAY
             adapter.notifyDataSetChanged()
         }
 
@@ -85,7 +88,7 @@ class DriedShrimpActivity : AppCompatActivity() {
         adapter.unSelectedColor = Color.GRAY
 
         //设置消息圆点颜色
-        adapter.roundMessageColor = Color.BLACK
+        adapter.roundMessageColor = Color.RED
 
         //设置监听
         adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {

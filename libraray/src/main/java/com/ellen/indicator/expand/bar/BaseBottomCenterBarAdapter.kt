@@ -192,7 +192,6 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
 
     override fun onTabSelected(holder: BaseViewHolder) {
         //2
-        currentPosition = holder.position
         if(isSelectCenter){
             isSelectCenter = false
             return
@@ -215,6 +214,7 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
             allPowerIndicator.selectTab(allPowerIndicator.getTabAt(ago))
         } else if (getItemType(holder.position) == 0) {
             var truePosition = -1
+            currentPosition = holder.position
             if(centerViewHolder != null) {
                 if (holder.position > getCenterPosition()) {
                     truePosition = holder.position - 1

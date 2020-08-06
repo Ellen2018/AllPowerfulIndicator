@@ -2,35 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/bt_color1"
-        android:text="修改颜色为：黑，红色"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:layout_below="@id/bt_color1"
-        android:id="@+id/bt_color2"
-        android:text="修改颜色为：蓝，绿色"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:layout_below="@id/bt_color2"
-        android:id="@+id/bt_round_color1"
-        android:text="修改消息点颜色为：蓝色"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/bt_color1"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:text="修改颜色为：#1d88b4,gary" />
 
-    <Button
-        android:layout_below="@id/bt_round_color1"
-        android:id="@+id/bt_round_color2"
-        android:text="修改消息点颜色为：绿色"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/bt_color2"
+            android:layout_below="@id/bt_color1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改颜色为：#0093b7,gary" />
+
+        <Button
+            android:id="@+id/bt_color3"
+            android:layout_below="@id/bt_color2"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:text="修改颜色为：#aaddddd,gary" />
+
+        <Button
+            android:id="@+id/bt_color4"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/bt_color3"
+            android:layout_height="wrap_content"
+            android:text="修改颜色为：#a0ce6e,gary" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

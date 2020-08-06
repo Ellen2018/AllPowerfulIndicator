@@ -17,12 +17,12 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
     var defaultTabs: MutableList<DefaultTab> = ArrayList()
     var autoCenterViewHolder: CenterViewHolder? = null
     var centerImageResource: Int? = null
-    set(value) {
-        if (field != value) {
-            isChange = true
+        set(value) {
+            if (field != value) {
+                isChange = true
+            }
+            field = value
         }
-        field = value
-    }
     var isContainsCenter = false
     var onDefaultBottomTabSelectListener: OnDefaultBottomTabSelectListener? = null
     private var isChange = false
@@ -46,18 +46,17 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
     init {
         onTabSelectListener = object : OnTabSelectListener<CenterViewHolder, NormalViewHolder> {
             override fun onTabReselected(truePosition: Int, holder: NormalViewHolder) {
+                onNormalReSelected(holder)
                 onDefaultBottomTabSelectListener?.onTabReselected(truePosition, holder)
             }
 
             override fun onTabUnselected(truePosition: Int, holder: NormalViewHolder) {
-                holder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
-                holder.tvTitle.setTextColor(unSelectedColor)
+                onNormalUnSelected(holder)
                 onDefaultBottomTabSelectListener?.onTabUnselected(truePosition, holder)
             }
 
             override fun onTabSelected(truePosition: Int, holder: NormalViewHolder) {
-                holder.iv.imageTintList = ColorStateList.valueOf(selectedColor)
-                holder.tvTitle.setTextColor(selectedColor)
+                onNormalSelected(holder)
                 onDefaultBottomTabSelectListener?.onTabSelected(truePosition, holder)
             }
 
@@ -82,16 +81,28 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
     }
 
     override fun getCenterViewHolder(): CenterViewHolder? {
-        return if(isContainsCenter) {
-            if(autoCenterViewHolder != null){
+        return if (isContainsCenter) {
+            if (autoCenterViewHolder != null) {
                 return autoCenterViewHolder
-            }else {
+            } else {
                 CenterViewHolder(R.layout.item_view_center)
             }
-        }else{
+        } else {
             null
         }
     }
+
+    private fun onNormalSelected(holder: NormalViewHolder) {
+        holder.iv.imageTintList = ColorStateList.valueOf(selectedColor)
+        holder.tvTitle.setTextColor(selectedColor)
+    }
+
+    private fun onNormalUnSelected(holder: NormalViewHolder) {
+        holder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
+        holder.tvTitle.setTextColor(unSelectedColor)
+    }
+
+    private fun onNormalReSelected(holder: NormalViewHolder) {}
 
     override fun getNormalViewHolder(): NormalViewHolder {
         return NormalViewHolder(R.layout.item_view_normal)
@@ -118,11 +129,9 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
                     allPowerIndicator.getTabAt(position)?.customView?.tag as BaseViewHolder
                 if (baseViewHolder is NormalViewHolder) {
                     if(currentPosition == position) {
-                        baseViewHolder.iv.imageTintList = ColorStateList.valueOf(selectedColor)
-                        baseViewHolder.tvTitle.setTextColor(selectedColor)
+                        onNormalSelected(baseViewHolder)
                     }else{
-                        baseViewHolder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
-                        baseViewHolder.tvTitle.setTextColor(unSelectedColor)
+                        onNormalUnSelected(baseViewHolder)
                     }
                 }
             }
@@ -132,16 +141,17 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
 
     override fun initTab(holder: BaseViewHolder) {
         if (holder is NormalViewHolder) {
-            holder.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
-            holder.tvTitle.setTextColor(unSelectedColor)
+            onNormalUnSelected(holder)
         }
     }
 
     override fun showContentCenter(holder: CenterViewHolder) {
-        if(autoCenterViewHolder == null){
+        if (autoCenterViewHolder == null) {
             centerImageResource?.let {
                 holder.itemView?.findViewById<ImageView>(R.id.iv)?.setImageResource(it)
             }
+        } else {
+            autoCenterViewHolder?.notifyDataSetChanged()
         }
     }
 }
@@ -151,18 +161,21 @@ open class CenterViewHolder(itemLayoutId: Int) : BaseViewHolder(itemLayoutId) {
     override fun bindView(itemView: View) {
 
     }
+
+    open fun notifyDataSetChanged() {}
 }
 
 class NormalViewHolder(itemLayoutId: Int) : BaseViewHolder(itemLayoutId) {
 
+
     lateinit var tvTitle: TextView
-    lateinit var view: View
     lateinit var iv: ImageView
+    lateinit var view: View
 
     override fun bindView(itemView: View) {
         tvTitle = itemView.findViewById(R.id.tv_title)
-        view = itemView.findViewById(R.id.view_round)
         iv = itemView.findViewById(R.id.iv)
+        view = itemView.findViewById(R.id.view_round)
     }
 }
 
