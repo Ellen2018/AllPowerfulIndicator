@@ -8,7 +8,7 @@
 
 可实现的效果如下  
 
-<img src="https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/round_indicator.gif" width="100" height="30" align="middle" />
+<img src="https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/round_indicator.gif" width="300" height="600" align="middle" />
 
 ![圆点指示器](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/round_indicator.gif)
 ![短横线指示器](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/line_indicator.gif)
