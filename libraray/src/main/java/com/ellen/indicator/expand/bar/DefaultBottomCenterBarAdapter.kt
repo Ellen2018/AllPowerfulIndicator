@@ -63,15 +63,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
             override fun onCenterTabListener(holder: CenterViewHolder) {
                 onDefaultBottomTabSelectListener?.onCenterTabListener(holder)
             }
-
-            override fun bindViewPager(): ViewPager? {
-                return viewPager
-            }
-
-            override fun bindViewPager2(): ViewPager2? {
-                return viewPager2
-            }
-
         }
     }
 

@@ -86,15 +86,13 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
     }
 
     override fun getItemSize(): Int {
-        val viewPager2 = onTabSelectListener?.bindViewPager2()
-        val viewPager1 = onTabSelectListener?.bindViewPager()
         if(centerViewHolder != null) {
             return when {
                 viewPager2 != null -> {
-                    viewPager2.adapter?.itemCount!! + 1
+                    viewPager2?.adapter?.itemCount!! + 1
                 }
-                viewPager1 != null -> {
-                    viewPager1.adapter?.count!! + 1
+                viewPager != null -> {
+                    viewPager?.adapter?.count!! + 1
                 }
                 else -> {
                     getItemCount() + 1
@@ -103,10 +101,10 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         }else{
             return when {
                 viewPager2 != null -> {
-                    viewPager2.adapter?.itemCount!!
+                    viewPager2?.adapter?.itemCount!!
                 }
-                viewPager1 != null -> {
-                    viewPager1.adapter?.count!!
+                viewPager != null -> {
+                    viewPager?.adapter?.count!!
                 }
                 else -> {
                     getItemCount()
@@ -228,12 +226,10 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
                 onTabSelectListener?.onTabSelected(holder.position, holder as N)
             }
 
-            val viewPager2 = onTabSelectListener?.bindViewPager2()
-            val viewPager = onTabSelectListener?.bindViewPager()
             if (viewPager2 != null) {
-                viewPager2.unregisterOnPageChangeCallback(onPageChangeCallback)
-                viewPager2.currentItem = truePosition
-                viewPager2.registerOnPageChangeCallback(onPageChangeCallback)
+                viewPager2?.unregisterOnPageChangeCallback(onPageChangeCallback)
+                viewPager2?.currentItem = truePosition
+                viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
             } else {
                 viewPager?.removeOnPageChangeListener(onPagerChangeCallbackV1)
                 viewPager?.currentItem = truePosition
@@ -244,15 +240,14 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
 
     override fun bindLinkageView(allPowerIndicator: AllPowerIndicator) {
         centerViewHolder = getCenterViewHolder()
-        val viewPager2 = onTabSelectListener?.bindViewPager2()
-        var itemSize = getItemSize()
+        val itemSize = getItemSize()
         for (position in 0 until itemSize) {
             val tab = allPowerIndicator.newTab()
             allPowerIndicator.addTab(tab)
         }
         if (viewPager2 != null) {
-            viewPager2.registerOnPageChangeCallback(onPageChangeCallback)
-        } else onTabSelectListener?.bindViewPager()?.addOnPageChangeListener(onPagerChangeCallbackV1)
+            viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
+        } else this.viewPager?.addOnPageChangeListener(onPagerChangeCallbackV1)
     }
 
     override fun settingTabLayout(tabLayout: TabLayout) {
@@ -266,11 +261,4 @@ interface OnTabSelectListener<C : BaseViewHolder, N : BaseViewHolder> {
     fun onTabUnselected(truePosition: Int, holder: N)
     fun onTabSelected(truePosition: Int, holder: N)
     fun onCenterTabListener(holder: C)
-    fun bindViewPager(): ViewPager? {
-        return null
-    }
-
-    fun bindViewPager2(): ViewPager2? {
-        return null
-    }
 }
