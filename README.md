@@ -14,3 +14,4 @@
 ![底部导航栏(交互效果很好)](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/bottom_bar.gif)
 ![底部导航栏(带中间控件)](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/bottom_contains_center_bar.gif)
 ![底部导航栏(自定义中间控件)](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/bottom_auto_center_bar.gif)
+![自定义底部导航栏](https://github.com/Ellen2018/AllPowerfulIndicator/blob/master/gif/auto_bottom_bar.gif)
