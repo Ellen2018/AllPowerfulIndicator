@@ -31,6 +31,7 @@ class ViewPagerActivity : AppCompatActivity(){
             }
         }
 
+        //圆点指示器
         allPowerIndicator.bindViewPager(
             RoundIndicatorAdapter(
                 Color.BLUE,

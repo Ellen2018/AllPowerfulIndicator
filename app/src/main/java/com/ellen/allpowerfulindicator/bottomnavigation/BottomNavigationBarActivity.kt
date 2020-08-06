@@ -23,7 +23,7 @@ class BottomNavigationBarActivity : AppCompatActivity(){
         viewPager2 = findViewById(R.id.view_pager2)
         allPowerIndicator = findViewById(R.id.all_power_indicator)
 
-        viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
@@ -41,7 +41,6 @@ class BottomNavigationBarActivity : AppCompatActivity(){
         adapter.defaultTabs.add(1, DefaultTab("视频", R.drawable.ic_video, true))
         adapter.defaultTabs.add(2, DefaultTab("消息", R.drawable.ic_message, true))
         adapter.defaultTabs.add(3, DefaultTab("我", R.drawable.ic_me, true))
-        adapter.centerImageResource = R.drawable.ic_center
         allPowerIndicator.bindViewPager2(adapter,viewPager2)
     }
 

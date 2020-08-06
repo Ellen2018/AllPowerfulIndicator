@@ -34,6 +34,7 @@ class ViewPager2Activity : AppCompatActivity(){
 
         }
 
+        //短横线指示器
         allPowerIndicator.bindViewPager2(
             RectangleIndicatorAdapter(
                 Color.BLUE,
