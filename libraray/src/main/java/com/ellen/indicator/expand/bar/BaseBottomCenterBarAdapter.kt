@@ -10,9 +10,9 @@ import com.ellen.libraray.R
 import com.google.android.material.tabs.TabLayout
 
 /**
- * 可完成虾米音乐底部导航栏效果
+ * 带中间控件的底部导航栏
  */
-abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
+abstract class BaseBottomCenterBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
     Adapter<BaseViewHolder>() {
 
     var animResource:Int? = R.anim.scale
@@ -84,6 +84,17 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         }
 
     }
+
+    final override fun initTab(holder: BaseViewHolder) {
+        if(getItemType(holder.position) == 1){
+            initCenterTab(holder as C)
+        }else{
+            initNormalTab(holder as N)
+        }
+    }
+
+    abstract fun initCenterTab(holder: C)
+    abstract fun initNormalTab(holder: N)
 
     override fun getItemSize(): Int {
         if(centerViewHolder != null) {
@@ -254,11 +265,12 @@ abstract class BaseBottomBarAdapter<C : BaseViewHolder, N : BaseViewHolder> :
         tabLayout.tabMode = TabLayout.MODE_FIXED
         tabLayout.setSelectedTabIndicator(null)
     }
+
+    interface OnTabSelectListener<C : BaseViewHolder, N : BaseViewHolder> {
+        fun onTabReselected(truePosition: Int, holder: N)
+        fun onTabUnselected(truePosition: Int, holder: N)
+        fun onTabSelected(truePosition: Int, holder: N)
+        fun onCenterTabListener(holder: C)
+    }
 }
 
-interface OnTabSelectListener<C : BaseViewHolder, N : BaseViewHolder> {
-    fun onTabReselected(truePosition: Int, holder: N)
-    fun onTabUnselected(truePosition: Int, holder: N)
-    fun onTabSelected(truePosition: Int, holder: N)
-    fun onCenterTabListener(holder: C)
-}

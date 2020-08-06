@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.ellen.allpowerfulindicator.atuobottombar.AutoBottomBarActivity
 import com.ellen.allpowerfulindicator.autodriedshrimp.AutoDriedShrimpActivity
 import com.ellen.allpowerfulindicator.autoindicator.AutoIndicatorActivity
 import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_auto_indicator).setOnClickListener(this)
         findViewById<Button>(R.id.bt_xm).setOnClickListener(this)
         findViewById<Button>(R.id.bt_xm_auto_center).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_auto_bottom_bar).setOnClickListener(this)
 
     }
 
@@ -38,6 +40,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,DriedShrimpActivity::class.java)
             R.id.bt_xm_auto_center->
                 intent = Intent(this@MainActivity,AutoDriedShrimpActivity::class.java)
+            R.id.bt_auto_bottom_bar->
+                intent = Intent(this@MainActivity,AutoBottomBarActivity::class.java)
         }
         startActivity(intent)
     }

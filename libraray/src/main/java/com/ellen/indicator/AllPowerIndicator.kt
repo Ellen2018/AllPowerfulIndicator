@@ -40,10 +40,6 @@ class AllPowerIndicator : TabLayout, Indicator {
             tab?.customView?.let { baseViewHolder.bindView(it) }
             tab?.customView?.let { adapter.initTab(baseViewHolder) }
             tab?.customView?.let { adapter.showContent(baseViewHolder) }
-            if (position == adapter.getFirstPosition()) {
-                selectTab(tab)
-                adapter.onTabSelected(baseViewHolder)
-            }
 
             //重新调整TabLayout的大小
             if (!isReset) {
@@ -69,6 +65,10 @@ class AllPowerIndicator : TabLayout, Indicator {
                 adapter.onTabSelected(baseViewHolder)
             }
         })
+
+        val tab = getTabAt(adapter.getFirstPosition())
+        selectTab(tab)
+        adapter.onTabSelected(tab?.customView?.tag as T)
     }
 
     override fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager) {

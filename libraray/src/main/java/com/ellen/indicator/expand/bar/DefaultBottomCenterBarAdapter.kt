@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ellen.indicator.BaseViewHolder
 import com.ellen.libraray.R
 
-class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, NormalViewHolder>() {
+class DefaultBottomCenterBarAdapter() : BaseBottomCenterBarAdapter<CenterViewHolder, NormalViewHolder>() {
 
     var defaultTabs: MutableList<DefaultTab> = ArrayList()
     var autoCenterViewHolder: CenterViewHolder? = null
@@ -64,11 +64,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
                 onDefaultBottomTabSelectListener?.onCenterTabListener(holder)
             }
         }
-    }
-
-    constructor(defaultTabs: MutableList<DefaultTab>, centerImageResource: Int) : this() {
-        this.centerImageResource = centerImageResource
-        this.defaultTabs.addAll(defaultTabs)
     }
 
     override fun getCenterViewHolder(): CenterViewHolder? {
@@ -130,12 +125,6 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
         isChange = false
     }
 
-    override fun initTab(holder: BaseViewHolder) {
-        if (holder is NormalViewHolder) {
-            onNormalUnSelected(holder)
-        }
-    }
-
     override fun showContentCenter(holder: CenterViewHolder) {
         if (autoCenterViewHolder == null) {
             centerImageResource?.let {
@@ -144,6 +133,21 @@ class DefaultBottomCenterBarAdapter() : BaseBottomBarAdapter<CenterViewHolder, N
         } else {
             autoCenterViewHolder?.notifyDataSetChanged()
         }
+    }
+
+    interface OnDefaultBottomTabSelectListener {
+        fun onTabReselected(position: Int, holder: NormalViewHolder) {}
+        fun onTabUnselected(position: Int, holder: NormalViewHolder) {}
+        fun onTabSelected(position: Int, holder: NormalViewHolder) {}
+        fun onCenterTabListener(holder: CenterViewHolder)
+    }
+
+    override fun initCenterTab(holder: CenterViewHolder) {
+
+    }
+
+    override fun initNormalTab(holder: NormalViewHolder) {
+        onNormalUnSelected(holder)
     }
 }
 
@@ -170,9 +174,3 @@ class NormalViewHolder(itemLayoutId: Int) : BaseViewHolder(itemLayoutId) {
     }
 }
 
-interface OnDefaultBottomTabSelectListener {
-    fun onTabReselected(position: Int, holder: NormalViewHolder) {}
-    fun onTabUnselected(position: Int, holder: NormalViewHolder) {}
-    fun onTabSelected(position: Int, holder: NormalViewHolder) {}
-    fun onCenterTabListener(holder: CenterViewHolder)
-}

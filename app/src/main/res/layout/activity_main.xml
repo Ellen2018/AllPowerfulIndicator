@@ -41,6 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <Button
+        android:id="@+id/bt_auto_bottom_bar"
+        android:text="自定义底部bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 
 
 </LinearLayout>

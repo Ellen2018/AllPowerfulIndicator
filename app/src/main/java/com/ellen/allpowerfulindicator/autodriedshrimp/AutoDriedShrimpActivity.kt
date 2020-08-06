@@ -67,30 +67,21 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
 
         }
 
+        adapter = DefaultBottomCenterBarAdapter()
         //数据填塞
-        val defaultTabs: MutableList<DefaultTab> = ArrayList()
-        defaultTabs.add(0, DefaultTab("新闻", R.drawable.ic_news, true))
-        defaultTabs.add(1, DefaultTab("视频", R.drawable.ic_video, true))
-        defaultTabs.add(2, DefaultTab("消息", R.drawable.ic_message, true))
-        defaultTabs.add(3, DefaultTab("我", R.drawable.ic_me, true))
-
-        adapter = DefaultBottomCenterBarAdapter(defaultTabs, R.drawable.ic_center)
-
-        adapter.isContainsCenter = true
-
-        var str = "哈哈哈"
-
-        //自定义中间Tab
-        adapter.autoCenterViewHolder = object : CenterViewHolder(R.layout.view_auto_center) {
-            override fun bindView(itemView: View) {
-                super.bindView(itemView)
-                itemView.tv.text = "自定义"
-            }
-
-            override fun notifyDataSetChanged() {
-                itemView?.tv?.text = str
+        for(position in 0 until 4){
+            when(position){
+                0-> adapter.defaultTabs.add(DefaultTab("新闻", R.drawable.ic_news, true))
+                1-> adapter.defaultTabs.add(DefaultTab("视频", R.drawable.ic_video, true))
+                2-> adapter.defaultTabs.add(DefaultTab("消息", R.drawable.ic_message, true))
+                3-> adapter.defaultTabs.add(DefaultTab("我", R.drawable.ic_me, true))
             }
         }
+        //是否包含中间控件
+        adapter.isContainsCenter = true
+
+        //自定义中间Tab
+        adapter.autoCenterViewHolder = MyCenterViewHolder(R.layout.view_auto_center,"哈哈哈")
 
         //取消动画效果
         //adapter.animResource = null
@@ -106,10 +97,10 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         adapter.roundMessageColor = Color.RED
 
         //设置监听
-        adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {
+        adapter.onDefaultBottomTabSelectListener = object : DefaultBottomCenterBarAdapter.OnDefaultBottomTabSelectListener {
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
-                str = "呵呵呵"
+                (holder as MyCenterViewHolder).string = "呵呵呵"
                 Toast.makeText(this@AutoDriedShrimpActivity, "点击了中间", Toast.LENGTH_SHORT).show()
                 adapter.notifyDataSetChanged()
             }
@@ -128,6 +119,13 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         }
 
         allPowerIndicator.bindViewPager(adapter,viewPager)
+    }
+
+    class MyCenterViewHolder(layoutId:Int,var string: String) : CenterViewHolder(layoutId){
+
+        override fun notifyDataSetChanged() {
+            itemView?.tv?.text = string
+        }
     }
 
 }

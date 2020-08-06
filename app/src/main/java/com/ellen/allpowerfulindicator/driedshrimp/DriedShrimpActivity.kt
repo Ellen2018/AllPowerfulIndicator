@@ -66,16 +66,19 @@ class DriedShrimpActivity : AppCompatActivity() {
 
         }
 
+        adapter = DefaultBottomCenterBarAdapter()
         //数据填塞
-        val defaultTabs: MutableList<DefaultTab> = ArrayList()
-        defaultTabs.add(0, DefaultTab("新闻", R.drawable.ic_news, true))
-        defaultTabs.add(1, DefaultTab("视频", R.drawable.ic_video, true))
-        defaultTabs.add(2, DefaultTab("消息", R.drawable.ic_message, true))
-        defaultTabs.add(3, DefaultTab("我", R.drawable.ic_me, true))
-
-        adapter = DefaultBottomCenterBarAdapter(defaultTabs, R.drawable.ic_center)
+        for(position in 0 until 4){
+            when(position){
+                0-> adapter.defaultTabs.add(DefaultTab("新闻", R.drawable.ic_news, false))
+                1-> adapter.defaultTabs.add(DefaultTab("视频", R.drawable.ic_video, false))
+                2-> adapter.defaultTabs.add(DefaultTab("消息", R.drawable.ic_message, false))
+                3-> adapter.defaultTabs.add(DefaultTab("我", R.drawable.ic_me, false))
+            }
+        }
 
         adapter.isContainsCenter = true
+        adapter.centerImageResource = R.drawable.ic_center
 
         //取消动画效果
         //adapter.animResource = null
@@ -91,10 +94,10 @@ class DriedShrimpActivity : AppCompatActivity() {
         adapter.roundMessageColor = Color.RED
 
         //设置监听
-        adapter.onDefaultBottomTabSelectListener = object : OnDefaultBottomTabSelectListener {
+        adapter.onDefaultBottomTabSelectListener = object : DefaultBottomCenterBarAdapter.OnDefaultBottomTabSelectListener {
 
             override fun onCenterTabListener(holder: CenterViewHolder) {
-               Toast.makeText(this@DriedShrimpActivity,"点击了中间",Toast.LENGTH_SHORT).show()
+               Toast.makeText(this@DriedShrimpActivity,"点击了中间111",Toast.LENGTH_SHORT).show()
             }
 
             override fun onTabReselected(position: Int, holder: NormalViewHolder) {
@@ -102,11 +105,12 @@ class DriedShrimpActivity : AppCompatActivity() {
             }
 
             override fun onTabUnselected(position: Int, holder: NormalViewHolder) {
-                //Toast.makeText(this@DriedShrimpActivity,"未选$position",Toast.LENGTH_SHORT).show()
+                adapter.defaultTabs[position].isHaveMessage = false
             }
 
             override fun onTabSelected(position: Int, holder: NormalViewHolder) {
-                //Toast.makeText(this@DriedShrimpActivity,"选择$position",Toast.LENGTH_SHORT).show()
+                adapter.defaultTabs[position].isHaveMessage = true
+                adapter.notifyDataSetChanged()
             }
         }
 

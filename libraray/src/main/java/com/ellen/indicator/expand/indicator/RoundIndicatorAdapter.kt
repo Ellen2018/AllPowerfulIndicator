@@ -11,16 +11,8 @@ import com.ellen.libraray.R
 /**
  * 圆点指示器
  */
-class RoundIndicatorAdapter :
-    BaseIndicatorViewPagerAdapter<RoundIndicatorViewHolder> {
-
-    private var unSelectColor:Int = 0
-    private var selectColor:Int = 0
-
-    constructor(selectColor:Int,unSelectColor:Int){
-        this.unSelectColor = unSelectColor
-        this.selectColor = selectColor
-    }
+class RoundIndicatorAdapter(var selectColor: Int,var unSelectColor: Int) :
+    BaseIndicatorViewPagerAdapter<RoundIndicatorViewHolder>() {
 
     override fun getViewHolder(viewType: Int): RoundIndicatorViewHolder {
         return RoundIndicatorViewHolder(R.layout.item_tab_layout_round_view)
