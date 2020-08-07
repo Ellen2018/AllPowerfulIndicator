@@ -3,14 +3,16 @@ package com.ellen.indicator
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
-abstract class Adapter<T : BaseViewHolder> {
+abstract class Adapter<T : BaseIndicatorViewHolder> {
 
     lateinit var allPowerIndicator: AllPowerIndicator
     internal var onTabSelectedListener:OnTabSelectedListener<T>? = null
 
     protected var viewPager:ViewPager? = null
     protected var viewPager2: ViewPager2? = null
+    internal lateinit var mode:Mode
 
     /**
      * tab的类型
@@ -23,9 +25,15 @@ abstract class Adapter<T : BaseViewHolder> {
     abstract fun getViewHolder(viewType: Int): T
 
     /**
-     * tab的个数
+     * tab的个数get
      */
-    abstract fun getItemSize(): Int
+    open fun getItemSize(): Int{
+        return when(mode){
+            Mode.FREE->0
+            Mode.VIEW_PAGER-> allPowerIndicator.tabCount
+            Mode.VIEW_PAGER2-> allPowerIndicator.tabCount
+        }
+    }
 
     /**
      * tab显示内容
@@ -40,7 +48,13 @@ abstract class Adapter<T : BaseViewHolder> {
     /**
      * 绑定联动的View
      */
-    abstract fun bindLinkageView(allPowerIndicator: AllPowerIndicator)
+    open fun bindLinkageView(){
+        when(mode){
+            Mode.FREE->bindLinkageFree()
+            Mode.VIEW_PAGER-> viewPager?.let { bindLinkageViewPager(it) }
+            Mode.VIEW_PAGER2-> viewPager2?.let { bindLinkageViewPager2(it) }
+        }
+    }
 
     /**
      * 设置TabLayout的属性
@@ -69,12 +83,7 @@ abstract class Adapter<T : BaseViewHolder> {
         this.viewPager2 = viewPager2
     }
 
-    /**
-     * 初始化显示的位置
-     */
-    open fun getFirstPosition():Int{
-        return 0
-    }
+    internal open fun initComplete(){}
 
     /**
      * 刷新所有的Tab
@@ -95,10 +104,33 @@ abstract class Adapter<T : BaseViewHolder> {
         }
     }
 
-    interface OnTabSelectedListener<T : BaseViewHolder>{
+    private fun bindLinkageViewPager(viewPager: ViewPager){
+        allPowerIndicator.setupWithViewPager(viewPager)
+    }
+
+    private fun bindLinkageViewPager2(viewPager2: ViewPager2){
+        viewPager2.let {
+            TabLayoutMediator(allPowerIndicator, it) { _, _ ->}.attach()
+        }
+    }
+
+    protected fun bindLinkageFree(){
+        for (position in 0 until getItemSize()) {
+            val tab = allPowerIndicator.newTab()
+            allPowerIndicator.addTab(tab)
+        }
+    }
+
+    interface OnTabSelectedListener<T : BaseIndicatorViewHolder>{
         fun selected(holder: T)
         fun unSelected(holder: T)
         fun reSelected(holder: T)
+    }
+
+    enum class Mode(var type:Int){
+        VIEW_PAGER(1),
+        VIEW_PAGER2(2),
+        FREE(3)
     }
 }
 

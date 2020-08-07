@@ -94,21 +94,21 @@ class DriedShrimpActivity : AppCompatActivity() {
         adapter.roundMessageColor = Color.YELLOW
 
         //设置监听
-        adapter.onTabSelectListener = object : BaseBottomCenterBarAdapter.OnTabSelectListener<CenterViewHolder,NormalViewHolder> {
+        adapter.onTabSelectListener = object : BaseBottomCenterBarAdapter.OnTabSelectListener<CenterIndicatorViewHolder,NormalIndicatorViewHolder> {
 
-            override fun onCenterTabListener(holder: CenterViewHolder) {
+            override fun onCenterTabListener(holder: CenterIndicatorViewHolder) {
                Toast.makeText(this@DriedShrimpActivity,"点击了中间111",Toast.LENGTH_SHORT).show()
             }
 
-            override fun onTabReselected(position: Int, holder: NormalViewHolder) {
+            override fun onTabReselected(position: Int, holder: NormalIndicatorViewHolder) {
 
             }
 
-            override fun onTabUnselected(position: Int, holder: NormalViewHolder) {
+            override fun onTabUnselected(position: Int, holder: NormalIndicatorViewHolder) {
                 adapter.defaultTabs[position].isHaveMessage = false
             }
 
-            override fun onTabSelected(position: Int, holder: NormalViewHolder) {
+            override fun onTabSelected(position: Int, holder: NormalIndicatorViewHolder) {
                 adapter.defaultTabs[position].isHaveMessage = true
                 adapter.notifyDataSetChanged()
             }

@@ -1,18 +1,13 @@
 package com.ellen.allpowerfulindicator.atuobottombar
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.bar.DefaultBottomCenterBarAdapter
-import com.ellen.indicator.expand.indicator.RoundIndicatorAdapter
 
 class AutoBottomBarActivity : AppCompatActivity(){
 
@@ -39,7 +34,7 @@ class AutoBottomBarActivity : AppCompatActivity(){
 
         }
 
-        allPowerIndicator.bindViewPager2(RoundIndicatorAdapter(Color.BLUE,Color.RED),viewPager2)
+        allPowerIndicator.bindViewPager2(AutoBottomBarAdapter2(),viewPager2)
     }
 
 }

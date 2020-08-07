@@ -22,16 +22,18 @@ class AllPowerIndicator : TabLayout, Indicator {
         defStyleAttr
     )
 
-    private fun <T : BaseViewHolder>  handlerAdapter(adapter: Adapter<T>){
+    private fun <T : BaseIndicatorViewHolder>  handlerAdapter(adapter: Adapter<T>){
         adapter.allPowerIndicator = this
-        adapter.bindLinkageView(this)
         adapter.settingTabLayout(this)
+        adapter.bindLinkageView()
         val itemCount = adapter.getItemSize()
         var isReset = false
+        var viewTypes:MutableList<Int> = ArrayList()
         for (position in 0 until itemCount) {
             val viewType = adapter.getItemType(position)
+            viewTypes.add(viewType)
             val tab = getTabAt(position)
-            val baseViewHolder = adapter.getViewHolder(viewType)
+            val baseViewHolder:T = adapter.getViewHolder(viewType)
             tab?.setCustomView(baseViewHolder.layoutId)
             baseViewHolder.itemView = tab?.customView
             baseViewHolder.position = position
@@ -49,6 +51,7 @@ class AllPowerIndicator : TabLayout, Indicator {
                 isReset = true
             }
         }
+        adapter.initComplete()
         addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: Tab?) {
                 val baseViewHolder = tab?.customView?.tag as T
@@ -68,26 +71,29 @@ class AllPowerIndicator : TabLayout, Indicator {
                 adapter.onTabSelectedListener?.selected(baseViewHolder)
             }
         })
-
-        //这里可以进一步优化
-        val tab = getTabAt(adapter.getFirstPosition())
-        selectTab(tab)
-        adapter.selectedStatus(tab?.customView?.tag as T)
     }
 
-    override fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager) {
+    override fun <T : BaseIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager) {
         adapter.bindViewPager(viewPager)
+        adapter.mode = Adapter.Mode.VIEW_PAGER
         handlerAdapter(adapter)
     }
 
-    override fun <T : BaseViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2) {
+    override fun <T : BaseIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2) {
         adapter.bindViewPager2(viewPager2)
+        adapter.mode = Adapter.Mode.VIEW_PAGER2
+        handlerAdapter(adapter)
+    }
+
+    override fun <T : BaseIndicatorViewHolder> bindFree(adapter: Adapter<T>) {
+        adapter.mode = Adapter.Mode.FREE
         handlerAdapter(adapter)
     }
 }
 
 private interface Indicator {
-    fun <T : BaseViewHolder> bindViewPager(adapter: Adapter<T>,viewPager: ViewPager)
-    fun <T : BaseViewHolder> bindViewPager2(adapter: Adapter<T>,viewPager2: ViewPager2)
+    fun <T : BaseIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager)
+    fun <T : BaseIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2)
+    fun <T : BaseIndicatorViewHolder> bindFree(adapter: Adapter<T>)
 }
 

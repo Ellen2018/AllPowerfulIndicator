@@ -3,38 +3,37 @@ package com.ellen.allpowerfulindicator.autoindicator
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.indicator.expand.indicator.BaseIndicatorViewPagerAdapter
-import com.ellen.indicator.BaseViewHolder
+import com.ellen.indicator.BaseIndicatorViewHolder
 
 class AutoIndicatorAdapter(var strList:MutableList<String>) :
-    BaseIndicatorViewPagerAdapter<AutoIndicatorViewHolder>() {
+    BaseIndicatorViewPagerAdapter<AutoIndicatorIndicatorViewHolder>() {
 
-    override fun getViewHolder(viewType: Int): AutoIndicatorViewHolder {
-        return AutoIndicatorViewHolder(R.layout.item_my_auto_indicator)
+    override fun getViewHolder(viewType: Int): AutoIndicatorIndicatorViewHolder {
+        return AutoIndicatorIndicatorViewHolder(R.layout.item_my_auto_indicator)
     }
 
-    override fun showContent(holder: AutoIndicatorViewHolder) {
+    override fun showContent(holder: AutoIndicatorIndicatorViewHolder) {
         holder.tv.text = strList[holder.position]
     }
 
-    override fun initTab(holder: AutoIndicatorViewHolder) {
+    override fun initTab(holder: AutoIndicatorIndicatorViewHolder) {
         holder.iv.visibility = View.GONE
         holder.tv.visibility = View.VISIBLE
     }
 
-    override fun selectedStatus(holder: AutoIndicatorViewHolder) {
+    override fun selectedStatus(holder: AutoIndicatorIndicatorViewHolder) {
         holder.iv.visibility = View.VISIBLE
         holder.tv.visibility = View.GONE
     }
 
-    override fun unSelectedStatus(holder: AutoIndicatorViewHolder) {
+    override fun unSelectedStatus(holder: AutoIndicatorIndicatorViewHolder) {
         holder.iv.visibility = View.GONE
         holder.tv.visibility = View.VISIBLE
     }
 
-    override fun reSelectedStatus(holder: AutoIndicatorViewHolder) {
+    override fun reSelectedStatus(holder: AutoIndicatorIndicatorViewHolder) {
         holder.iv.visibility = View.VISIBLE
         holder.tv.visibility = View.GONE
     }
@@ -42,7 +41,7 @@ class AutoIndicatorAdapter(var strList:MutableList<String>) :
 }
 
 
-class AutoIndicatorViewHolder(layoutId: Int) : BaseViewHolder(layoutId) {
+class AutoIndicatorIndicatorViewHolder(layoutId: Int) : BaseIndicatorViewHolder(layoutId) {
     lateinit var tv: TextView
     lateinit var iv: ImageView
     override fun bindView(itemView: View) {

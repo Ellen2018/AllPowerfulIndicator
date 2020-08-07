@@ -1,16 +1,14 @@
 package com.ellen.indicator.expand.indicator
 
 import android.view.View
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import com.ellen.indicator.BaseViewHolder
+import com.ellen.indicator.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 
 /**
  * 短横线指示器
  */
 class RectangleIndicatorAdapter :
-    BaseIndicatorViewPagerAdapter<RectangleIndicatorViewHolder> {
+    BaseIndicatorViewPagerAdapter<RectangleIndicatorIndicatorViewHolder> {
 
     private var unSelectColor:Int = 0
     private var selectColor:Int = 0
@@ -21,30 +19,30 @@ class RectangleIndicatorAdapter :
         this.selectColor = selectColor
     }
 
-    override fun getViewHolder(viewType: Int): RectangleIndicatorViewHolder {
-        return RectangleIndicatorViewHolder(
+    override fun getViewHolder(viewType: Int): RectangleIndicatorIndicatorViewHolder {
+        return RectangleIndicatorIndicatorViewHolder(
             R.layout.item_tab_layout_rectangle_view
         )
     }
 
-    override fun initTab(holder: RectangleIndicatorViewHolder) {
+    override fun initTab(holder: RectangleIndicatorIndicatorViewHolder) {
         holder.view.setBackgroundColor(unSelectColor)
     }
 
-    override fun selectedStatus(holder: RectangleIndicatorViewHolder) {
+    override fun selectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
         holder.view.setBackgroundColor(selectColor)
     }
 
-    override fun unSelectedStatus(holder: RectangleIndicatorViewHolder) {
+    override fun unSelectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
         holder.view.setBackgroundColor(unSelectColor)
     }
 
-    override fun reSelectedStatus(holder: RectangleIndicatorViewHolder) {
+    override fun reSelectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
         holder.view.setBackgroundColor(selectColor)
     }
 }
 
-class RectangleIndicatorViewHolder(layoutId:Int) : BaseViewHolder(layoutId){
+class RectangleIndicatorIndicatorViewHolder(layoutId:Int) : BaseIndicatorViewHolder(layoutId){
 
     lateinit var view:View
 

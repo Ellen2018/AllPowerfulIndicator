@@ -3,38 +3,36 @@ package com.ellen.indicator.expand.indicator
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import com.ellen.indicator.BaseViewHolder
+import com.ellen.indicator.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 
 /**
  * 圆点指示器
  */
 class RoundIndicatorAdapter(var selectColor: Int,var unSelectColor: Int) :
-    BaseIndicatorViewPagerAdapter<RoundIndicatorViewHolder>() {
+    BaseIndicatorViewPagerAdapter<RoundIndicatorIndicatorViewHolder>() {
 
-    override fun getViewHolder(viewType: Int): RoundIndicatorViewHolder {
-        return RoundIndicatorViewHolder(R.layout.item_tab_layout_round_view)
+    override fun getViewHolder(viewType: Int): RoundIndicatorIndicatorViewHolder {
+        return RoundIndicatorIndicatorViewHolder(R.layout.item_tab_layout_round_view)
     }
 
-    override fun initTab(holder: RoundIndicatorViewHolder) {
+    override fun initTab(holder: RoundIndicatorIndicatorViewHolder) {
        unSelectedStatus(holder)
     }
 
-    override fun selectedStatus(holder: RoundIndicatorViewHolder) {
+    override fun selectedStatus(holder: RoundIndicatorIndicatorViewHolder) {
         val drawable = ShapeDrawable(OvalShape())
         drawable.paint.color = selectColor
         holder.view.background = drawable
     }
 
-    override fun unSelectedStatus(holder: RoundIndicatorViewHolder) {
+    override fun unSelectedStatus(holder: RoundIndicatorIndicatorViewHolder) {
         val drawable = ShapeDrawable(OvalShape())
         drawable.paint.color = unSelectColor
         holder.view.background = drawable
     }
 
-    override fun reSelectedStatus(holder: RoundIndicatorViewHolder) {
+    override fun reSelectedStatus(holder: RoundIndicatorIndicatorViewHolder) {
         val drawable = ShapeDrawable(OvalShape())
         drawable.paint.color = selectColor
         holder.view.background = drawable
@@ -42,7 +40,7 @@ class RoundIndicatorAdapter(var selectColor: Int,var unSelectColor: Int) :
 }
 
 
-class RoundIndicatorViewHolder(layoutId:Int): BaseViewHolder(layoutId){
+class RoundIndicatorIndicatorViewHolder(layoutId:Int): BaseIndicatorViewHolder(layoutId){
     lateinit var view:View
     override fun bindView(itemView: View) {
         view = itemView.findViewById(R.id.view)
