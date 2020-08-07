@@ -23,6 +23,7 @@
         <activity android:name=".driedshrimp.DriedShrimpActivity"/>
         <activity android:name=".autodriedshrimp.AutoDriedShrimpActivity"/>
         <activity android:name=".atuobottombar.AutoBottomBarActivity"/>
+        <activity android:name=".free.FreeIndicatorActivity"/>
     </application>
 
 </manifest>

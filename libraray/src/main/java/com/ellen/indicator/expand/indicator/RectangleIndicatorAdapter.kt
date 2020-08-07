@@ -7,16 +7,13 @@ import com.ellen.libraray.R
 /**
  * 短横线指示器
  */
-class RectangleIndicatorAdapter :
-    BaseIndicatorViewPagerAdapter<RectangleIndicatorIndicatorViewHolder> {
+class RectangleIndicatorAdapter (var selectColor: Int,var unSelectColor: Int)  :
+    BaseIndicatorViewPagerAdapter<RectangleIndicatorIndicatorViewHolder>() {
 
-    private var unSelectColor:Int = 0
-    private var selectColor:Int = 0
-
-    constructor(selectColor:Int, unSelectColor:Int){
-        this.viewPager = viewPager
+    constructor(selectColor:Int, unSelectColor:Int,tabCount:Int):this(selectColor,unSelectColor){
         this.unSelectColor = unSelectColor
         this.selectColor = selectColor
+        this.tabCount = tabCount
     }
 
     override fun getViewHolder(viewType: Int): RectangleIndicatorIndicatorViewHolder {

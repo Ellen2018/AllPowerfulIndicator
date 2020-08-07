@@ -83,7 +83,12 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
         this.viewPager2 = viewPager2
     }
 
-    internal open fun initComplete(){}
+    internal open fun initComplete(){
+        if(getItemSize() != 0){
+            allPowerIndicator.selectTab(allPowerIndicator.getTabAt(0))
+            selectedStatus(allPowerIndicator.getTabAt(0)?.customView?.tag as T)
+        }
+    }
 
     /**
      * 刷新所有的Tab
@@ -127,10 +132,10 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
         fun reSelected(holder: T)
     }
 
-    enum class Mode(var type:Int){
-        VIEW_PAGER(1),
-        VIEW_PAGER2(2),
-        FREE(3)
+    enum class Mode{
+        VIEW_PAGER,
+        VIEW_PAGER2,
+        FREE
     }
 }
 

@@ -12,6 +12,12 @@ import com.ellen.libraray.R
 class RoundIndicatorAdapter(var selectColor: Int,var unSelectColor: Int) :
     BaseIndicatorViewPagerAdapter<RoundIndicatorIndicatorViewHolder>() {
 
+    constructor(selectColor:Int, unSelectColor:Int,tabCount:Int) : this(selectColor,unSelectColor) {
+        this.unSelectColor = unSelectColor
+        this.selectColor = selectColor
+        this.tabCount = tabCount
+    }
+
     override fun getViewHolder(viewType: Int): RoundIndicatorIndicatorViewHolder {
         return RoundIndicatorIndicatorViewHolder(R.layout.item_tab_layout_round_view)
     }

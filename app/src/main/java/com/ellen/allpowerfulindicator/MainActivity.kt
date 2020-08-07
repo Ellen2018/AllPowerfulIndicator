@@ -10,6 +10,7 @@ import com.ellen.allpowerfulindicator.autodriedshrimp.AutoDriedShrimpActivity
 import com.ellen.allpowerfulindicator.autoindicator.AutoIndicatorActivity
 import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
 import com.ellen.allpowerfulindicator.driedshrimp.DriedShrimpActivity
+import com.ellen.allpowerfulindicator.free.FreeIndicatorActivity
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_xm).setOnClickListener(this)
         findViewById<Button>(R.id.bt_xm_auto_center).setOnClickListener(this)
         findViewById<Button>(R.id.bt_auto_bottom_bar).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_free_indicator).setOnClickListener(this)
 
     }
 
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,AutoDriedShrimpActivity::class.java)
             R.id.bt_auto_bottom_bar->
                 intent = Intent(this@MainActivity,AutoBottomBarActivity::class.java)
+            R.id.bt_free_indicator->
+                intent = Intent(this@MainActivity,FreeIndicatorActivity::class.java)
         }
         startActivity(intent)
     }

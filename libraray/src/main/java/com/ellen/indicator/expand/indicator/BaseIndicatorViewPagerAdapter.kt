@@ -6,8 +6,18 @@ import com.ellen.indicator.Adapter
 import com.ellen.indicator.BaseIndicatorViewHolder
 import com.google.android.material.tabs.TabLayout
 
-abstract class BaseIndicatorViewPagerAdapter<T : BaseIndicatorViewHolder> :
+abstract class BaseIndicatorViewPagerAdapter<T : BaseIndicatorViewHolder>:
     Adapter<T>() {
+
+    var tabCount = 0
+
+    override fun getItemSize(): Int {
+        return if(mode == Mode.FREE){
+            tabCount
+        }else {
+            super.getItemSize()
+        }
+    }
 
     override fun getItemType(position: Int): Int {
         return 0
@@ -21,10 +31,5 @@ abstract class BaseIndicatorViewPagerAdapter<T : BaseIndicatorViewHolder> :
         tabLayout.tabRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
         tabLayout.tabMode = TabLayout.MODE_FIXED
         tabLayout.setSelectedTabIndicator(null)
-    }
-
-    final override fun initComplete() {
-        allPowerIndicator.selectTab(allPowerIndicator.getTabAt(0))
-        selectedStatus(allPowerIndicator.getTabAt(0)?.customView?.tag as T)
     }
 }
