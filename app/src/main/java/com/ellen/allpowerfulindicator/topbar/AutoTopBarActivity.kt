@@ -8,11 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.topbar.OriginalTopBarAdapter
-import com.google.android.material.tabs.TabLayout
 
 class AutoTopBarActivity : AppCompatActivity(){
-
 
     private lateinit var viewPager2: ViewPager2
     private lateinit var allPowerIndicator: AllPowerIndicator
