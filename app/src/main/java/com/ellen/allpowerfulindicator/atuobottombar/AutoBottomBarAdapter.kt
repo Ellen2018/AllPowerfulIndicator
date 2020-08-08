@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
 import com.ellen.indicator.BaseIndicatorViewHolder
-import com.ellen.indicator.expand.bar.BaseBottomBar
+import com.ellen.indicator.expand.bottombar.BaseBottomBar
 
 /**
  * 通过继承

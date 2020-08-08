@@ -24,6 +24,8 @@
         <activity android:name=".autodriedshrimp.AutoDriedShrimpActivity"/>
         <activity android:name=".atuobottombar.AutoBottomBarActivity"/>
         <activity android:name=".free.FreeIndicatorActivity"/>
+        <activity android:name=".topbar.OriginalTopBarActivity"/>
+        <activity android:name=".topbar.AutoTopBarActivity"/>
     </application>
 
 </manifest>

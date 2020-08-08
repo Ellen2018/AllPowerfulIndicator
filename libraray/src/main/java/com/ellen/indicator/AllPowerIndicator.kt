@@ -26,51 +26,51 @@ class AllPowerIndicator : TabLayout, Indicator {
         adapter.allPowerIndicator = this
         adapter.settingTabLayout(this)
         adapter.bindLinkageView()
-        val itemCount = adapter.getItemSize()
-        var isReset = false
-        var viewTypes:MutableList<Int> = ArrayList()
-        for (position in 0 until itemCount) {
-            val viewType = adapter.getItemType(position)
-            viewTypes.add(viewType)
-            val tab = getTabAt(position)
-            val baseViewHolder:T = adapter.getViewHolder(viewType)
-            tab?.setCustomView(baseViewHolder.layoutId)
-            baseViewHolder.itemView = tab?.customView
-            baseViewHolder.position = position
-            baseViewHolder.viewType = viewType
-            tab?.customView?.tag = baseViewHolder
-            tab?.customView?.let { baseViewHolder.bindView(it) }
-            tab?.customView?.let { adapter.initTab(baseViewHolder) }
-            tab?.customView?.let { adapter.showContent(baseViewHolder) }
+        if(!adapter.isOriginal()) {
+            val itemCount = adapter.getItemSize()
+            var isReset = false
+            for (position in 0 until itemCount) {
+                val viewType = adapter.getItemType(position)
+                val tab = getTabAt(position)
+                val baseViewHolder: T? = adapter.getViewHolder(viewType)
+                baseViewHolder?.layoutId?.let { tab?.setCustomView(it) }
+                baseViewHolder?.itemView = tab?.customView
+                baseViewHolder?.position = position
+                baseViewHolder?.viewType = viewType
+                tab?.customView?.tag = baseViewHolder
+                tab?.customView?.let { baseViewHolder?.bindView(it) }
+                tab?.customView?.let { baseViewHolder?.let { it1 -> adapter.initTab(it1) } }
+                tab?.customView?.let { baseViewHolder?.let { it1 -> adapter.showContent(it1) } }
 
-            //重新调整TabLayout的大小
-            if (!isReset) {
-                val layoutParams = layoutParams
-                layoutParams.height = tab?.customView?.layoutParams?.height!!
-                this.layoutParams = layoutParams
-                isReset = true
+                //重新调整TabLayout的大小
+                if (!isReset) {
+                    val layoutParams = layoutParams
+                    layoutParams.height = tab?.customView?.layoutParams?.height!!
+                    this.layoutParams = layoutParams
+                    isReset = true
+                }
             }
+            adapter.initComplete()
+            addOnTabSelectedListener(object : OnTabSelectedListener {
+                override fun onTabReselected(tab: Tab?) {
+                    val baseViewHolder = tab?.customView?.tag as T
+                    adapter.reSelectedStatus(baseViewHolder)
+                    adapter.onTabSelectedListener?.reSelected(baseViewHolder)
+                }
+
+                override fun onTabUnselected(tab: Tab?) {
+                    val baseViewHolder = tab?.customView?.tag as T
+                    adapter.unSelectedStatus(baseViewHolder)
+                    adapter.onTabSelectedListener?.unSelected(baseViewHolder)
+                }
+
+                override fun onTabSelected(tab: Tab?) {
+                    val baseViewHolder = tab?.customView?.tag as T
+                    adapter.selectedStatus(baseViewHolder)
+                    adapter.onTabSelectedListener?.selected(baseViewHolder)
+                }
+            })
         }
-        adapter.initComplete()
-        addOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabReselected(tab: Tab?) {
-                val baseViewHolder = tab?.customView?.tag as T
-                adapter.reSelectedStatus(baseViewHolder)
-                adapter.onTabSelectedListener?.reSelected(baseViewHolder)
-            }
-
-            override fun onTabUnselected(tab: Tab?) {
-                val baseViewHolder = tab?.customView?.tag as T
-                adapter.unSelectedStatus(baseViewHolder)
-                adapter.onTabSelectedListener?.unSelected(baseViewHolder)
-            }
-
-            override fun onTabSelected(tab: Tab?) {
-                val baseViewHolder = tab?.customView?.tag as T
-                adapter.selectedStatus(baseViewHolder)
-                adapter.onTabSelectedListener?.selected(baseViewHolder)
-            }
-        })
     }
 
     override fun <T : BaseIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager) {

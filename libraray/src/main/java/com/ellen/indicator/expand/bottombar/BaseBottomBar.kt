@@ -1,4 +1,4 @@
-package com.ellen.indicator.expand.bar
+package com.ellen.indicator.expand.bottombar
 
 import com.ellen.indicator.Adapter
 import com.ellen.indicator.BaseIndicatorViewHolder

@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/bt_view_pager"
-        android:text="绑定ViewPager(圆点指示器)"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_view_pager2"
-        android:text="绑定ViewPager2(短横线指示器)"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="绑定ViewPager(圆点指示器)" />
 
-    <Button
-        android:id="@+id/bt_auto_indicator"
-        android:text="绑定自定义指示器"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_view_pager2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="绑定ViewPager2(短横线指示器)"/>
 
-    <Button
-        android:id="@+id/bt_bottom_navigation_bar"
-        android:text="绑定底部导航栏(图片+title)"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_auto_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="绑定自定义指示器"/>
 
-    <Button
-        android:id="@+id/bt_xm"
-        android:text="仿虾米音乐底部导航栏"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="绑定底部导航栏(图片+title)"/>
 
-    <Button
-        android:id="@+id/bt_xm_auto_center"
-        android:text="仿虾米音乐底部导航栏(自定义中间)"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_xm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="仿虾米音乐底部导航栏"/>
 
-    <Button
-        android:id="@+id/bt_auto_bottom_bar"
-        android:text="自定义底部bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_xm_auto_center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="仿虾米音乐底部导航栏(自定义中间)"/>
 
-    <Button
-        android:id="@+id/bt_free_indicator"
-        android:text="自由模式(指示器)"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/bt_auto_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="自定义底部bar" />
 
+        <Button
+            android:id="@+id/bt_free_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="自由模式(指示器)" />
 
+        <Button
+            android:id="@+id/bt_top_o_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="顶部导航栏(原始)" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/bt_top_auto_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="顶部导航栏(自定义)" />
+
+    </LinearLayout>
+
+</ScrollView>

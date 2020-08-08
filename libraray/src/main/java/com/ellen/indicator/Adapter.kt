@@ -8,10 +8,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 abstract class Adapter<T : BaseIndicatorViewHolder> {
 
     lateinit var allPowerIndicator: AllPowerIndicator
-    internal var onTabSelectedListener:OnTabSelectedListener<T>? = null
+    var onTabSelectedListener:OnTabSelectedListener<T>? = null
 
     protected var viewPager:ViewPager? = null
     protected var viewPager2: ViewPager2? = null
+    protected var isBindAllPowerIndicator = false
     internal lateinit var mode:Mode
 
     /**
@@ -22,7 +23,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
     /**
      * 绑定Tab的ViewHolder
      */
-    abstract fun getViewHolder(viewType: Int): T
+    abstract fun getViewHolder(viewType: Int): T?
 
     /**
      * tab的个数get
@@ -49,6 +50,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
      * 绑定联动的View
      */
     open fun bindLinkageView(){
+        isBindAllPowerIndicator = true
         when(mode){
             Mode.FREE->bindLinkageFree()
             Mode.VIEW_PAGER-> viewPager?.let { bindLinkageViewPager(it) }
@@ -88,6 +90,10 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
             allPowerIndicator.selectTab(allPowerIndicator.getTabAt(0))
             selectedStatus(allPowerIndicator.getTabAt(0)?.customView?.tag as T)
         }
+    }
+
+    internal open fun isOriginal():Boolean{
+        return false
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.ellen.indicator.expand.bar
+package com.ellen.indicator.expand.bottombar
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -15,29 +15,9 @@ class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterIndicator
     var defaultTabs: MutableList<DefaultTab> = ArrayList()
     var autoCenterViewHolder: CenterIndicatorViewHolder? = null
     var centerImageResource: Int? = null
-        set(value) {
-            if (field != value) {
-                isChange = true
-            }
-            field = value
-        }
     var isContainsCenter = false
-    private var isChange = false
     var selectedColor: Int = Color.BLUE
-        set(value) {
-            if (field != value) {
-                isChange = true
-            }
-            field = value
-        }
     var unSelectedColor = Color.GRAY
-        set(value) {
-            if (field != value) {
-                isChange = true
-            }
-            field = value
-        }
-
     var roundMessageColor = Color.RED
 
     override fun getCenterViewHolder(): CenterIndicatorViewHolder? {

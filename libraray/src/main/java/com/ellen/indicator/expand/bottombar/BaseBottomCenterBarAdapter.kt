@@ -1,6 +1,5 @@
-package com.ellen.indicator.expand.bar
+package com.ellen.indicator.expand.bottombar
 
-import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
@@ -22,23 +21,17 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
     var onTabSelectListener: OnTabSelectListener<C, N>? = null
     private var centerViewHolder:C? = null
 
-    //避免首次进入时触发reset 0 的bug
-    private var isFirst = false
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
 
         override fun onPageSelected(position: Int) {
-            if(!isFirst){
-                isFirst = !isFirst
-            }else {
-                if(centerViewHolder != null) {
-                    if (position >= getCenterPosition()) {
-                        allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
-                    } else {
-                        allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
-                    }
-                }else{
+            if (centerViewHolder != null) {
+                if (position >= getCenterPosition()) {
+                    allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position + 1))
+                } else {
                     allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
                 }
+            } else {
+                allPowerIndicator.selectTab(allPowerIndicator.getTabAt(position))
             }
         }
     }

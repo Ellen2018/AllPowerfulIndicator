@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.bar.*
+import com.ellen.indicator.expand.bottombar.*
 
 /**
  * 仿虾米音乐底部导航栏效果

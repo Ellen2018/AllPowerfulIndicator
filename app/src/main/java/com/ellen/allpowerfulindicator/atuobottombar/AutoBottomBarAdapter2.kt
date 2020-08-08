@@ -3,7 +3,7 @@ package com.ellen.allpowerfulindicator.atuobottombar
 import android.graphics.Color
 import com.ellen.allpowerfulindicator.R
 import com.ellen.indicator.BaseIndicatorViewHolder
-import com.ellen.indicator.expand.bar.BaseBottomCenterBarAdapter
+import com.ellen.indicator.expand.bottombar.BaseBottomCenterBarAdapter
 
 /**
  * 这种方式也能完成自定义底部导航栏

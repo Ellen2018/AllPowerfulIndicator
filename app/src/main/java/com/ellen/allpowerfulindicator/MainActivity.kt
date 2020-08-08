@@ -11,6 +11,8 @@ import com.ellen.allpowerfulindicator.autoindicator.AutoIndicatorActivity
 import com.ellen.allpowerfulindicator.bottomnavigation.BottomNavigationBarActivity
 import com.ellen.allpowerfulindicator.driedshrimp.DriedShrimpActivity
 import com.ellen.allpowerfulindicator.free.FreeIndicatorActivity
+import com.ellen.allpowerfulindicator.topbar.AutoTopBarActivity
+import com.ellen.allpowerfulindicator.topbar.OriginalTopBarActivity
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_xm_auto_center).setOnClickListener(this)
         findViewById<Button>(R.id.bt_auto_bottom_bar).setOnClickListener(this)
         findViewById<Button>(R.id.bt_free_indicator).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_top_o_bar).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_top_auto_bar).setOnClickListener(this)
 
     }
 
@@ -46,6 +50,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,AutoBottomBarActivity::class.java)
             R.id.bt_free_indicator->
                 intent = Intent(this@MainActivity,FreeIndicatorActivity::class.java)
+            R.id.bt_top_o_bar->
+                intent = Intent(this@MainActivity,OriginalTopBarActivity::class.java)
+            R.id.bt_top_auto_bar->
+                intent = Intent(this@MainActivity,AutoTopBarActivity::class.java)
         }
         startActivity(intent)
     }
