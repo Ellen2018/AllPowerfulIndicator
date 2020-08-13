@@ -3,10 +3,10 @@ package com.ellen.indicator.horizontal.expand.indicator
 import android.content.res.ColorStateList
 import android.graphics.Color
 import com.ellen.indicator.horizontal.Adapter
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.google.android.material.tabs.TabLayout
 
-abstract class BaseIndicatorViewPagerAdapter<T : BaseIndicatorViewHolder>:
+abstract class BaseIndicatorViewPagerAdapter<T : BaseHorizontalIndicatorViewHolder>:
     Adapter<T>() {
 
     var tabCount = 0

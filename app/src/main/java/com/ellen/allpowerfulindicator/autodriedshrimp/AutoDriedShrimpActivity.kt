@@ -80,7 +80,7 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         adapter.isContainsCenter = true
 
         //自定义中间Tab
-        adapter.autoCenterViewHolder = MyCenterIndicatorViewHolder(R.layout.view_auto_center,"哈哈哈")
+        adapter.autoCenterViewHolder = MyCenterHorizontalIndicatorViewHolder(R.layout.view_auto_center,"哈哈哈")
 
         //取消动画效果
         //adapter.animResource = null
@@ -96,23 +96,23 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         adapter.roundMessageColor = Color.RED
 
         //设置监听
-        adapter.onTabSelectListener = object : BaseBottomCenterBarAdapter.OnTabSelectListener<CenterIndicatorViewHolder,NormalIndicatorViewHolder> {
+        adapter.onTabSelectListener = object : BaseBottomCenterBarAdapter.OnTabSelectListener<CenterHorizontalIndicatorViewHolder,NormalHorizontalIndicatorViewHolder> {
 
-            override fun onCenterTabListener(holder: CenterIndicatorViewHolder) {
-                (holder as MyCenterIndicatorViewHolder).string = "呵呵呵"
+            override fun onCenterTabListener(holder: CenterHorizontalIndicatorViewHolder) {
+                (holder as MyCenterHorizontalIndicatorViewHolder).string = "呵呵呵"
                 Toast.makeText(this@AutoDriedShrimpActivity, "点击了中间", Toast.LENGTH_SHORT).show()
                 adapter.notifyDataSetChanged()
             }
 
-            override fun onTabReselected(position: Int, holder: NormalIndicatorViewHolder) {
+            override fun onTabReselected(position: Int, holder: NormalHorizontalIndicatorViewHolder) {
                 Toast.makeText(this@AutoDriedShrimpActivity,"重选$position",Toast.LENGTH_SHORT).show()
             }
 
-            override fun onTabUnselected(position: Int, holder: NormalIndicatorViewHolder) {
+            override fun onTabUnselected(position: Int, holder: NormalHorizontalIndicatorViewHolder) {
                 Toast.makeText(this@AutoDriedShrimpActivity,"未选$position",Toast.LENGTH_SHORT).show()
             }
 
-            override fun onTabSelected(position: Int, holder: NormalIndicatorViewHolder) {
+            override fun onTabSelected(position: Int, holder: NormalHorizontalIndicatorViewHolder) {
                 Toast.makeText(this@AutoDriedShrimpActivity,"选择$position",Toast.LENGTH_SHORT).show()
             }
         }
@@ -120,7 +120,7 @@ class AutoDriedShrimpActivity : AppCompatActivity() {
         allPowerIndicator.bindViewPager(adapter,viewPager)
     }
 
-    class MyCenterIndicatorViewHolder(layoutId:Int, var string: String) : CenterIndicatorViewHolder(layoutId){
+    class MyCenterHorizontalIndicatorViewHolder(layoutId:Int, var string: String) : CenterHorizontalIndicatorViewHolder(layoutId){
 
         override fun notifyDataSetChanged() {
             itemView?.tv?.text = string

@@ -75,6 +75,12 @@
             android:layout_height="50dp"
             android:text="仿网易顶部导航栏(自定义)" />
 
+        <Button
+            android:id="@+id/bt_v_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="指示器(竖直方向)" />
+
     </LinearLayout>
 
 </ScrollView>

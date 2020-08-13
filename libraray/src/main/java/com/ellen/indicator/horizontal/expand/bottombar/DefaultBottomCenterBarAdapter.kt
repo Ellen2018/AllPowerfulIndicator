@@ -7,36 +7,36 @@ import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.ellen.libraray.R
 
-class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterIndicatorViewHolder, NormalIndicatorViewHolder>() {
+class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterHorizontalIndicatorViewHolder, NormalHorizontalIndicatorViewHolder>() {
 
     var defaultTabs: MutableList<DefaultTab> = ArrayList()
-    var autoCenterViewHolder: CenterIndicatorViewHolder? = null
+    var autoCenterViewHolder: CenterHorizontalIndicatorViewHolder? = null
     var centerImageResource: Int? = null
     var isContainsCenter = false
     var selectedColor: Int = Color.BLUE
     var unSelectedColor = Color.GRAY
     var roundMessageColor = Color.RED
 
-    override fun getCenterViewHolder(): CenterIndicatorViewHolder? {
+    override fun getCenterViewHolder(): CenterHorizontalIndicatorViewHolder? {
         return if (isContainsCenter) {
             if (autoCenterViewHolder != null) {
                 return autoCenterViewHolder
             } else {
-                CenterIndicatorViewHolder(R.layout.item_view_center)
+                CenterHorizontalIndicatorViewHolder(R.layout.item_view_center)
             }
         } else {
             null
         }
     }
 
-    override fun getNormalViewHolder(): NormalIndicatorViewHolder {
-        return NormalIndicatorViewHolder(R.layout.item_view_normal)
+    override fun getNormalViewHolder(): NormalHorizontalIndicatorViewHolder {
+        return NormalHorizontalIndicatorViewHolder(R.layout.item_view_normal)
     }
 
-    override fun showContentNormal(truePosition: Int, holder: NormalIndicatorViewHolder) {
+    override fun showContentNormal(truePosition: Int, holder: NormalHorizontalIndicatorViewHolder) {
         holder.tvTitle.text = defaultTabs[truePosition].title
         defaultTabs[truePosition].imageResource.let { holder.iv.setImageResource(it) }
         if (defaultTabs[truePosition].isHaveMessage) {
@@ -49,7 +49,7 @@ class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterIndicator
         }
     }
 
-    override fun showContentCenter(holder: CenterIndicatorViewHolder) {
+    override fun showContentCenter(holder: CenterHorizontalIndicatorViewHolder) {
         if (autoCenterViewHolder == null) {
             centerImageResource?.let {
                 holder.itemView?.findViewById<ImageView>(R.id.iv)?.setImageResource(it)
@@ -59,41 +59,41 @@ class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterIndicator
         }
     }
 
-    override fun initCenterTab(holder: CenterIndicatorViewHolder) {
+    override fun initCenterTab(holder: CenterHorizontalIndicatorViewHolder) {
 
     }
 
-    override fun initNormalTab(holder: NormalIndicatorViewHolder) {
+    override fun initNormalTab(holder: NormalHorizontalIndicatorViewHolder) {
         unSelectedStatus(holder)
     }
 
-    override fun selectedStatus(holderIndicator: BaseIndicatorViewHolder) {
-        if(holderIndicator is NormalIndicatorViewHolder) {
-            holderIndicator.iv.imageTintList = ColorStateList.valueOf(selectedColor)
-            holderIndicator.tvTitle.setTextColor(selectedColor)
+    override fun selectedStatus(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
+        if(holderHorizontalIndicator is NormalHorizontalIndicatorViewHolder) {
+            holderHorizontalIndicator.iv.imageTintList = ColorStateList.valueOf(selectedColor)
+            holderHorizontalIndicator.tvTitle.setTextColor(selectedColor)
         }
     }
 
-    override fun unSelectedStatus(holderIndicator: BaseIndicatorViewHolder) {
-        if(holderIndicator is NormalIndicatorViewHolder) {
-            holderIndicator.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
-            holderIndicator.tvTitle.setTextColor(unSelectedColor)
+    override fun unSelectedStatus(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
+        if(holderHorizontalIndicator is NormalHorizontalIndicatorViewHolder) {
+            holderHorizontalIndicator.iv.imageTintList = ColorStateList.valueOf(unSelectedColor)
+            holderHorizontalIndicator.tvTitle.setTextColor(unSelectedColor)
         }else{
             if(autoCenterViewHolder != null){
                 autoCenterViewHolder?.notifyDataSetChanged()
             }else{
-                val centerViewHolder = holderIndicator as CenterIndicatorViewHolder
+                val centerViewHolder = holderHorizontalIndicator as CenterHorizontalIndicatorViewHolder
                 centerViewHolder.notifyDataSetChanged()
             }
         }
     }
 
-    override fun reSelectedStatus(holderIndicator: BaseIndicatorViewHolder) {
+    override fun reSelectedStatus(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
 
     }
 }
 
-open class CenterIndicatorViewHolder(itemLayoutId: Int) : BaseIndicatorViewHolder(itemLayoutId) {
+open class CenterHorizontalIndicatorViewHolder(itemLayoutId: Int) : BaseHorizontalIndicatorViewHolder(itemLayoutId) {
 
     override fun bindView(itemView: View) {
 
@@ -102,7 +102,7 @@ open class CenterIndicatorViewHolder(itemLayoutId: Int) : BaseIndicatorViewHolde
     open fun notifyDataSetChanged() {}
 }
 
-class NormalIndicatorViewHolder(itemLayoutId: Int) : BaseIndicatorViewHolder(itemLayoutId) {
+class NormalHorizontalIndicatorViewHolder(itemLayoutId: Int) : BaseHorizontalIndicatorViewHolder(itemLayoutId) {
 
 
     lateinit var tvTitle: TextView

@@ -13,6 +13,7 @@ import com.ellen.allpowerfulindicator.driedshrimp.DriedShrimpActivity
 import com.ellen.allpowerfulindicator.free.FreeIndicatorActivity
 import com.ellen.allpowerfulindicator.topbar.AutoTopBarActivity
 import com.ellen.allpowerfulindicator.topbar.OriginalTopBarActivity
+import com.ellen.allpowerfulindicator.verticalindicator.VerticalViewPager2Activity
 import com.ellen.allpowerfulindicator.wy.WyTopBarActivity
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         findViewById<Button>(R.id.bt_top_o_bar).setOnClickListener(this)
         findViewById<Button>(R.id.bt_top_auto_bar).setOnClickListener(this)
         findViewById<Button>(R.id.bt_top_wy_bar).setOnClickListener(this)
+        findViewById<Button>(R.id.bt_v_indicator).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -57,6 +59,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 intent = Intent(this@MainActivity,AutoTopBarActivity::class.java)
             R.id.bt_top_wy_bar->
                 intent = Intent(this@MainActivity,WyTopBarActivity::class.java)
+            R.id.bt_v_indicator->
+                intent = Intent(this@MainActivity,VerticalViewPager2Activity::class.java)
         }
         startActivity(intent)
     }

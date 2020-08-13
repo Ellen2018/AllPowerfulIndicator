@@ -5,7 +5,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-abstract class Adapter<T : BaseIndicatorViewHolder> {
+abstract class Adapter<T : BaseHorizontalIndicatorViewHolder> {
 
     lateinit var allPowerIndicator: HorizontalIndicator
     var onTabSelectedListener: OnTabSelectedListener<T>? = null
@@ -132,7 +132,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
         }
     }
 
-    interface OnTabSelectedListener<T : BaseIndicatorViewHolder>{
+    interface OnTabSelectedListener<T : BaseHorizontalIndicatorViewHolder>{
         fun selected(holder: T)
         fun unSelected(holder: T)
         fun reSelected(holder: T)

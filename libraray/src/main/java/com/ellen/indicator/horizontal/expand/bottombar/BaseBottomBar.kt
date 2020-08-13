@@ -1,10 +1,10 @@
 package com.ellen.indicator.horizontal.expand.bottombar
 
 import com.ellen.indicator.horizontal.Adapter
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.google.android.material.tabs.TabLayout
 
-abstract class BaseBottomBar<T : BaseIndicatorViewHolder> : Adapter<T>() {
+abstract class BaseBottomBar<T : BaseHorizontalIndicatorViewHolder> : Adapter<T>() {
 
     override fun getItemType(position: Int): Int {
         return 0

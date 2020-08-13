@@ -5,28 +5,28 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.ellen.indicator.horizontal.expand.topbar.BaseTopBarAdapter
 import com.google.android.material.tabs.TabLayout
 
-class WyAdapter : BaseTopBarAdapter<WyViewHolder>(){
+class WyAdapter : BaseTopBarAdapter<WyViewHolderHorizontal>(){
     override fun getItemType(position: Int): Int {
         return 0
     }
 
-    override fun getViewHolder(viewType: Int): WyViewHolder? {
-        return WyViewHolder(R.layout.view_wy)
+    override fun getViewHolder(viewType: Int): WyViewHolderHorizontal? {
+        return WyViewHolderHorizontal(R.layout.view_wy)
     }
 
-    override fun showContent(holder: WyViewHolder) {
+    override fun showContent(holder: WyViewHolderHorizontal) {
 
     }
 
-    override fun initTab(holder: WyViewHolder) {
+    override fun initTab(holder: WyViewHolderHorizontal) {
        holder.tv.setTextColor(Color.GRAY)
     }
 
-    override fun selectedStatus(holder: WyViewHolder) {
+    override fun selectedStatus(holder: WyViewHolderHorizontal) {
         holder.tv.setTextColor(Color.BLUE)
         val mAnimation =  AnimationUtils.loadAnimation(
             allPowerIndicator.context,
@@ -35,7 +35,7 @@ class WyAdapter : BaseTopBarAdapter<WyViewHolder>(){
         holder.itemView?.startAnimation(mAnimation)
     }
 
-    override fun unSelectedStatus(holder: WyViewHolder) {
+    override fun unSelectedStatus(holder: WyViewHolderHorizontal) {
         holder.tv.setTextColor(Color.GRAY)
         val mAnimation =  AnimationUtils.loadAnimation(
             allPowerIndicator.context,
@@ -44,7 +44,7 @@ class WyAdapter : BaseTopBarAdapter<WyViewHolder>(){
         holder.itemView?.startAnimation(mAnimation)
     }
 
-    override fun reSelectedStatus(holder: WyViewHolder) {
+    override fun reSelectedStatus(holder: WyViewHolderHorizontal) {
 
     }
 
@@ -56,7 +56,7 @@ class WyAdapter : BaseTopBarAdapter<WyViewHolder>(){
 
 
 
-class WyViewHolder(layoutId:Int) : BaseIndicatorViewHolder(layoutId){
+class WyViewHolderHorizontal(layoutId:Int) : BaseHorizontalIndicatorViewHolder(layoutId){
 
     lateinit var tv:TextView
 

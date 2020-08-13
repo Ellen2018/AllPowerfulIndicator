@@ -1,14 +1,14 @@
 package com.ellen.indicator.horizontal.expand.indicator
 
 import android.view.View
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.ellen.libraray.R
 
 /**
  * 短横线指示器
  */
 class RectangleIndicatorAdapter (var selectColor: Int,var unSelectColor: Int)  :
-    BaseIndicatorViewPagerAdapter<RectangleIndicatorIndicatorViewHolder>() {
+    BaseIndicatorViewPagerAdapter<RectangleIndicatorHorizontalIndicatorViewHolder>() {
 
     constructor(selectColor:Int, unSelectColor:Int,tabCount:Int):this(selectColor,unSelectColor){
         this.unSelectColor = unSelectColor
@@ -16,30 +16,30 @@ class RectangleIndicatorAdapter (var selectColor: Int,var unSelectColor: Int)  :
         this.tabCount = tabCount
     }
 
-    override fun getViewHolder(viewType: Int): RectangleIndicatorIndicatorViewHolder {
-        return RectangleIndicatorIndicatorViewHolder(
+    override fun getViewHolder(viewType: Int): RectangleIndicatorHorizontalIndicatorViewHolder {
+        return RectangleIndicatorHorizontalIndicatorViewHolder(
             R.layout.item_tab_layout_rectangle_view
         )
     }
 
-    override fun initTab(holder: RectangleIndicatorIndicatorViewHolder) {
+    override fun initTab(holder: RectangleIndicatorHorizontalIndicatorViewHolder) {
         holder.view.setBackgroundColor(unSelectColor)
     }
 
-    override fun selectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
+    override fun selectedStatus(holder: RectangleIndicatorHorizontalIndicatorViewHolder) {
         holder.view.setBackgroundColor(selectColor)
     }
 
-    override fun unSelectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
+    override fun unSelectedStatus(holder: RectangleIndicatorHorizontalIndicatorViewHolder) {
         holder.view.setBackgroundColor(unSelectColor)
     }
 
-    override fun reSelectedStatus(holder: RectangleIndicatorIndicatorViewHolder) {
+    override fun reSelectedStatus(holder: RectangleIndicatorHorizontalIndicatorViewHolder) {
         holder.view.setBackgroundColor(selectColor)
     }
 }
 
-class RectangleIndicatorIndicatorViewHolder(layoutId:Int) : BaseIndicatorViewHolder(layoutId){
+class RectangleIndicatorHorizontalIndicatorViewHolder(layoutId:Int) : BaseHorizontalIndicatorViewHolder(layoutId){
 
     lateinit var view:View
 

@@ -27,6 +27,7 @@
         <activity android:name=".topbar.OriginalTopBarActivity"/>
         <activity android:name=".topbar.AutoTopBarActivity"/>
         <activity android:name=".wy.WyTopBarActivity"/>
+        <activity android:name=".verticalindicator.VerticalViewPager2Activity"/>
     </application>
 
 </manifest>

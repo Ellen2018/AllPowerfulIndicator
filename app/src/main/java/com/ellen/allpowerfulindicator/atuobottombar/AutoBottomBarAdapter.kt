@@ -4,16 +4,16 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.ellen.indicator.horizontal.expand.bottombar.BaseBottomBar
 
 /**
  * 通过继承
  */
-class AutoBottomBarAdapter : BaseBottomBar<AutoBottomBarAdapter.AutoBottomViewHolder>() {
+class AutoBottomBarAdapter : BaseBottomBar<AutoBottomBarAdapter.AutoBottomViewHolderHorizontal>() {
 
 
-    class AutoBottomViewHolder(layoutId: Int) : BaseIndicatorViewHolder(layoutId) {
+    class AutoBottomViewHolderHorizontal(layoutId: Int) : BaseHorizontalIndicatorViewHolder(layoutId) {
 
         lateinit var tv: TextView
 
@@ -23,27 +23,27 @@ class AutoBottomBarAdapter : BaseBottomBar<AutoBottomBarAdapter.AutoBottomViewHo
 
     }
 
-    override fun getViewHolder(viewType: Int): AutoBottomViewHolder {
-        return AutoBottomViewHolder(R.layout.view_auto_bottom_tab)
+    override fun getViewHolder(viewType: Int): AutoBottomViewHolderHorizontal {
+        return AutoBottomViewHolderHorizontal(R.layout.view_auto_bottom_tab)
     }
 
-    override fun showContent(holder: AutoBottomViewHolder) {
+    override fun showContent(holder: AutoBottomViewHolderHorizontal) {
         holder.tv.text = "${holder.position}"
     }
 
-    override fun initTab(holder: AutoBottomViewHolder) {
+    override fun initTab(holder: AutoBottomViewHolderHorizontal) {
          holder.tv.setTextColor(Color.GRAY)
     }
 
-    override fun selectedStatus(holder: AutoBottomViewHolder) {
+    override fun selectedStatus(holder: AutoBottomViewHolderHorizontal) {
         holder.tv.setTextColor(Color.BLUE)
     }
 
-    override fun unSelectedStatus(holder: AutoBottomViewHolder) {
+    override fun unSelectedStatus(holder: AutoBottomViewHolderHorizontal) {
         holder.tv.setTextColor(Color.GRAY)
     }
 
-    override fun reSelectedStatus(holder: AutoBottomViewHolder) {
+    override fun reSelectedStatus(holder: AutoBottomViewHolderHorizontal) {
         holder.tv.setTextColor(Color.BLUE)
     }
 

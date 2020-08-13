@@ -22,7 +22,7 @@ class HorizontalIndicator : TabLayout, Indicator {
         defStyleAttr
     )
 
-    private fun <T : BaseIndicatorViewHolder>  handlerAdapter(adapter: Adapter<T>){
+    private fun <T : BaseHorizontalIndicatorViewHolder>  handlerAdapter(adapter: Adapter<T>){
         adapter.allPowerIndicator = this
         adapter.settingTabLayout(this)
         adapter.bindLinkageView()
@@ -73,27 +73,27 @@ class HorizontalIndicator : TabLayout, Indicator {
         }
     }
 
-    override fun <T : BaseIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager) {
+    override fun <T : BaseHorizontalIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager) {
         adapter.bindViewPager(viewPager)
         adapter.mode = Adapter.Mode.VIEW_PAGER
         handlerAdapter(adapter)
     }
 
-    override fun <T : BaseIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2) {
+    override fun <T : BaseHorizontalIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2) {
         adapter.bindViewPager2(viewPager2)
         adapter.mode = Adapter.Mode.VIEW_PAGER2
         handlerAdapter(adapter)
     }
 
-    override fun <T : BaseIndicatorViewHolder> bindFree(adapter: Adapter<T>) {
+    override fun <T : BaseHorizontalIndicatorViewHolder> bindFree(adapter: Adapter<T>) {
         adapter.mode = Adapter.Mode.FREE
         handlerAdapter(adapter)
     }
 }
 
 private interface Indicator {
-    fun <T : BaseIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager)
-    fun <T : BaseIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2)
-    fun <T : BaseIndicatorViewHolder> bindFree(adapter: Adapter<T>)
+    fun <T : BaseHorizontalIndicatorViewHolder> bindViewPager(adapter: Adapter<T>, viewPager: ViewPager)
+    fun <T : BaseHorizontalIndicatorViewHolder> bindViewPager2(adapter: Adapter<T>, viewPager2: ViewPager2)
+    fun <T : BaseHorizontalIndicatorViewHolder> bindFree(adapter: Adapter<T>)
 }
 

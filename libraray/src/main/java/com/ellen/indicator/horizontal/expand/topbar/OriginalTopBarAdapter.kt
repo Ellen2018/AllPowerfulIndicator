@@ -1,13 +1,13 @@
 package com.ellen.indicator.horizontal.expand.topbar
 
 import com.ellen.indicator.horizontal.Adapter
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.google.android.material.tabs.TabLayout
 
 /**
  * 原始顶部导航栏
  */
-class OriginalTopBarAdapter : Adapter<BaseIndicatorViewHolder>() {
+class OriginalTopBarAdapter : Adapter<BaseHorizontalIndicatorViewHolder>() {
 
     private var traverse: Traverse? = null
 
@@ -15,15 +15,15 @@ class OriginalTopBarAdapter : Adapter<BaseIndicatorViewHolder>() {
         return 0
     }
 
-    override fun getViewHolder(viewType: Int): BaseIndicatorViewHolder? {
+    override fun getViewHolder(viewType: Int): BaseHorizontalIndicatorViewHolder? {
         return null
     }
 
-    override fun showContent(holder: BaseIndicatorViewHolder) {
+    override fun showContent(holderHorizontal: BaseHorizontalIndicatorViewHolder) {
 
     }
 
-    override fun initTab(holder: BaseIndicatorViewHolder) {
+    override fun initTab(holderHorizontal: BaseHorizontalIndicatorViewHolder) {
 
     }
 
@@ -31,15 +31,15 @@ class OriginalTopBarAdapter : Adapter<BaseIndicatorViewHolder>() {
         tabLayout.tabMode = TabLayout.MODE_AUTO
     }
 
-    override fun selectedStatus(holder: BaseIndicatorViewHolder) {
+    override fun selectedStatus(holderHorizontal: BaseHorizontalIndicatorViewHolder) {
 
     }
 
-    override fun unSelectedStatus(holder: BaseIndicatorViewHolder) {
+    override fun unSelectedStatus(holderHorizontal: BaseHorizontalIndicatorViewHolder) {
 
     }
 
-    override fun reSelectedStatus(holder: BaseIndicatorViewHolder) {
+    override fun reSelectedStatus(holderHorizontal: BaseHorizontalIndicatorViewHolder) {
 
     }
 

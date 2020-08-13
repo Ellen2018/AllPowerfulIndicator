@@ -4,15 +4,15 @@ import android.view.animation.AnimationUtils
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.indicator.horizontal.Adapter
-import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseHorizontalIndicatorViewHolder
 import com.ellen.libraray.R
 import com.google.android.material.tabs.TabLayout
 
 /**
  * 带中间控件的底部导航栏
  */
-abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseIndicatorViewHolder> :
-    Adapter<BaseIndicatorViewHolder>() {
+abstract class BaseBottomCenterBarAdapter<C : BaseHorizontalIndicatorViewHolder, N : BaseHorizontalIndicatorViewHolder> :
+    Adapter<BaseHorizontalIndicatorViewHolder>() {
 
     var animResource:Int? = R.anim.scale
     private var ago: Int = 0
@@ -65,8 +65,8 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
     abstract fun getNormalViewHolder(): N
 
     init {
-        onTabSelectedListener = object :OnTabSelectedListener<BaseIndicatorViewHolder>{
-            override fun selected(holderIndicator: BaseIndicatorViewHolder) {
+        onTabSelectedListener = object :OnTabSelectedListener<BaseHorizontalIndicatorViewHolder>{
+            override fun selected(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
                 //2
                 if(isSelectCenter){
                     isSelectCenter = false
@@ -81,27 +81,27 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
                                     it
                                 )
                             }
-                        holderIndicator.itemView?.startAnimation(mAnimation)
+                        holderHorizontalIndicator.itemView?.startAnimation(mAnimation)
                     }
                 }
-                if (getItemType(holderIndicator.position) == 1) {
-                    onTabSelectListener?.onCenterTabListener(holderIndicator as C)
+                if (getItemType(holderHorizontalIndicator.position) == 1) {
+                    onTabSelectListener?.onCenterTabListener(holderHorizontalIndicator as C)
                     isSelectCenter = true
                     allPowerIndicator.selectTab(allPowerIndicator.getTabAt(ago))
-                } else if (getItemType(holderIndicator.position) == 0) {
+                } else if (getItemType(holderHorizontalIndicator.position) == 0) {
                     var truePosition = -1
-                    currentPosition = holderIndicator.position
+                    currentPosition = holderHorizontalIndicator.position
                     if(centerViewHolder != null) {
-                        if (holderIndicator.position > getCenterPosition()) {
-                            truePosition = holderIndicator.position - 1
-                            onTabSelectListener?.onTabSelected(holderIndicator.position - 1, holderIndicator as N)
+                        if (holderHorizontalIndicator.position > getCenterPosition()) {
+                            truePosition = holderHorizontalIndicator.position - 1
+                            onTabSelectListener?.onTabSelected(holderHorizontalIndicator.position - 1, holderHorizontalIndicator as N)
                         } else {
-                            truePosition = holderIndicator.position
-                            onTabSelectListener?.onTabSelected(holderIndicator.position, holderIndicator as N)
+                            truePosition = holderHorizontalIndicator.position
+                            onTabSelectListener?.onTabSelected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                         }
                     }else{
-                        truePosition = holderIndicator.position
-                        onTabSelectListener?.onTabSelected(holderIndicator.position, holderIndicator as N)
+                        truePosition = holderHorizontalIndicator.position
+                        onTabSelectListener?.onTabSelected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                     }
 
                     if (viewPager2 != null) {
@@ -116,44 +116,44 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
                 }
             }
 
-            override fun unSelected(holderIndicator: BaseIndicatorViewHolder) {
+            override fun unSelected(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
                 if(centerViewHolder != null){
                     if(getItemType(allPowerIndicator.selectedTabPosition) == 1){
-                        ago = holderIndicator.position
+                        ago = holderHorizontalIndicator.position
                         return
                     }
                 }
-                if (getItemType(holderIndicator.position) == 0) {
+                if (getItemType(holderHorizontalIndicator.position) == 0) {
                     if(centerViewHolder != null) {
-                        if (holderIndicator.position > getCenterPosition()) {
-                            onTabSelectListener?.onTabUnselected(holderIndicator.position - 1, holderIndicator as N)
+                        if (holderHorizontalIndicator.position > getCenterPosition()) {
+                            onTabSelectListener?.onTabUnselected(holderHorizontalIndicator.position - 1, holderHorizontalIndicator as N)
                         } else {
-                            onTabSelectListener?.onTabUnselected(holderIndicator.position, holderIndicator as N)
+                            onTabSelectListener?.onTabUnselected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                         }
                     }else{
-                        onTabSelectListener?.onTabUnselected(holderIndicator.position, holderIndicator as N)
+                        onTabSelectListener?.onTabUnselected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                     }
-                    ago = holderIndicator.position
+                    ago = holderHorizontalIndicator.position
                 }
             }
 
-            override fun reSelected(holderIndicator: BaseIndicatorViewHolder) {
+            override fun reSelected(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
                 //动画效果
                 if(animResource != null) {
                     val mAnimation =
                         animResource?.let { AnimationUtils.loadAnimation(allPowerIndicator.context, it) }
-                    holderIndicator.itemView?.startAnimation(mAnimation)
+                    holderHorizontalIndicator.itemView?.startAnimation(mAnimation)
                 }
 
                 //处理item点击事件
                 if(centerViewHolder != null) {
-                    if (holderIndicator.position > getCenterPosition()) {
-                        onTabSelectListener?.onTabReselected(holderIndicator.position - 1, holderIndicator as N)
+                    if (holderHorizontalIndicator.position > getCenterPosition()) {
+                        onTabSelectListener?.onTabReselected(holderHorizontalIndicator.position - 1, holderHorizontalIndicator as N)
                     } else {
-                        onTabSelectListener?.onTabReselected(holderIndicator.position, holderIndicator as N)
+                        onTabSelectListener?.onTabReselected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                     }
                 }else{
-                    onTabSelectListener?.onTabReselected(holderIndicator.position, holderIndicator as N)
+                    onTabSelectListener?.onTabReselected(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                 }
             }
         }
@@ -172,11 +172,11 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
         }
     }
 
-    final override fun initTab(holderIndicator: BaseIndicatorViewHolder) {
-        if(getItemType(holderIndicator.position) == 1){
-            initCenterTab(holderIndicator as C)
+    final override fun initTab(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
+        if(getItemType(holderHorizontalIndicator.position) == 1){
+            initCenterTab(holderHorizontalIndicator as C)
         }else{
-            initNormalTab(holderIndicator as N)
+            initNormalTab(holderHorizontalIndicator as N)
         }
     }
 
@@ -211,19 +211,19 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
         }
     }
 
-    override fun showContent(holderIndicator: BaseIndicatorViewHolder) {
-        if (getItemType(holderIndicator.position) == 0) {
+    override fun showContent(holderHorizontalIndicator: BaseHorizontalIndicatorViewHolder) {
+        if (getItemType(holderHorizontalIndicator.position) == 0) {
             if(centerViewHolder != null) {
-                if (holderIndicator.position > getCenterPosition()) {
-                    showContentNormal(holderIndicator.position - 1, holderIndicator as N)
+                if (holderHorizontalIndicator.position > getCenterPosition()) {
+                    showContentNormal(holderHorizontalIndicator.position - 1, holderHorizontalIndicator as N)
                 } else {
-                    showContentNormal(holderIndicator.position, holderIndicator as N)
+                    showContentNormal(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
                 }
             }else{
-                showContentNormal(holderIndicator.position, holderIndicator as N)
+                showContentNormal(holderHorizontalIndicator.position, holderHorizontalIndicator as N)
             }
         } else {
-            showContentCenter(holderIndicator as C)
+            showContentCenter(holderHorizontalIndicator as C)
         }
     }
 
@@ -233,7 +233,7 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
         return 0
     }
 
-    override fun getViewHolder(viewType: Int): BaseIndicatorViewHolder {
+    override fun getViewHolder(viewType: Int): BaseHorizontalIndicatorViewHolder {
         return if (viewType == 0) {
             getNormalViewHolder()
         } else {
@@ -255,7 +255,7 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
             initPosition = 1
         }
         allPowerIndicator.selectTab(allPowerIndicator.getTabAt(initPosition))
-        selectedStatus(allPowerIndicator.getTabAt(initPosition)?.customView?.tag as BaseIndicatorViewHolder)
+        selectedStatus(allPowerIndicator.getTabAt(initPosition)?.customView?.tag as BaseHorizontalIndicatorViewHolder)
     }
 
     override fun settingTabLayout(tabLayout: TabLayout) {
@@ -263,7 +263,7 @@ abstract class BaseBottomCenterBarAdapter<C : BaseIndicatorViewHolder, N : BaseI
         tabLayout.setSelectedTabIndicator(null)
     }
 
-    interface OnTabSelectListener<C : BaseIndicatorViewHolder, N : BaseIndicatorViewHolder> {
+    interface OnTabSelectListener<C : BaseHorizontalIndicatorViewHolder, N : BaseHorizontalIndicatorViewHolder> {
         fun onTabReselected(truePosition: Int, holder: N)
         fun onTabUnselected(truePosition: Int, holder: N)
         fun onTabSelected(truePosition: Int, holder: N)
