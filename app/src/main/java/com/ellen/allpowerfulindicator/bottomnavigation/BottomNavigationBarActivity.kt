@@ -7,14 +7,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.bottombar.DefaultBottomCenterBarAdapter
-import com.ellen.indicator.expand.bottombar.DefaultTab
+import com.ellen.indicator.horizontal.HorizontalIndicator
+import com.ellen.indicator.horizontal.expand.bottombar.DefaultBottomCenterBarAdapter
+import com.ellen.indicator.horizontal.expand.bottombar.DefaultTab
 
 class BottomNavigationBarActivity : AppCompatActivity(){
 
     private lateinit var viewPager2: ViewPager2
-    private lateinit var allPowerIndicator: AllPowerIndicator
+    private lateinit var allPowerIndicator: HorizontalIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

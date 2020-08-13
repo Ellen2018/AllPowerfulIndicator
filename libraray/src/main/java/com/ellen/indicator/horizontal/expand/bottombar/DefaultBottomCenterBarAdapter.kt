@@ -1,4 +1,4 @@
-package com.ellen.indicator.expand.bottombar
+package com.ellen.indicator.horizontal.expand.bottombar
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -7,7 +7,7 @@ import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 
 class DefaultBottomCenterBarAdapter : BaseBottomCenterBarAdapter<CenterIndicatorViewHolder, NormalIndicatorViewHolder>() {

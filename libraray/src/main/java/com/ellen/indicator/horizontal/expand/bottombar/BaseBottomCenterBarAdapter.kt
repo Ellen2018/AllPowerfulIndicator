@@ -1,10 +1,10 @@
-package com.ellen.indicator.expand.bottombar
+package com.ellen.indicator.horizontal.expand.bottombar
 
 import android.view.animation.AnimationUtils
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.ellen.indicator.Adapter
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.Adapter
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 import com.google.android.material.tabs.TabLayout
 

@@ -4,8 +4,8 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.BaseIndicatorViewHolder
-import com.ellen.indicator.expand.topbar.BaseTopBarAdapter
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.expand.topbar.BaseTopBarAdapter
 
 class AutoTopBarAdapter : BaseTopBarAdapter<AutoViewHolder>() {
     override fun getItemType(position: Int): Int {

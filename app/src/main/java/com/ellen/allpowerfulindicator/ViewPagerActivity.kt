@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.indicator.RoundIndicatorAdapter
+import com.ellen.indicator.horizontal.HorizontalIndicator
+import com.ellen.indicator.horizontal.expand.indicator.RoundIndicatorAdapter
 
 class ViewPagerActivity : AppCompatActivity(){
 
     private lateinit var viewPager: ViewPager
-    private lateinit var allPowerIndicator: AllPowerIndicator
+    private lateinit var allPowerIndicator: HorizontalIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

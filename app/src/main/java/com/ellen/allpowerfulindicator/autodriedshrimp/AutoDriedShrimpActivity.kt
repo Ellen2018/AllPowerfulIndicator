@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.bottombar.*
+import com.ellen.indicator.horizontal.HorizontalIndicator
+import com.ellen.indicator.horizontal.expand.bottombar.*
 import kotlinx.android.synthetic.main.view_auto_center.view.*
 
 /**
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.view_auto_center.view.*
 class AutoDriedShrimpActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
-    private lateinit var allPowerIndicator: AllPowerIndicator
+    private lateinit var allPowerIndicator: HorizontalIndicator
     private lateinit var adapter: DefaultBottomCenterBarAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

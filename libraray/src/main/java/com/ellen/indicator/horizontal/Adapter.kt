@@ -1,4 +1,4 @@
-package com.ellen.indicator
+package com.ellen.indicator.horizontal
 
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
@@ -7,13 +7,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 abstract class Adapter<T : BaseIndicatorViewHolder> {
 
-    lateinit var allPowerIndicator: AllPowerIndicator
-    var onTabSelectedListener:OnTabSelectedListener<T>? = null
+    lateinit var allPowerIndicator: HorizontalIndicator
+    var onTabSelectedListener: OnTabSelectedListener<T>? = null
 
     protected var viewPager:ViewPager? = null
     protected var viewPager2: ViewPager2? = null
     protected var isBindAllPowerIndicator = false
-    internal lateinit var mode:Mode
+    internal lateinit var mode: Mode
 
     /**
      * tab的类型
@@ -30,9 +30,9 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
      */
     open fun getItemSize(): Int{
         return when(mode){
-            Mode.FREE->0
-            Mode.VIEW_PAGER-> allPowerIndicator.tabCount
-            Mode.VIEW_PAGER2-> allPowerIndicator.tabCount
+            Mode.FREE ->0
+            Mode.VIEW_PAGER -> allPowerIndicator.tabCount
+            Mode.VIEW_PAGER2 -> allPowerIndicator.tabCount
         }
     }
 
@@ -52,9 +52,9 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
     open fun bindLinkageView(){
         isBindAllPowerIndicator = true
         when(mode){
-            Mode.FREE->bindLinkageFree()
-            Mode.VIEW_PAGER-> viewPager?.let { bindLinkageViewPager(it) }
-            Mode.VIEW_PAGER2-> viewPager2?.let { bindLinkageViewPager2(it) }
+            Mode.FREE ->bindLinkageFree()
+            Mode.VIEW_PAGER -> viewPager?.let { bindLinkageViewPager(it) }
+            Mode.VIEW_PAGER2 -> viewPager2?.let { bindLinkageViewPager2(it) }
         }
     }
 
@@ -103,7 +103,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder> {
         //刷新内容
         for (position in 0 until getItemSize()) {
             val baseViewHolder =
-               allPowerIndicator.getTabAt(position)?.customView?.tag as T
+                allPowerIndicator.getTabAt(position)?.customView?.tag as T
             showContent(baseViewHolder)
             if(allPowerIndicator.selectedTabPosition == position){
                 //更新选中状态

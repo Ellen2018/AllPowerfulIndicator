@@ -69,6 +69,12 @@
             android:layout_height="50dp"
             android:text="顶部导航栏(自定义)" />
 
+        <Button
+            android:id="@+id/bt_top_wy_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="仿网易顶部导航栏(自定义)" />
+
     </LinearLayout>
 
 </ScrollView>

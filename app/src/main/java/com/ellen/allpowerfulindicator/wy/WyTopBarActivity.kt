@@ -1,4 +1,4 @@
-package com.ellen.allpowerfulindicator.topbar
+package com.ellen.allpowerfulindicator.wy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,26 +8,24 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
 import com.ellen.indicator.horizontal.HorizontalIndicator
-import com.ellen.indicator.horizontal.expand.topbar.OriginalTopBarAdapter
-import com.google.android.material.tabs.TabLayout
 
-class OriginalTopBarActivity : AppCompatActivity(){
+class WyTopBarActivity : AppCompatActivity(){
 
-    private lateinit var viewPager2: ViewPager2
     private lateinit var allPowerIndicator: HorizontalIndicator
+    private lateinit var viewPager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_top_bar)
+        setContentView(R.layout.activity_wy_top_bar)
 
-        viewPager2 = findViewById(R.id.view_pager2)
         allPowerIndicator = findViewById(R.id.all_power_indicator)
+        viewPager2 = findViewById(R.id.view_pager2)
 
         viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
-                return 12
+                return 4
             }
 
             override fun createFragment(position: Int): Fragment {
@@ -36,19 +34,7 @@ class OriginalTopBarActivity : AppCompatActivity(){
 
         }
 
-        val adapter = OriginalTopBarAdapter()
-
-        adapter.traverse(object : OriginalTopBarAdapter.Traverse{
-            override fun showContent(tab: TabLayout.Tab) {
-                tab.text = "哈哈哈"
-            }
-        })
-
-        //使用原始的顶部导航栏
-        allPowerIndicator.bindViewPager2(adapter,viewPager2)
-
-
-
+        allPowerIndicator.bindViewPager2(WyAdapter(),viewPager2)
     }
 
 }

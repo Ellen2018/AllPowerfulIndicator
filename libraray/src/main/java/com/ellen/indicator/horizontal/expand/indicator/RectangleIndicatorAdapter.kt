@@ -1,7 +1,7 @@
-package com.ellen.indicator.expand.indicator
+package com.ellen.indicator.horizontal.expand.indicator
 
 import android.view.View
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 
 /**

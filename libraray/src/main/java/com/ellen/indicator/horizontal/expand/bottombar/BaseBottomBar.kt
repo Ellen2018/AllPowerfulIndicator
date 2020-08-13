@@ -1,7 +1,7 @@
-package com.ellen.indicator.expand.bottombar
+package com.ellen.indicator.horizontal.expand.bottombar
 
-import com.ellen.indicator.Adapter
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.Adapter
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 import com.google.android.material.tabs.TabLayout
 
 abstract class BaseBottomBar<T : BaseIndicatorViewHolder> : Adapter<T>() {

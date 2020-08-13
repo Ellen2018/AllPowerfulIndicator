@@ -4,18 +4,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
-import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.AllPowerIndicator
-import com.ellen.indicator.expand.indicator.RectangleIndicatorAdapter
+import com.ellen.indicator.horizontal.HorizontalIndicator
+import com.ellen.indicator.horizontal.expand.indicator.RectangleIndicatorAdapter
 import com.google.android.material.tabs.TabLayout
 
 class FreeIndicatorActivity : AppCompatActivity(){
 
-    private lateinit var allPowerIndicator: AllPowerIndicator
+    private lateinit var allPowerIndicator: HorizontalIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

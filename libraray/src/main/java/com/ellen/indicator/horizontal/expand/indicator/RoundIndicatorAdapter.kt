@@ -1,9 +1,9 @@
-package com.ellen.indicator.expand.indicator
+package com.ellen.indicator.horizontal.expand.indicator
 
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 import com.ellen.libraray.R
 
 /**

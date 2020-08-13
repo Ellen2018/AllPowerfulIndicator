@@ -4,8 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.expand.indicator.BaseIndicatorViewPagerAdapter
-import com.ellen.indicator.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.expand.indicator.BaseIndicatorViewPagerAdapter
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
 
 class AutoIndicatorAdapter(var strList:MutableList<String>) :
     BaseIndicatorViewPagerAdapter<AutoIndicatorIndicatorViewHolder>() {

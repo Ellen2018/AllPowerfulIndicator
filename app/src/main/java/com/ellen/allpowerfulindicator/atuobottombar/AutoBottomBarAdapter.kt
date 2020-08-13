@@ -4,8 +4,8 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.BaseIndicatorViewHolder
-import com.ellen.indicator.expand.bottombar.BaseBottomBar
+import com.ellen.indicator.horizontal.BaseIndicatorViewHolder
+import com.ellen.indicator.horizontal.expand.bottombar.BaseBottomBar
 
 /**
  * 通过继承

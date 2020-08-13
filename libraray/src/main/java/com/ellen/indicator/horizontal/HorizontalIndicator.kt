@@ -1,4 +1,4 @@
-package com.ellen.indicator
+package com.ellen.indicator.horizontal
 
 import android.content.Context
 import android.util.AttributeSet
@@ -12,7 +12,7 @@ import com.google.android.material.tabs.TabLayout
  * 2.绑定ViewPager2
  * 3.自由模式
  */
-class AllPowerIndicator : TabLayout, Indicator {
+class HorizontalIndicator : TabLayout, Indicator {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -51,20 +51,20 @@ class AllPowerIndicator : TabLayout, Indicator {
                 }
             }
             adapter.initComplete()
-            addOnTabSelectedListener(object : OnTabSelectedListener {
-                override fun onTabReselected(tab: Tab?) {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
                     val baseViewHolder = tab?.customView?.tag as T
                     adapter.reSelectedStatus(baseViewHolder)
                     adapter.onTabSelectedListener?.reSelected(baseViewHolder)
                 }
 
-                override fun onTabUnselected(tab: Tab?) {
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
                     val baseViewHolder = tab?.customView?.tag as T
                     adapter.unSelectedStatus(baseViewHolder)
                     adapter.onTabSelectedListener?.unSelected(baseViewHolder)
                 }
 
-                override fun onTabSelected(tab: Tab?) {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
                     val baseViewHolder = tab?.customView?.tag as T
                     adapter.selectedStatus(baseViewHolder)
                     adapter.onTabSelectedListener?.selected(baseViewHolder)

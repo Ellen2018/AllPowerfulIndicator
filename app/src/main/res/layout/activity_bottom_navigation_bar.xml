@@ -17,7 +17,7 @@
         android:background="@android:color/darker_gray"
         android:layout_height="0.3dp"/>
 
-    <com.ellen.indicator.AllPowerIndicator
+    <com.ellen.indicator.horizontal.HorizontalIndicator
         android:id="@+id/all_power_indicator"
         android:layout_width="match_parent"
         app:tabPaddingStart="0dp"
