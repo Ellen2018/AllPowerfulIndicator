@@ -6,13 +6,21 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent" />
 
-    <com.ellen.indicator.vertical.VerticalIndicator
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.ellen.indicator.vertical.AllPowerfulIndicator
         android:id="@+id/vertical_indicator"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_height="wrap_content"/>
+        android:layout_marginLeft="30dp" />
+
 
 </RelativeLayout>

@@ -1,26 +1,33 @@
 package com.ellen.allpowerfulindicator.verticalindicator
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.horizontal.HorizontalIndicator
-import com.ellen.indicator.vertical.VerticalIndicator
+import com.ellen.indicator.vertical.AllPowerfulIndicator
+import com.ellen.indicator.vertical.OnTabClickListener
 
 class VerticalViewPager2Activity : AppCompatActivity(){
 
     private lateinit var viewPager2: ViewPager2
-    private lateinit var verticalIndicator: VerticalIndicator
+    private lateinit var viewPager: ViewPager
+    private lateinit var allPowerIndicator: AllPowerfulIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_view_pager2)
 
         viewPager2 = findViewById(R.id.view_pager2)
-        verticalIndicator = findViewById(R.id.vertical_indicator)
+        viewPager = findViewById(R.id.view_pager)
+        allPowerIndicator = findViewById(R.id.vertical_indicator)
+        allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.HORIZONTAL
 
         viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
@@ -34,7 +41,57 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
         }
 
-        verticalIndicator.bindViewPager2(VerticalIndicatorAdapter(),viewPager2)
+        viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager){
+            override fun getItem(position: Int): Fragment {
+               return TestFragment()
+            }
+
+            override fun getCount(): Int {
+                return 2
+            }
+        }
+
+        val adapter = VerticalIndicatorAdapter()
+
+        adapter.onTabClickListener =
+            object : OnTabClickListener<VerticalIndicatorAdapter.IndicatorViewHolder> {
+                override fun onTabSelectedClick(
+                    position: Int,
+                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                ) {
+                    Toast.makeText(holder.itemView.context, "选择{$position}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                override fun onTabUnSelectedClick(
+                    position: Int,
+                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                ) {
+                    Toast.makeText(holder.itemView.context, "未选择{$position}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                override fun onTabReSelectedClick(
+                    position: Int,
+                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                ) {
+                    Toast.makeText(holder.itemView.context, "重选{$position}", Toast.LENGTH_SHORT)
+                        .show()
+                    adapter.color = Color.YELLOW
+                    allPowerIndicator.adapter?.notifyDataSetChanged()
+                }
+
+                override fun onNoStatusTabClick(
+                    position: Int,
+                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                ) {
+                    Toast.makeText(holder.itemView.context, "无状态点击：{$position}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+        allPowerIndicator.bindViewPager(adapter,viewPager)
+
     }
 
 }
