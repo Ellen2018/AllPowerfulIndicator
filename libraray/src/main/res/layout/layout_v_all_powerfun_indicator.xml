@@ -3,6 +3,7 @@
     android:id="@+id/v_scroll_view"
     android:layout_width="wrap_content"
     android:scrollbars="none"
+    android:fillViewport="true"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -15,6 +16,7 @@
             android:id="@+id/v_recycler_view"
             android:layout_width="wrap_content"
             android:nestedScrollingEnabled="false"
+            android:fillViewport="true"
             android:focusable="false"
             android:layout_height="wrap_content" />
 
