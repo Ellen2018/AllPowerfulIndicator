@@ -36,6 +36,22 @@ internal class AllPowerIndicatorAdapter<T : BaseIndicatorViewHolder>(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
+        //适配Fixed模式
+//        if (allPowerIndicator.mode == AllPowerfulIndicator.Mode.FIXED && allPowerIndicator.isFixedReset) {
+//            val itemCount = adapter.getItemCount()
+//            if (allPowerIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
+//                val itemHeight = height / itemCount
+//                val layoutParams = holder.itemView.layoutParams
+//                layoutParams.height = itemHeight
+//                holder.itemView.layoutParams = layoutParams
+//            }else{
+//                val itemWidth = width/itemCount
+//                val layoutParams = holder.itemView.layoutParams
+//                layoutParams.width = itemWidth
+//                holder.itemView.layoutParams = layoutParams
+//            }
+//        }
+
         if(!mapHolder.containsKey(position)) {
             mapHolder[position] = holder
         }
