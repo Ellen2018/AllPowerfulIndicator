@@ -11,7 +11,7 @@
         app:tabPaddingEnd="0dp"
         android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.ellen.indicator.vertical.view.AllPowerIndicatorRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

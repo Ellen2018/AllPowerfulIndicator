@@ -7,7 +7,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder>{
     var onTabClickListener:OnTabClickListener<T>? = null
     protected lateinit var allPowerfulIndicator:AllPowerfulIndicator
 
-    fun bindAllPowerfulIndicator(allPowerfulIndicator: AllPowerfulIndicator){
+    fun onAttachAllPowerfulIndicator(allPowerfulIndicator: AllPowerfulIndicator){
         this.allPowerfulIndicator = allPowerfulIndicator
     }
 
@@ -40,7 +40,7 @@ abstract class Adapter<T : BaseIndicatorViewHolder>{
     }
 
     open fun notifyDataSetChanged(){
-        allPowerfulIndicator.adapter?.notifyDataSetChanged()
+        allPowerfulIndicator.notifyDataSetChanged()
     }
 
 }

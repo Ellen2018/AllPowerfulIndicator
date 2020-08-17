@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+   <ViewStub
+       android:id="@+id/vs_h"
+       android:layout_width="wrap_content"
+       android:layout="@layout/layout_h_all_powerfun_indicator"
+       android:layout_height="wrap_content"/>
+
+    <ViewStub
+        android:id="@+id/vs_v"
+        android:layout_width="wrap_content"
+        android:layout="@layout/layout_v_all_powerfun_indicator"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

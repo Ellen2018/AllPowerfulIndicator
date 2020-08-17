@@ -1,29 +1,56 @@
 package com.ellen.indicator.vertical
 
 import android.content.Context
-import android.graphics.Canvas
 import android.util.AttributeSet
-import android.view.ViewGroup
-import androidx.core.view.marginBottom
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
-import androidx.core.view.marginTop
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewStub
+import android.view.animation.TranslateAnimation
+import android.widget.FrameLayout
+import android.widget.HorizontalScrollView
+import android.widget.RelativeLayout
+import android.widget.ScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.ellen.indicator.vertical.view.AllPowerIndicatorRecyclerView
+import com.ellen.indicator.vertical.view.MyLinearLayoutManager
+import com.ellen.libraray.R
 
 
-class AllPowerfulIndicator : RecyclerView, Indicator {
+class AllPowerfulIndicator : FrameLayout, Indicator {
 
     var orientation: Orientation = Orientation.VERTICAL
+    var currentItem = 0
+    set(value) {
+        field = value
+        allPowerIndicatorAdapter.selectStatus.setPosition(value)
+        notifyDataSetChanged()
+    }
     var mode = Mode.SCROLL
     var onTabClickListener:OnTabClickListener? = null
+
+    /**
+     * 点击后焦点item的居中，居左，局右,居上，居下
+     * 默认是居中效果
+     */
+    var clickGravity:ClickGravity = ClickGravity.BOTTOM
+    var clickDeviation = 0
     private var viewPager:ViewPager? = null
     private var viewPager2:ViewPager2? = null
     internal var isFixedReset = false
+    internal var isFirstDraw = true
+    private lateinit var allPowerIndicatorAdapter:AllPowerIndicatorAdapter<*>
+    internal lateinit var recyclerView:AllPowerIndicatorRecyclerView
+    internal lateinit var hManager: HManager
+    internal lateinit var vManager: VManager
+    private  var mContentView: View =
+        LayoutInflater.from(context).inflate(R.layout.layout_all_powerful_indicator,this,true)
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : super(context){
+
+    }
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         init(attributeSet)
     }
@@ -40,38 +67,33 @@ class AllPowerfulIndicator : RecyclerView, Indicator {
 
     }
 
-    private fun <T : BaseIndicatorViewHolder> initRecyclerViewAdapter(adapter: com.ellen.indicator.vertical.Adapter<T>)
+    private fun <T : BaseIndicatorViewHolder> initRecyclerViewAdapter(adapter: Adapter<T>)
             : AllPowerIndicatorAdapter<T>{
-        adapter.bindAllPowerfulIndicator(this)
-        val linearLayoutManager = LinearLayoutManager(context)
-        if (orientation == Orientation.HORIZONTAL) {
-            linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        } else {
-            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        }
-        layoutManager = linearLayoutManager
-        val allPowerIndicatorAdapter: AllPowerIndicatorAdapter<T> =
+        init()
+        adapter.onAttachAllPowerfulIndicator(this)
+        val allPowerIndicatorAdapter =
             AllPowerIndicatorAdapter(this, adapter)
+        this.allPowerIndicatorAdapter = allPowerIndicatorAdapter
         allPowerIndicatorAdapter.onItemClickListener = object : OnItemClickListener<T> {
 
             override fun onClickStatusItem(position: Int, holder: T) {
-                if (position == adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.selectedPosition)) {
+                if (position == adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.getPosition())) {
                     adapter.reSelectedStatus(position, holder)
                     adapter.onTabClickListener?.onTabReSelectedClick(position, holder)
                     onTabClickListener?.onTabReSelectedClick(position, holder)
                 } else {
                     adapter.onTabClickListener?.onTabUnSelectedClick(
-                        adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.selectedPosition),
+                        adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.getPosition()),
                         holder
                     )
-                    onTabClickListener?.onTabUnSelectedClick(adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.selectedPosition), holder)
+                    onTabClickListener?.onTabUnSelectedClick(adapter.outStatusPosition(allPowerIndicatorAdapter.selectStatus.getPosition()), holder)
                     viewPager?.currentItem = position
                     viewPager2?.currentItem = position
+
                     //自由模式下点击响应
-                    if (viewPager == null && viewPager2 == null) {
-                        allPowerIndicatorAdapter.selectStatus.selectedPosition = adapter.inStatusPosition(position)
-                        allPowerIndicatorAdapter.notifyDataSetChanged()
-                    }
+                    allPowerIndicatorAdapter.selectStatus.setPosition(adapter.inStatusPosition(position))
+                    allPowerIndicatorAdapter.notifyDataSetChanged()
+
                     adapter.onTabClickListener?.onTabSelectedClick(
                         position,
                         holder
@@ -89,29 +111,31 @@ class AllPowerfulIndicator : RecyclerView, Indicator {
     }
 
     override fun <T : BaseIndicatorViewHolder> bindViewPager2(
-        adapter: com.ellen.indicator.vertical.Adapter<T>,
+        adapter: Adapter<T>,
         viewPager2: ViewPager2
     ) {
         this.viewPager2 = viewPager2
         this.viewPager = null
         val allPowerIndicatorAdapter = initRecyclerViewAdapter(adapter)
-        this.adapter = allPowerIndicatorAdapter
+        allPowerIndicatorAdapter.mandatorySize = this.viewPager2?.adapter?.itemCount
+        recyclerView.adapter = allPowerIndicatorAdapter
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                allPowerIndicatorAdapter.selectStatus.selectedPosition = adapter.inStatusPosition(position)
+                allPowerIndicatorAdapter.selectStatus.setPosition(adapter.inStatusPosition(position))
                 allPowerIndicatorAdapter.notifyDataSetChanged()
             }
         })
     }
 
     override fun <T : BaseIndicatorViewHolder> bindViewPager(
-        adapter: com.ellen.indicator.vertical.Adapter<T>,
+        adapter: Adapter<T>,
         viewPager: ViewPager
     ) {
         this.viewPager = viewPager
         this.viewPager2 = null
         val allPowerIndicatorAdapter = initRecyclerViewAdapter(adapter)
-        this.adapter = allPowerIndicatorAdapter
+        allPowerIndicatorAdapter.mandatorySize = this.viewPager?.adapter?.count
+        recyclerView.adapter = allPowerIndicatorAdapter
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -126,32 +150,40 @@ class AllPowerfulIndicator : RecyclerView, Indicator {
             }
 
             override fun onPageSelected(position: Int) {
-                allPowerIndicatorAdapter.selectStatus.selectedPosition = adapter.inStatusPosition(position)
+                allPowerIndicatorAdapter.selectStatus.setPosition(adapter.inStatusPosition(position))
                 allPowerIndicatorAdapter.notifyDataSetChanged()
             }
         })
     }
 
-    override fun <T : BaseIndicatorViewHolder> bindFree(adapter: com.ellen.indicator.vertical.Adapter<T>) {
-        this.adapter = initRecyclerViewAdapter(adapter)
+    override fun <T : BaseIndicatorViewHolder> bindFree(adapter: Adapter<T>) {
+        recyclerView.adapter = initRecyclerViewAdapter(adapter)
     }
 
     override fun notifyDataSetChanged() {
-        adapter?.notifyDataSetChanged()
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    override fun onDraw(c: Canvas?) {
-        super.onDraw(c)
-        if (!isFixedReset && mode == Mode.FIXED) {
-            val viewGroup = this.parent as ViewGroup
-            val marginWidth = marginLeft + marginRight + paddingLeft + paddingRight
-            val marginHeight = marginTop + marginBottom + paddingTop + paddingBottom
-            val verticalIndicatorAdapter = adapter as AllPowerIndicatorAdapter<*>
-            verticalIndicatorAdapter.width = viewGroup.width - marginWidth
-            verticalIndicatorAdapter.height = viewGroup.height - marginHeight
-            isFixedReset = true
-            verticalIndicatorAdapter.notifyDataSetChanged()
-        }
+    private fun init() {
+       if(orientation == Orientation.HORIZONTAL){
+           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_h)
+           viewStub.inflate()
+           val horizontalScrollView= mContentView.findViewById<HorizontalScrollView>(R.id.h_scroll_view)
+           val hRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.h_recycler_view)
+           hManager = HManager(viewStub,horizontalScrollView,hRecyclerView)
+           recyclerView = hRecyclerView
+           viewStub.visibility = View.VISIBLE
+       }else{
+           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_v)
+           viewStub.inflate()
+           val verticalScrollView= mContentView.findViewById<ScrollView>(R.id.v_scroll_view)
+           val vRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.v_recycler_view)
+           val rlTrackView = mContentView.findViewById<RelativeLayout>(R.id.rl_track_view)
+           vManager = VManager(viewStub,verticalScrollView,rlTrackView,vRecyclerView)
+           recyclerView = vRecyclerView
+           viewStub.visibility = View.VISIBLE
+       }
+       recyclerView.allPowerfulIndicator = this
     }
 
     enum class Orientation {
@@ -169,6 +201,10 @@ class AllPowerfulIndicator : RecyclerView, Indicator {
         fun onTabUnSelectedClick(position: Int,holder: BaseIndicatorViewHolder)
         fun onTabReSelectedClick(position: Int,holder: BaseIndicatorViewHolder)
         fun onNoStatusTabClick(position: Int,holder: BaseIndicatorViewHolder){}
+    }
+
+    enum class ClickGravity{
+        CENTER,LEFT,RIGHT,TOP,BOTTOM
     }
 
 }
@@ -189,4 +225,28 @@ private interface Indicator {
     )
 
     fun notifyDataSetChanged()
+}
+
+internal class HManager(var vsHorizontal:ViewStub,
+                        var horizontalScrollView: HorizontalScrollView,
+                        var horizontalRecyclerView: AllPowerIndicatorRecyclerView){
+
+    init {
+        val linearLayoutManager = MyLinearLayoutManager(horizontalRecyclerView.context)
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        horizontalRecyclerView.layoutManager = linearLayoutManager
+    }
+}
+
+internal class VManager(var vsVertical:ViewStub,
+                        var verticalScrollView: ScrollView,
+                        var verticalRlTrackView:RelativeLayout,
+                        var VerticalRecyclerView: AllPowerIndicatorRecyclerView){
+
+    init {
+        val linearLayoutManager = MyLinearLayoutManager(VerticalRecyclerView.context)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        VerticalRecyclerView.layoutManager = linearLayoutManager
+    }
+
 }

@@ -14,11 +14,6 @@ class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewH
 
     class IndicatorViewHolder(itemView: View) : BaseIndicatorViewHolder(itemView) {
         val view: View = itemView.findViewById(R.id.view)
-
-        override fun isResponseStatus(position: Int): Boolean {
-            return position == 0 || position == 2
-        }
-
     }
 
     override fun getItemType(position: Int): Int {
@@ -32,7 +27,7 @@ class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewH
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return 100000
     }
 
     override fun showContent(position: Int, holder: IndicatorViewHolder) {
@@ -50,17 +45,4 @@ class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewH
     override fun reSelectedStatus(position: Int, holder: IndicatorViewHolder) {
 
     }
-
-    override fun inStatusPosition(position: Int): Int {
-        if(position == 0)return 0
-        if(position == 1)return 2
-        return position
-    }
-
-    override fun outStatusPosition(position: Int): Int {
-       if(position == 0)return 0
-        if(position == 2)return 1
-        return position
-    }
-
 }

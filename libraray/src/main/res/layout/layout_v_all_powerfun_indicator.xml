@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/v_scroll_view"
+    android:layout_width="wrap_content"
+    android:scrollbars="none"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.ellen.indicator.vertical.view.AllPowerIndicatorRecyclerView
+            android:id="@+id/v_recycler_view"
+            android:layout_width="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:focusable="false"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+</ScrollView>

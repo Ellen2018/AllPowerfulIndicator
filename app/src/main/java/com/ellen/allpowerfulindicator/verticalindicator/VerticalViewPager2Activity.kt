@@ -2,6 +2,7 @@ package com.ellen.allpowerfulindicator.verticalindicator
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -28,12 +29,13 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         viewPager = findViewById(R.id.view_pager)
         allPowerIndicator = findViewById(R.id.vertical_indicator)
         allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.HORIZONTAL
+        allPowerIndicator.mode = AllPowerfulIndicator.Mode.FIXED
 
         viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
-                return 4
+                return 5
             }
 
             override fun createFragment(position: Int): Fragment {
@@ -47,12 +49,11 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
 
             override fun getCount(): Int {
-                return 2
+                return 60
             }
         }
 
         val adapter = VerticalIndicatorAdapter()
-
         adapter.onTabClickListener =
             object : OnTabClickListener<VerticalIndicatorAdapter.IndicatorViewHolder> {
                 override fun onTabSelectedClick(
@@ -78,7 +79,7 @@ class VerticalViewPager2Activity : AppCompatActivity(){
                     Toast.makeText(holder.itemView.context, "重选{$position}", Toast.LENGTH_SHORT)
                         .show()
                     adapter.color = Color.YELLOW
-                    allPowerIndicator.adapter?.notifyDataSetChanged()
+                    adapter.notifyDataSetChanged()
                 }
 
                 override fun onNoStatusTabClick(
@@ -91,6 +92,8 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
 
         allPowerIndicator.bindViewPager(adapter,viewPager)
+
+        allPowerIndicator.currentItem = 3
 
     }
 
