@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_marginTop="30dp"
+    android:paddingTop="30dp"
     android:layout_height="match_parent">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2"
-        android:layout_width="match_parent"
         android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <androidx.viewpager.widget.ViewPager
@@ -15,11 +17,11 @@
         android:layout_height="match_parent" />
 
 
-    <com.ellen.indicator.vertical.AllPowerfulIndicator
+    <com.ellen.indicator.test.AllPowerfulIndicator
         android:id="@+id/vertical_indicator"
         android:layout_width="wrap_content"
+        android:background="@android:color/white"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="30dp" />
 
 

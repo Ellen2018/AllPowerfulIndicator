@@ -4,16 +4,20 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.vertical.Adapter
-import com.ellen.indicator.vertical.BaseIndicatorViewHolder
+import com.ellen.indicator.test.Adapter
 
 class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewHolder>() {
 
     var color = Color.RED
 
-    class IndicatorViewHolder(itemView: View) : BaseIndicatorViewHolder(itemView) {
-        val view: View = itemView.findViewById(R.id.view)
+    class IndicatorViewHolder(itemView: View) : com.ellen.indicator.test.view.BaseIndicatorViewHolder(itemView) {
+        val view: TextView = itemView.findViewById(R.id.view)
+
+        override fun isResponseStatus(position: Int): Boolean {
+            return position != 1
+        }
     }
 
     override fun getItemType(position: Int): Int {
@@ -26,12 +30,18 @@ class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewH
         return IndicatorViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return 100000
+
+    override fun getNoStatusItemCount(): Int {
+        return 1
     }
 
     override fun showContent(position: Int, holder: IndicatorViewHolder) {
         holder.view.setBackgroundColor(Color.YELLOW)
+        when(position){
+            0->holder.view.text = "sdasdasdasdsadasdsadas"
+            2->holder.view.text = "dasdsadas"
+            else->holder.view.text = "测试"
+        }
     }
 
     override fun selectedStatus(position: Int, holder: IndicatorViewHolder) {
@@ -43,6 +53,36 @@ class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewH
     }
 
     override fun reSelectedStatus(position: Int, holder: IndicatorViewHolder) {
+        holder.view.setBackgroundColor(Color.GREEN)
+    }
 
+    override fun inStatusPosition(position: Int): Int {
+        return when {
+            position >= 1 -> {
+                position+1
+            }
+            else -> {
+                return position
+            }
+        }
+    }
+
+    override fun outStatusPosition(position: Int): Int {
+        return when {
+            position >= 1 -> {
+                position-1
+            }
+            else -> {
+                return position
+            }
+        }
+    }
+
+    override fun outNoStatusPosition(position: Int): Int {
+        return if(position == 1){
+            0
+        }else{
+            super.outNoStatusPosition(position)
+        }
     }
 }

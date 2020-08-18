@@ -1,8 +1,6 @@
 package com.ellen.allpowerfulindicator.verticalindicator
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,8 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
 import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.vertical.AllPowerfulIndicator
-import com.ellen.indicator.vertical.OnTabClickListener
+import com.ellen.indicator.test.AllPowerfulIndicator
+import com.ellen.indicator.test.OnTabClickListener
+import com.ellen.indicator.test.view.BaseIndicatorViewHolder
 
 class VerticalViewPager2Activity : AppCompatActivity(){
 
@@ -29,7 +28,9 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         viewPager = findViewById(R.id.view_pager)
         allPowerIndicator = findViewById(R.id.vertical_indicator)
         allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.HORIZONTAL
-        allPowerIndicator.mode = AllPowerfulIndicator.Mode.FIXED
+        allPowerIndicator.mode = AllPowerfulIndicator.Mode.SCROLL
+        allPowerIndicator.clickGravity = AllPowerfulIndicator.ClickGravity.CENTER
+        allPowerIndicator.clickD = 3
 
         viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
@@ -49,52 +50,42 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
 
             override fun getCount(): Int {
-                return 60
+                return 30
             }
         }
 
         val adapter = VerticalIndicatorAdapter()
-        adapter.onTabClickListener =
-            object : OnTabClickListener<VerticalIndicatorAdapter.IndicatorViewHolder> {
-                override fun onTabSelectedClick(
-                    position: Int,
-                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
-                ) {
-                    Toast.makeText(holder.itemView.context, "选择{$position}", Toast.LENGTH_SHORT)
-                        .show()
-                }
 
-                override fun onTabUnSelectedClick(
-                    position: Int,
-                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
-                ) {
-                    Toast.makeText(holder.itemView.context, "未选择{$position}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onTabReSelectedClick(
-                    position: Int,
-                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
-                ) {
-                    Toast.makeText(holder.itemView.context, "重选{$position}", Toast.LENGTH_SHORT)
-                        .show()
-                    adapter.color = Color.YELLOW
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onNoStatusTabClick(
-                    position: Int,
-                    holder: VerticalIndicatorAdapter.IndicatorViewHolder
-                ) {
-                    Toast.makeText(holder.itemView.context, "无状态点击：{$position}", Toast.LENGTH_SHORT)
-                        .show()
-                }
+        adapter.addOnTabClickListener(object : OnTabClickListener<VerticalIndicatorAdapter.IndicatorViewHolder>{
+            override fun onTabSelectedClick(
+                position: Int,
+                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+            ) {
+                Toast.makeText(this@VerticalViewPager2Activity,"选中${position}",Toast.LENGTH_SHORT).show()
             }
 
-        allPowerIndicator.bindViewPager(adapter,viewPager)
+            override fun onTabUnSelectedClick(
+                position: Int,
+                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+            ) {
+                Toast.makeText(this@VerticalViewPager2Activity,"未选中${position}",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onTabReSelectedClick(
+                position: Int,
+                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+            ) {
+                Toast.makeText(this@VerticalViewPager2Activity,"重选${position}",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNoStatusTabClick(position: Int, holder: BaseIndicatorViewHolder) {
+               Toast.makeText(this@VerticalViewPager2Activity,"无状态点击${position}",Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        allPowerIndicator.bindViewPager(adapter,viewPager,0)
 
         allPowerIndicator.currentItem = 3
-
     }
 
 }

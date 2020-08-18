@@ -1,6 +1,5 @@
 package com.ellen.indicator.vertical
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 

@@ -69,7 +69,7 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
 
     private fun <T : BaseIndicatorViewHolder> initRecyclerViewAdapter(adapter: Adapter<T>)
             : AllPowerIndicatorAdapter<T>{
-        init()
+        //init()
         adapter.onAttachAllPowerfulIndicator(this)
         val allPowerIndicatorAdapter =
             AllPowerIndicatorAdapter(this, adapter)
@@ -164,27 +164,27 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun init() {
-       if(orientation == Orientation.HORIZONTAL){
-           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_h)
-           viewStub.inflate()
-           val horizontalScrollView= mContentView.findViewById<HorizontalScrollView>(R.id.h_scroll_view)
-           val hRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.h_recycler_view)
-           hManager = HManager(viewStub,horizontalScrollView,hRecyclerView)
-           recyclerView = hRecyclerView
-           viewStub.visibility = View.VISIBLE
-       }else{
-           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_v)
-           viewStub.inflate()
-           val verticalScrollView= mContentView.findViewById<ScrollView>(R.id.v_scroll_view)
-           val vRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.v_recycler_view)
-           val rlTrackView = mContentView.findViewById<RelativeLayout>(R.id.rl_track_view)
-           vManager = VManager(viewStub,verticalScrollView,rlTrackView,vRecyclerView)
-           recyclerView = vRecyclerView
-           viewStub.visibility = View.VISIBLE
-       }
-       recyclerView.allPowerfulIndicator = this
-    }
+//    private fun init() {
+//       if(orientation == Orientation.HORIZONTAL){
+//           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_h)
+//           viewStub.inflate()
+//           val horizontalScrollView= mContentView.findViewById<HorizontalScrollView>(R.id.h_scroll_view)
+//           val hRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.h_recycler_view)
+//           hManager = HManager(viewStub,horizontalScrollView,hRecyclerView)
+//           recyclerView = hRecyclerView
+//           viewStub.visibility = View.VISIBLE
+//       }else{
+//           val viewStub = mContentView.findViewById<ViewStub>(R.id.vs_v)
+//           viewStub.inflate()
+//           val verticalScrollView= mContentView.findViewById<ScrollView>(R.id.v_scroll_view)
+//           val vRecyclerView = mContentView.findViewById<AllPowerIndicatorRecyclerView>(R.id.v_recycler_view)
+//           val rlTrackView = mContentView.findViewById<RelativeLayout>(R.id.rl_track_view)
+//           vManager = VManager(viewStub,verticalScrollView,rlTrackView,vRecyclerView)
+//           recyclerView = vRecyclerView
+//           viewStub.visibility = View.VISIBLE
+//       }
+//       recyclerView.allPowerfulIndicator = this
+//    }
 
     enum class Orientation {
         HORIZONTAL, VERTICAL;

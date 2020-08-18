@@ -7,20 +7,28 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.ellen.indicator.vertical.view.AllPowerIndicatorRecyclerView
-            android:id="@+id/v_recycler_view"
+        <FrameLayout
+            android:id="@+id/v_tracker_top"
             android:layout_width="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:fillViewport="true"
-            android:focusable="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
+
+        <com.ellen.indicator.test.view.AllPowerfulLinearLayout
+            android:layout_below="@id/v_tracker_top"
+            android:id="@+id/v_linear_layout"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:id="@+id/v_tracker_bottom"
+            android:layout_below="@id/v_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
-
 
 </ScrollView>

@@ -2,7 +2,6 @@
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:id="@+id/h_scroll_view"
-    android:fillViewport="true"
     android:layout_height="wrap_content"
     android:scrollbars="none">
 
@@ -10,25 +9,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/rl_track_view"
+        <FrameLayout
+            android:id="@+id/h_tracker_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"/>
 
-            <View
-                android:layout_width="20dp"
-                android:background="@android:color/black"
-                android:layout_height="5dp"/>
-
-        </RelativeLayout>
-
-        <com.ellen.indicator.vertical.view.AllPowerIndicatorRecyclerView
-            android:layout_below="@id/rl_track_view"
-            android:id="@+id/h_recycler_view"
-            android:fillViewport="true"
-            android:nestedScrollingEnabled="false"
+        <com.ellen.indicator.test.view.AllPowerfulLinearLayout
+            android:layout_toRightOf="@id/h_tracker_left"
+            android:id="@+id/h_linear_layout"
+             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:id="@+id/h_tracker_right"
+            android:layout_toRightOf="@id/h_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 
