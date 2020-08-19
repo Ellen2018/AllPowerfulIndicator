@@ -3,6 +3,7 @@ package com.ellen.indicator.test
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,9 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.ellen.indicator.test.view.BaseIndicatorViewHolder
+import com.ellen.indicator.test.view.*
 import com.ellen.indicator.test.view.BaseLayoutManager
+import com.ellen.indicator.test.view.FixedManger
 import com.ellen.indicator.test.view.HManage
 import com.ellen.indicator.test.view.VManager
 import com.ellen.libraray.R
@@ -38,9 +40,9 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
             }
         }
 
-    private var isUserClick = false
+    private var isUserClick = true
     private var freeFirstInit = false
-    private var isReAdjust = false
+    private var isFirstDraw = false
     private var viewPager: ViewPager? = null
     private var viewPager2: ViewPager2? = null
     var clickD = 0
@@ -51,6 +53,7 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
 
     var orientation: Orientation = Orientation.VERTICAL
     internal lateinit var baseLayoutManager: BaseLayoutManager<*>
+    internal lateinit var fixedManger: FixedManger<*>
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
@@ -99,7 +102,12 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         adapter.statusManager.selectPosition = adapter.inStatusPosition(initItemPosition)
         initLayoutManager(adapter)
         adapter.trueCount = viewPager2.adapter?.itemCount!! + adapter.getNoStatusItemCount()
-        baseLayoutManager.linearLayout.onAttachAdapter(adapter)
+
+        if(mode == Mode.FIXED) {
+            fixedManger.linearLayout.onAttachAdapter(adapter)
+        }else{
+            baseLayoutManager.linearLayout.onAttachAdapter(adapter)
+        }
         adapter.addOnTabClickListener(object : OnTabClickListener<T> {
             override fun onTabSelectedClick(position: Int, holder: T) {
                 isUserClick = true
@@ -118,7 +126,11 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 if (!isUserClick) {
-                    baseLayoutManager.linearLayout.selectPosition(position)
+                    if(mode == Mode.FIXED){
+                        fixedManger.linearLayout.selectPosition(position)
+                    }else {
+                        baseLayoutManager.linearLayout.selectPosition(position)
+                    }
                 }
             }
         })
@@ -135,7 +147,11 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         adapter.statusManager.selectPosition = adapter.inStatusPosition(initItemPosition)
         initLayoutManager(adapter)
         adapter.trueCount = viewPager.adapter?.count!! + adapter.getNoStatusItemCount()
-        baseLayoutManager.linearLayout.onAttachAdapter(adapter)
+        if(mode == Mode.FIXED) {
+            fixedManger.linearLayout.onAttachAdapter(adapter)
+        }else{
+            baseLayoutManager.linearLayout.onAttachAdapter(adapter)
+        }
         adapter.addOnTabClickListener(object : OnTabClickListener<T> {
             override fun onTabSelectedClick(position: Int, holder: T) {
                 isUserClick = true
@@ -166,7 +182,11 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
 
             override fun onPageSelected(position: Int) {
                 if (!isUserClick) {
-                    baseLayoutManager.linearLayout.selectPosition(position)
+                    if(mode == Mode.FIXED){
+                        fixedManger.linearLayout.selectPosition(position)
+                    }else {
+                        baseLayoutManager.linearLayout.selectPosition(position)
+                    }
                 }
             }
         })
@@ -190,36 +210,68 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
     }
 
     private fun <T : BaseIndicatorViewHolder> initLayoutManager(adapter: Adapter<T>) {
-        if (orientation == Orientation.VERTICAL) {
-            val vManager = VManager<T>()
-            baseLayoutManager = vManager
-            vManager.adapter = adapter
-            mContentView.findViewById<ViewStub>(R.id.vs_h).visibility = View.GONE
-            vManager.viewStub = mContentView.findViewById(R.id.vs_v)
-            vManager.viewStub.inflate()
-            vManager.linearLayout = mContentView.findViewById(R.id.v_linear_layout)
-            vManager.beforeFrameLayout = mContentView.findViewById(R.id.v_tracker_top)
-            vManager.beforeFrameLayout = mContentView.findViewById(R.id.v_tracker_bottom)
-            vManager.vScrollView = mContentView.findViewById(R.id.v_scroll_view)
-        } else {
-            val hManager = HManage<T>()
-            baseLayoutManager = hManager
-            hManager.adapter = adapter
-            mContentView.findViewById<ViewStub>(R.id.vs_v).visibility = View.GONE
-            hManager.viewStub = mContentView.findViewById(R.id.vs_h)
-            hManager.viewStub.inflate()
-            hManager.linearLayout = mContentView.findViewById(R.id.h_linear_layout)
-            hManager.beforeFrameLayout = mContentView.findViewById(R.id.h_tracker_left)
-            hManager.beforeFrameLayout = mContentView.findViewById(R.id.h_tracker_right)
-            hManager.hScrollView = mContentView.findViewById(R.id.h_scroll_view)
+        if(mode == Mode.FIXED){
+            val fixedManger = FixedManger<T>()
+            fixedManger.adapter = adapter
+            this.fixedManger = fixedManger
+            if(orientation == Orientation.VERTICAL){
+                mContentView.findViewById<ViewStub>(R.id.vs_h_fixed).visibility = View.GONE
+                fixedManger.viewStub = mContentView.findViewById(R.id.vs_v_fixed)
+                fixedManger.viewStub.inflate()
+                fixedManger.linearLayout = mContentView.findViewById(R.id.v_fixed_linear_layout)
+            }else{
+                mContentView.findViewById<ViewStub>(R.id.vs_v_fixed).visibility = View.GONE
+                fixedManger.viewStub = mContentView.findViewById(R.id.vs_h_fixed)
+                fixedManger.viewStub.inflate()
+                fixedManger.linearLayout = mContentView.findViewById(R.id.h_fixed_linear_layout)
+            }
+        }else {
+            if (orientation == Orientation.VERTICAL) {
+                val vManager = VManager<T>()
+                baseLayoutManager = vManager
+                vManager.adapter = adapter
+                mContentView.findViewById<ViewStub>(R.id.vs_h).visibility = View.GONE
+                vManager.viewStub = mContentView.findViewById(R.id.vs_v)
+                vManager.viewStub.inflate()
+                vManager.linearLayout = mContentView.findViewById(R.id.v_linear_layout)
+                vManager.beforeFrameLayout = mContentView.findViewById(R.id.v_tracker_left)
+                vManager.afterFrameLayout = mContentView.findViewById(R.id.v_tracker_right)
+                vManager.vScrollView = mContentView.findViewById(R.id.v_scroll_view)
+
+                vManager.afterFrameLayout.visibility = View.VISIBLE
+                vManager.afterView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),vManager.afterFrameLayout)
+                vManager.afterFrameLayout.addView(vManager.afterView)
+
+                vManager.beforeFrameLayout.visibility = View.VISIBLE
+                vManager.beforeView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),vManager.beforeFrameLayout)
+                vManager.beforeFrameLayout.addView(vManager.beforeView)
+
+            } else {
+                val hManager = HManage<T>()
+                baseLayoutManager = hManager
+                hManager.adapter = adapter
+                mContentView.findViewById<ViewStub>(R.id.vs_v).visibility = View.GONE
+                hManager.viewStub = mContentView.findViewById(R.id.vs_h)
+                hManager.viewStub.inflate()
+                hManager.linearLayout = mContentView.findViewById(R.id.h_linear_layout)
+                hManager.beforeFrameLayout = mContentView.findViewById(R.id.h_tracker_top)
+                hManager.afterFrameLayout = mContentView.findViewById(R.id.h_tracker_bottom)
+                hManager.hScrollView = mContentView.findViewById(R.id.h_scroll_view)
+
+                hManager.afterFrameLayout.visibility = View.VISIBLE
+                hManager.afterView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),hManager.afterFrameLayout)
+                hManager.afterFrameLayout.addView(hManager.afterView)
+
+                hManager.beforeFrameLayout.visibility = View.VISIBLE
+                hManager.beforeView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),hManager.beforeFrameLayout)
+                hManager.beforeFrameLayout.addView(hManager.beforeView)
+            }
         }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        if (mode == Mode.FIXED && !isReAdjust) {
-            //将LinearLayout的宽度或者高度调整为固定，且等于容器的大小
-            val layoutParams = baseLayoutManager.linearLayout.layoutParams
+        if(mode != Mode.FIXED && !isFirstDraw){
             val parent = this.parent as ViewGroup
             val height =
                 parent.height - (paddingTop + paddingBottom + parent.paddingTop + parent.paddingBottom + marginTop + marginBottom)
@@ -227,32 +279,11 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
                 parent.width - (paddingLeft + paddingRight + parent.paddingLeft + parent.paddingRight + marginLeft + marginRight)
             baseLayoutManager.linearLayout.parentHeight = height
             baseLayoutManager.linearLayout.parentWidth = width
-            if (orientation == Orientation.VERTICAL) {
-                layoutParams.height = height
-            } else {
-                layoutParams.width = width
-            }
-            baseLayoutManager.linearLayout.layoutParams = layoutParams
-            if (orientation == Orientation.VERTICAL) {
-                baseLayoutManager.linearLayout.fixedAdjust(true)
-            } else {
-                baseLayoutManager.linearLayout.fixedAdjust(false)
-            }
-            isReAdjust = true
-        }else{
-            val parent = this.parent as ViewGroup
-            val height =
-                parent.height - (paddingTop + paddingBottom + parent.paddingTop + parent.paddingBottom + marginTop + marginBottom)
-            val width =
-                parent.width - (paddingLeft + paddingRight + parent.paddingLeft + parent.paddingRight + marginLeft + marginRight)
-            baseLayoutManager.linearLayout.parentHeight = height
-            baseLayoutManager.linearLayout.parentWidth = width
+            baseLayoutManager.linearLayout.firstDrawCompete()
+            isFirstDraw = true
         }
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
-        super.dispatchDraw(canvas)
-    }
 }
 
 private interface Indicator {

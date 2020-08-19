@@ -15,4 +15,18 @@
         android:layout="@layout/layout_v_all_powerfun_indicator"
         android:layout_height="wrap_content"/>
 
+
+    <ViewStub
+        android:id="@+id/vs_v_fixed"
+        android:layout_width="wrap_content"
+        android:layout="@layout/layout_v_fixed"
+        android:layout_height="match_parent"/>
+
+    <ViewStub
+        android:id="@+id/vs_h_fixed"
+        android:layout_width="match_parent"
+        android:layout="@layout/layout_h_fixed"
+        android:layout_height="wrap_content"/>
+
+
 </RelativeLayout>

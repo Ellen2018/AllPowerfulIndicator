@@ -30,13 +30,12 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.HORIZONTAL
         allPowerIndicator.mode = AllPowerfulIndicator.Mode.SCROLL
         allPowerIndicator.clickGravity = AllPowerfulIndicator.ClickGravity.CENTER
-        allPowerIndicator.clickD = 3
 
         viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
-                return 5
+                return 30
             }
 
             override fun createFragment(position: Int): Fragment {
@@ -83,9 +82,7 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
         })
 
-        allPowerIndicator.bindViewPager(adapter,viewPager,0)
-
-        allPowerIndicator.currentItem = 3
+        allPowerIndicator.bindViewPager2(adapter,viewPager2,0)
     }
 
 }

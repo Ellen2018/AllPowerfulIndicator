@@ -2,6 +2,7 @@ package com.ellen.indicator.test.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.Gravity
 import android.widget.LinearLayout
 import com.ellen.indicator.test.Adapter
 import com.ellen.indicator.test.AllPowerfulIndicator
@@ -28,6 +29,15 @@ internal class AllPowerfulLinearLayout : LinearLayout {
             val viewType = adapter.getItemType(position)
             val holder: T = adapter.getViewHolder(this, viewType)
             mapHolder[position] = holder
+            if (adapter.allPowerfulIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
+                val layoutParams = holder.itemView.layoutParams as LayoutParams
+                layoutParams.gravity = Gravity.CENTER_HORIZONTAL
+                holder.itemView.layoutParams = layoutParams
+            } else {
+                val layoutParams = holder.itemView.layoutParams as LayoutParams
+                layoutParams.gravity = Gravity.CENTER_VERTICAL
+                holder.itemView.layoutParams = layoutParams
+            }
             this.addView(holder.itemView)
             adapter.showContent(position, holder)
             if (holder.isResponseStatus(position)) {
@@ -68,6 +78,7 @@ internal class AllPowerfulLinearLayout : LinearLayout {
                                 ), holder
                             )
                         }
+                        firstDrawCompete()
                     } else {
                         //无状态点击
                         for (onTabClickListener in adapter.onTabClickListenerList) {
@@ -77,13 +88,6 @@ internal class AllPowerfulLinearLayout : LinearLayout {
                         }
                     }
                 }
-
-                if (adapter.allPowerfulIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
-                    clickVGravity(holder)
-                } else {
-                    clickHGravity(holder)
-                }
-
             }
         }
     }
@@ -188,21 +192,39 @@ internal class AllPowerfulLinearLayout : LinearLayout {
         }
     }
 
-    internal fun fixedAdjust(isV: Boolean) {
-        for (position in 0 until adapter.trueCount) {
-            if (isV) {
-                val itemHeight: Float = parentHeight.toFloat() / adapter.trueCount.toFloat()
-                val itemView = mapHolder[position]?.itemView
-                val layoutParams = itemView?.layoutParams
-                layoutParams?.height = itemHeight.toInt()
-                itemView?.layoutParams = layoutParams
-            } else {
-                val itemWidth = parentWidth.toFloat() / adapter.trueCount.toFloat()
-                val itemView = mapHolder[position]?.itemView
-                val layoutParams = itemView?.layoutParams
-                layoutParams?.width = itemWidth.toInt()
-                itemView?.layoutParams = layoutParams
-            }
+    fun firstDrawCompete() {
+        if (adapter.allPowerfulIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
+            clickVGravity(mapHolder[adapter.statusManager.selectPosition] as BaseIndicatorViewHolder)
+        } else {
+            clickHGravity(mapHolder[adapter.statusManager.selectPosition] as BaseIndicatorViewHolder)
+        }
+
+        val holder = mapHolder[adapter.statusManager.selectPosition]
+        val afterFrameLayout = adapter.allPowerfulIndicator.baseLayoutManager.afterFrameLayout
+        val afterView = adapter.allPowerfulIndicator.baseLayoutManager.afterView
+        val beforeFrameLayout = adapter.allPowerfulIndicator.baseLayoutManager.beforeFrameLayout
+        val beforeView = adapter.allPowerfulIndicator.baseLayoutManager.beforeView
+
+        if (adapter.allPowerfulIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
+            val layoutParamsAfter = afterView.layoutParams
+            layoutParamsAfter.height = holder?.itemView?.height!!
+            afterView.layoutParams = layoutParamsAfter
+            afterFrameLayout.y = holder.itemView.y
+
+            val layoutParamsBefore = beforeView.layoutParams
+            layoutParamsBefore.height = holder.itemView.height
+            beforeView.layoutParams = layoutParamsBefore
+            beforeFrameLayout.y = holder.itemView.y
+        } else {
+            val layoutParamsAfter = afterView.layoutParams
+            layoutParamsAfter.width = holder?.itemView?.width!!
+            afterView.layoutParams = layoutParamsAfter
+            afterFrameLayout.x = holder.itemView.x
+
+            val layoutParamsBefore = beforeView.layoutParams
+            layoutParamsBefore.width = holder.itemView.width
+            beforeView.layoutParams = layoutParamsBefore
+            beforeFrameLayout.x = holder.itemView.x
         }
     }
 }

@@ -10,20 +10,20 @@
         android:layout_height="wrap_content">
 
         <FrameLayout
-            android:id="@+id/h_tracker_left"
+            android:id="@+id/h_tracker_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <com.ellen.indicator.test.view.AllPowerfulLinearLayout
-            android:layout_toRightOf="@id/h_tracker_left"
+            android:layout_below="@id/h_tracker_top"
             android:id="@+id/h_linear_layout"
              android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <FrameLayout
-            android:id="@+id/h_tracker_right"
-            android:layout_toRightOf="@id/h_linear_layout"
+            android:id="@+id/h_tracker_bottom"
+            android:layout_below="@id/h_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
