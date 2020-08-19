@@ -1,12 +1,17 @@
 package com.ellen.indicator.test.view
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import com.ellen.indicator.test.Adapter
 import com.ellen.indicator.test.AllPowerfulIndicator
 import kotlin.collections.set
+
 
 internal class AllPowerfulLinearLayout : LinearLayout {
 
@@ -179,6 +184,7 @@ internal class AllPowerfulLinearLayout : LinearLayout {
         }
         adapter.statusManager.selectPosition = adapter.inStatusPosition(position)
         notifyDataSetChanged()
+        firstDrawCompete()
         //选中状态事件触发
         if (isResponseEvent) {
             for (onTabClickListener in adapter.onTabClickListenerList) {
@@ -206,25 +212,82 @@ internal class AllPowerfulLinearLayout : LinearLayout {
         val beforeView = adapter.allPowerfulIndicator.baseLayoutManager.beforeView
 
         if (adapter.allPowerfulIndicator.orientation == AllPowerfulIndicator.Orientation.VERTICAL) {
-            val layoutParamsAfter = afterView.layoutParams
-            layoutParamsAfter.height = holder?.itemView?.height!!
-            afterView.layoutParams = layoutParamsAfter
-            afterFrameLayout.y = holder.itemView.y
 
-            val layoutParamsBefore = beforeView.layoutParams
-            layoutParamsBefore.height = holder.itemView.height
-            beforeView.layoutParams = layoutParamsBefore
-            beforeFrameLayout.y = holder.itemView.y
+
+
+            val valueAnimatorAfter = ValueAnimator.ofFloat(afterFrameLayout.y, holder?.itemView?.y!!)
+            valueAnimatorAfter.duration = 100
+            valueAnimatorAfter.addUpdateListener {
+                val currentX = it.animatedValue as Float
+                afterFrameLayout.y = currentX
+            }
+            valueAnimatorAfter.addListener(object : Animator.AnimatorListener{
+                override fun onAnimationRepeat(animation: Animator?) {
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    val layoutParamsAfter = afterView.contentView.layoutParams
+                    layoutParamsAfter.height = holder.itemView.height
+                    afterView.contentView.layoutParams = layoutParamsAfter
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                }
+
+                override fun onAnimationStart(animation: Animator?) {
+                }
+            })
+            valueAnimatorAfter.start()
+
+            val valueAnimatorBefore = ValueAnimator.ofFloat(beforeFrameLayout.y, holder.itemView.y)
+            valueAnimatorBefore.duration = 100
+            valueAnimatorBefore.addUpdateListener {
+                val currentX = it.animatedValue as Float
+                beforeFrameLayout.y = currentX
+            }
+            valueAnimatorAfter.addListener(object : Animator.AnimatorListener{
+                override fun onAnimationRepeat(animation: Animator?) {
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    val layoutParamsBefore = beforeView.contentView.layoutParams
+                    layoutParamsBefore.height = holder.itemView.height
+                    beforeView.contentView.layoutParams = layoutParamsBefore
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                }
+
+                override fun onAnimationStart(animation: Animator?) {
+                }
+            })
+            valueAnimatorBefore.start()
         } else {
-            val layoutParamsAfter = afterView.layoutParams
+            val layoutParamsAfter = afterView.contentView.layoutParams
             layoutParamsAfter.width = holder?.itemView?.width!!
-            afterView.layoutParams = layoutParamsAfter
-            afterFrameLayout.x = holder.itemView.x
+            afterView.contentView.layoutParams = layoutParamsAfter
 
-            val layoutParamsBefore = beforeView.layoutParams
+            //属性动画
+            val valueAnimatorAfter = ValueAnimator.ofFloat(afterFrameLayout.x, holder.itemView.x)
+            valueAnimatorAfter.duration = 100
+            valueAnimatorAfter.addUpdateListener {
+                val currentX = it.animatedValue as Float
+                afterFrameLayout.x = currentX
+            }
+            valueAnimatorAfter.start()
+
+            val layoutParamsBefore = beforeView.contentView.layoutParams
             layoutParamsBefore.width = holder.itemView.width
-            beforeView.layoutParams = layoutParamsBefore
-            beforeFrameLayout.x = holder.itemView.x
+            beforeView.contentView.layoutParams = layoutParamsBefore
+
+            val valueAnimatorBefore = ValueAnimator.ofFloat(beforeFrameLayout.x, holder.itemView.x)
+            valueAnimatorBefore.duration = 100
+            valueAnimatorBefore.addUpdateListener {
+                val currentX = it.animatedValue as Float
+                beforeFrameLayout.x = currentX
+            }
+            valueAnimatorBefore.start()
         }
+        adapter.allPowerfulIndicator.isUserClick = false
     }
 }

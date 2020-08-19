@@ -24,6 +24,8 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_view_pager2)
 
+        val count = 4
+
         viewPager2 = findViewById(R.id.view_pager2)
         viewPager = findViewById(R.id.view_pager)
         allPowerIndicator = findViewById(R.id.vertical_indicator)
@@ -35,7 +37,7 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
-                return 30
+                return count
             }
 
             override fun createFragment(position: Int): Fragment {
@@ -49,7 +51,7 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
 
             override fun getCount(): Int {
-                return 30
+                return count
             }
         }
 

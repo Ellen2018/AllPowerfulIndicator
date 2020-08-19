@@ -1,9 +1,7 @@
 package com.ellen.indicator.test
 
 import android.content.Context
-import android.graphics.Canvas
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +38,7 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
             }
         }
 
-    private var isUserClick = true
+    internal var isUserClick = true
     private var freeFirstInit = false
     private var isFirstDraw = false
     private var viewPager: ViewPager? = null
@@ -102,7 +100,6 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         adapter.statusManager.selectPosition = adapter.inStatusPosition(initItemPosition)
         initLayoutManager(adapter)
         adapter.trueCount = viewPager2.adapter?.itemCount!! + adapter.getNoStatusItemCount()
-
         if(mode == Mode.FIXED) {
             fixedManger.linearLayout.onAttachAdapter(adapter)
         }else{
@@ -111,7 +108,7 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         adapter.addOnTabClickListener(object : OnTabClickListener<T> {
             override fun onTabSelectedClick(position: Int, holder: T) {
                 isUserClick = true
-                viewPager2.currentItem = position
+                currentItem = position
                 isUserClick = false
             }
 
@@ -155,7 +152,7 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
         adapter.addOnTabClickListener(object : OnTabClickListener<T> {
             override fun onTabSelectedClick(position: Int, holder: T) {
                 isUserClick = true
-                viewPager.currentItem = position
+                currentItem = position
                 isUserClick = false
             }
 
@@ -239,12 +236,14 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
                 vManager.vScrollView = mContentView.findViewById(R.id.v_scroll_view)
 
                 vManager.afterFrameLayout.visibility = View.VISIBLE
-                vManager.afterView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),vManager.afterFrameLayout)
-                vManager.afterFrameLayout.addView(vManager.afterView)
+                vManager.afterView = VLineTrackView()
+                vManager.afterView.initContentView(LayoutInflater.from(context),vManager.afterFrameLayout)
+                vManager.afterFrameLayout.addView(vManager.afterView.contentView)
 
                 vManager.beforeFrameLayout.visibility = View.VISIBLE
-                vManager.beforeView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),vManager.beforeFrameLayout)
-                vManager.beforeFrameLayout.addView(vManager.beforeView)
+                vManager.beforeView = VLineTrackView()
+                vManager.beforeView.initContentView(LayoutInflater.from(context),vManager.beforeFrameLayout)
+                vManager.beforeFrameLayout.addView(vManager.beforeView.contentView)
 
             } else {
                 val hManager = HManage<T>()
@@ -259,12 +258,14 @@ class AllPowerfulIndicator : FrameLayout, Indicator {
                 hManager.hScrollView = mContentView.findViewById(R.id.h_scroll_view)
 
                 hManager.afterFrameLayout.visibility = View.VISIBLE
-                hManager.afterView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),hManager.afterFrameLayout)
-                hManager.afterFrameLayout.addView(hManager.afterView)
+                hManager.afterView = HLineTrackView()
+                hManager.afterView.initContentView(LayoutInflater.from(context),hManager.afterFrameLayout)
+                hManager.afterFrameLayout.addView(hManager.afterView.contentView)
 
                 hManager.beforeFrameLayout.visibility = View.VISIBLE
-                hManager.beforeView = LineTrackView().onCreateTrackView(LayoutInflater.from(context),hManager.beforeFrameLayout)
-                hManager.beforeFrameLayout.addView(hManager.beforeView)
+                hManager.beforeView = HLineTrackView()
+                hManager.beforeView.initContentView(LayoutInflater.from(context),hManager.beforeFrameLayout)
+                hManager.beforeFrameLayout.addView(hManager.beforeView.contentView)
             }
         }
     }

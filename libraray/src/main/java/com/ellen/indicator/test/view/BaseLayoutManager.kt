@@ -15,8 +15,8 @@ internal abstract class BaseLayoutManager<T : BaseIndicatorViewHolder> {
     lateinit var beforeFrameLayout: FrameLayout
     lateinit var afterFrameLayout: FrameLayout
     lateinit var viewStub: ViewStub
-    lateinit var beforeView: View
-    lateinit var afterView: View
+    lateinit var beforeView: BaseTrackView
+    lateinit var afterView: BaseTrackView
 }
 
 internal class VManager<T : BaseIndicatorViewHolder> : BaseLayoutManager<T>() {
