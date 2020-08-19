@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.ellen.indicator.test.view.AllPowerfulLinearLayout
+        <com.ellen.indicator.view.AllPowerfulLinearLayout
             android:layout_below="@id/h_tracker_top"
             android:id="@+id/h_linear_layout"
              android:orientation="horizontal"

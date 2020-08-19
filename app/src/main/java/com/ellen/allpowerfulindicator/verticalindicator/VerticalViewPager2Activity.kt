@@ -1,7 +1,8 @@
 package com.ellen.allpowerfulindicator.verticalindicator
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
@@ -9,10 +10,11 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ellen.allpowerfulindicator.R
-import com.ellen.allpowerfulindicator.TestFragment
-import com.ellen.indicator.test.AllPowerfulIndicator
-import com.ellen.indicator.test.OnTabClickListener
-import com.ellen.indicator.test.view.BaseIndicatorViewHolder
+import com.ellen.allpowerfulindicator.fragment.TestFragment
+import com.ellen.indicator.AllPowerfulIndicator
+import com.ellen.indicator.OnTabClickListener
+import com.ellen.indicator.expand.topbar.TopTextViewBarAdapter
+import com.ellen.indicator.view.BaseIndicatorViewHolder
 
 class VerticalViewPager2Activity : AppCompatActivity(){
 
@@ -24,16 +26,18 @@ class VerticalViewPager2Activity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_view_pager2)
 
-        val count = 4
-
         viewPager2 = findViewById(R.id.view_pager2)
         viewPager = findViewById(R.id.view_pager)
         allPowerIndicator = findViewById(R.id.vertical_indicator)
-        allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.HORIZONTAL
-        allPowerIndicator.mode = AllPowerfulIndicator.Mode.SCROLL
+        allPowerIndicator.orientation = AllPowerfulIndicator.Orientation.VERTICAL
         allPowerIndicator.clickGravity = AllPowerfulIndicator.ClickGravity.CENTER
+        allPowerIndicator.mode = AllPowerfulIndicator.Mode.SCROLL
 
-        viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        val count = 30
+        viewPager.visibility = View.GONE
+        viewPager2.visibility = View.VISIBLE
+
+        viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         viewPager2.adapter = object : FragmentStateAdapter(this){
 
             override fun getItemCount(): Int {
@@ -41,13 +45,13 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
 
             override fun createFragment(position: Int): Fragment {
-                return TestFragment()
+                return TestFragment.getTestFragment("$position")
             }
         }
 
         viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager){
             override fun getItem(position: Int): Fragment {
-               return TestFragment()
+               return TestFragment.getTestFragment("$position")
             }
 
             override fun getCount(): Int {
@@ -55,36 +59,29 @@ class VerticalViewPager2Activity : AppCompatActivity(){
             }
         }
 
-        val adapter = VerticalIndicatorAdapter()
-
-        adapter.addOnTabClickListener(object : OnTabClickListener<VerticalIndicatorAdapter.IndicatorViewHolder>{
+        val adapter = TopTextViewBarAdapter()
+        adapter.addOnTabClickListener(object : OnTabClickListener<TopTextViewBarAdapter.TopTextViewHolder>{
             override fun onTabSelectedClick(
                 position: Int,
-                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                holder: TopTextViewBarAdapter.TopTextViewHolder
             ) {
-                Toast.makeText(this@VerticalViewPager2Activity,"选中${position}",Toast.LENGTH_SHORT).show()
+               Log.e("Ellen2018","当前的位置：${allPowerIndicator.currentItem}")
             }
 
             override fun onTabUnSelectedClick(
                 position: Int,
-                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                holder: TopTextViewBarAdapter.TopTextViewHolder
             ) {
-                Toast.makeText(this@VerticalViewPager2Activity,"未选中${position}",Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onTabReSelectedClick(
                 position: Int,
-                holder: VerticalIndicatorAdapter.IndicatorViewHolder
+                holder: TopTextViewBarAdapter.TopTextViewHolder
             ) {
-                Toast.makeText(this@VerticalViewPager2Activity,"重选${position}",Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNoStatusTabClick(position: Int, holder: BaseIndicatorViewHolder) {
-               Toast.makeText(this@VerticalViewPager2Activity,"无状态点击${position}",Toast.LENGTH_SHORT).show()
             }
         })
-
-        allPowerIndicator.bindViewPager2(adapter,viewPager2,0)
+        allPowerIndicator.bindViewPager2(adapter,viewPager2)
     }
 
 }

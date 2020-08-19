@@ -17,7 +17,7 @@
             android:visibility="gone"
             android:layout_height="wrap_content"/>
 
-        <com.ellen.indicator.test.view.AllPowerfulLinearLayout
+        <com.ellen.indicator.view.AllPowerfulLinearLayout
             android:layout_toRightOf="@id/v_tracker_left"
             android:id="@+id/v_linear_layout"
             android:orientation="vertical"

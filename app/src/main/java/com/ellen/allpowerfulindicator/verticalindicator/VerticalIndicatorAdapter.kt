@@ -6,18 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.ellen.allpowerfulindicator.R
-import com.ellen.indicator.test.Adapter
+import com.ellen.indicator.Adapter
+import com.ellen.indicator.view.BaseIndicatorViewHolder
 
 class VerticalIndicatorAdapter : Adapter<VerticalIndicatorAdapter.IndicatorViewHolder>() {
 
     var color = Color.RED
 
-    class IndicatorViewHolder(itemView: View) : com.ellen.indicator.test.view.BaseIndicatorViewHolder(itemView) {
+    class IndicatorViewHolder(itemView: View) : BaseIndicatorViewHolder(itemView) {
         val view: TextView = itemView.findViewById(R.id.view)
 
         override fun isResponseStatus(position: Int): Boolean {
             return position != 1
         }
+    }
+
+    override fun getStatusItemCount(): Int {
+        return 4
     }
 
     override fun getItemType(position: Int): Int {
